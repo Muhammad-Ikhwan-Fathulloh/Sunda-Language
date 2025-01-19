@@ -1,3 +1,5 @@
-ngadeklarasikeun angka = 10;
+ngadeklarasikeun angka = 9;
 upami angka == 10:
     ngadeklarasikeun hasil = "sampurna";
+lain lamun:
+    ngadeklarasikeun hasil = "kirang sampurna";
