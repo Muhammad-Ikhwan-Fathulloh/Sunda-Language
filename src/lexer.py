@@ -3,6 +3,7 @@ import re
 class Lexer:
     def __init__(self, code):
         self.code = code.strip()
+        print(f"Input code: {self.code}")  # Print the input code
 
     def tokenize(self):
         tokens = [
@@ -15,7 +16,7 @@ class Lexer:
             ("VARIABLE", r"[a-zA-Z_][a-zA-Z_0-9]*"),
             ("NUMBER", r"\d+"),
             ("STRING", r"\".*?\""),
-            ("OPERATOR", r"[+\-*/=]"),
+            ("OPERATOR", r"[+\-*/=<>\^]"),
             ("COLON", r":"),
             ("LPAREN", r"\("),
             ("RPAREN", r"\)"),
@@ -35,6 +36,8 @@ class Lexer:
             if kind == "SKIP":
                 continue
             elif kind == "MISMATCH":
+                # Print unexpected character for debugging
+                # print(f"Lexer Error: Unexpected character: {value}")
                 raise ValueError(f"Unexpected character: {value}")
             print(f"Lexer Token: ({kind}, {value})")  # Debugging token
             yield (kind, value)

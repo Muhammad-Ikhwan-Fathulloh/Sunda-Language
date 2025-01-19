@@ -1,4 +1,4 @@
-ngadeklarasikeun angka = 9;
+ngadeklarasikeun angka = 10;
 upami angka == 10:
     ngadeklarasikeun hasil = "sampurna";
 lain lamun:

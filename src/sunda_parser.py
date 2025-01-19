@@ -51,7 +51,6 @@ class Parser:
         if not self.current_token or self.current_token[0] != "SEMICOLON":
             raise SyntaxError("Expected ';' after declaration")
         self.next_token()  # Skip ';'
-        # print(f"Declaration Parsed: {var_name} = {value}")
         print(f"Ngadeklarasikeun: {var_name} = {value}")
         return ("declare", var_name, value)
 
@@ -93,8 +92,23 @@ class Parser:
         if not self.current_token or self.current_token[0] != "KEYWORD_RUN":
             raise SyntaxError("Expected 'ngajalankeun' for loop execution")
         self.next_token()  # Skip 'ngajalankeun'
+
         body = []
         while self.current_token and self.current_token[0] != "KEYWORD_ELSE":
             body.append(self.statement())
-        print(f"Loop Statement Parsed: variable={loop_var}, start_value={start_value}, end_value={end_value}, body={body}")
-        return ("loop", loop_var, start_value, end_value, body)
+
+        # Menghitung dan menjalankan iterasi berdasarkan start_value dan end_value
+        start_val = int(start_value) if start_value.isdigit() else 0
+        end_val = int(end_value) if end_value.isdigit() else 0
+
+        # Loop sesuai dengan rentang start_value hingga end_value
+        loop_count = 0
+        loop_result = []
+        while start_val <= end_val:
+            loop_count += 1
+            print(f"Loop {loop_count}: {loop_var} = {start_val}")  # Debugging
+            loop_result.append(f"{loop_var} = {start_val}")
+            start_val += 1
+
+        print(f"Loop Statement Parsed: variable={loop_var}, start_value={start_value}, end_value={end_value}, body={body}, iterations={loop_count}")
+        return ("loop", loop_var, start_value, end_value, body, loop_result)

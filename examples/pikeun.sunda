@@ -1,2 +1,11 @@
-pikeun i = 0 TI 5 ngajalankeun:
-    ngadeklarasikeun hasil = "halo";
+ngadeklarasikeun angka = 1;
+ngadeklarasikeun batas = 5;
+
+upami angka <= batas:
+    ngadeklarasikeun hasil = "Loop dimulai";
+    ngajalankeun
+    nalika angka <= batas:
+        ngadeklarasikeun hasil = "Angka " + angka;
+        angka = angka + 1;
+    ngajalankeun
+ngajalankeun
