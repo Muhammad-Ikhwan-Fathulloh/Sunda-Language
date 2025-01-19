@@ -66,6 +66,6 @@ Kami menyambut baik kontribusi dari semua orang! Berikut adalah cara-cara yang d
 
 Sebelum mengajukan pull request, pastikan untuk memeriksa bahwa kode Anda mengikuti pedoman gaya penulisan yang ada dan tidak merusak fungsionalitas yang ada.
 
-Terima kasih telah berkontribusi!
+Hatur nuhun pisan! Senang tiasa ngabantu sareng ngarojong anjeun. Upami aya hal anyar anu kedah dipigawé atanapi anu kudu dibantos, punten émut pikeun ngontak abdi kapan waé. 😊
 
 ---
