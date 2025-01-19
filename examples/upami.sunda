@@ -1,0 +1,3 @@
+ngadeklarasikeun angka = 10;
+upami angka == 10:
+    ngadeklarasikeun hasil = "sampurna";
