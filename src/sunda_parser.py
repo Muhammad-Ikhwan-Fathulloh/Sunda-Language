@@ -7,10 +7,8 @@ class Parser:
     def next_token(self):
         try:
             self.current_token = next(self.tokens)
-            print(f"Parser: Current Token -> {self.current_token}")  # Debugging
         except StopIteration:
             self.current_token = None
-            print("Parser: No more tokens")
 
     def parse(self):
         statements = []
@@ -18,8 +16,7 @@ class Parser:
             try:
                 statements.append(self.statement())
             except SyntaxError as e:
-                print(f"Syntax Error: {e}")
-                self.next_token()  # Skip problematic token
+                self.next_token()
         return statements
 
     def statement(self):
@@ -30,85 +27,111 @@ class Parser:
             return self.declare()
         elif kind == "KEYWORD_IF":
             return self.if_statement()
+        elif kind == "KEYWORD_ELIF":  # handled inside if_statement
+            raise SyntaxError("'lamun' must appear after 'upami'")
+        elif kind == "KEYWORD_ELSE":  # handled inside if_statement
+            raise SyntaxError("'lain lamun' must appear after 'upami'")
         elif kind == "KEYWORD_LOOP":
-            return self.loop_statement()  # Menambahkan method untuk loop
+            return self.loop_statement()
+        elif kind == "KEYWORD_PRINT":
+            return self.print_statement()
         else:
             raise SyntaxError(f"Unexpected token: {value}")
 
     def declare(self):
-        self.next_token()  # Skip 'ngadeklarasikeun'
+        self.next_token()
         if not self.current_token or self.current_token[0] != "VARIABLE":
-            raise SyntaxError("Expected variable name after 'ngadeklarasikeun'")
+            raise SyntaxError("Expected variable name after declaration")
         var_name = self.current_token[1]
-        self.next_token()  # Skip variable name
+        self.next_token()
         if not self.current_token or self.current_token[1] != "=":
-            raise SyntaxError("Expected '=' after variable declaration")
-        self.next_token()  # Skip '='
-        if not self.current_token or self.current_token[0] not in ("NUMBER", "STRING"):
-            raise SyntaxError("Expected a value after '='")
+            raise SyntaxError("Expected '=' after variable name")
+        self.next_token()
+        if not self.current_token or self.current_token[0] not in ("NUMBER", "STRING", "VARIABLE"):
+            raise SyntaxError("Expected value after '='")
         value = self.current_token[1]
-        self.next_token()  # Skip value
+        self.next_token()
         if not self.current_token or self.current_token[0] != "SEMICOLON":
-            raise SyntaxError("Expected ';' after declaration")
-        self.next_token()  # Skip ';'
-        print(f"Ngadeklarasikeun: {var_name} = {value}")
+            raise SyntaxError("Expected ';' after value")
+        self.next_token()
         return ("declare", var_name, value)
 
+    def print_statement(self):
+        self.next_token()
+        if not self.current_token or self.current_token[0] not in ("STRING", "VARIABLE"):
+            raise SyntaxError("Expected string or variable after 'tampilkeun'")
+        value = self.current_token[1]
+        self.next_token()
+        if self.current_token and self.current_token[0] == "SEMICOLON":
+            self.next_token()
+        return ("print", value)
+
     def if_statement(self):
-        self.next_token()  # Skip 'upami'
-        if not self.current_token or self.current_token[0] not in ("VARIABLE", "NUMBER"):
-            raise SyntaxError("Expected condition after 'upami'")
-        condition = self.current_token[1]
-        self.next_token()  # Skip condition
+        self.next_token()
+        condition_tokens = []
+        while self.current_token and self.current_token[0] != "COLON":
+            condition_tokens.append(self.current_token[1])
+            self.next_token()
         if not self.current_token or self.current_token[0] != "COLON":
             raise SyntaxError("Expected ':' after condition")
-        self.next_token()  # Skip ':'
-        body = []
-        while self.current_token and self.current_token[0] != "KEYWORD_ELSE":
-            body.append(self.statement())
-        print(f"If Statement Parsed: condition={condition}, body={body}")
-        return ("if", condition, body)
+        self.next_token()
+
+        branches = []
+        true_branch = []
+        while self.current_token and self.current_token[0] not in ("KEYWORD_ELIF", "KEYWORD_ELSE", "KEYWORD_DECLARE", "KEYWORD_IF", "KEYWORD_LOOP", "KEYWORD_PRINT"):
+            true_branch.append(self.statement())
+        branches.append(("if", " ".join(condition_tokens), true_branch))
+
+        while self.current_token and self.current_token[0] == "KEYWORD_ELIF":
+            self.next_token()
+            elif_condition = []
+            while self.current_token and self.current_token[0] != "COLON":
+                elif_condition.append(self.current_token[1])
+                self.next_token()
+            if not self.current_token or self.current_token[0] != "COLON":
+                raise SyntaxError("Expected ':' after 'lamun'")
+            self.next_token()
+            elif_body = []
+            while self.current_token and self.current_token[0] not in ("KEYWORD_ELIF", "KEYWORD_ELSE", "KEYWORD_DECLARE", "KEYWORD_IF", "KEYWORD_LOOP", "KEYWORD_PRINT"):
+                elif_body.append(self.statement())
+            branches.append(("elif", " ".join(elif_condition), elif_body))
+
+        else_branch = []
+        if self.current_token and self.current_token[0] == "KEYWORD_ELSE":
+            self.next_token()
+            if self.current_token and self.current_token[0] == "COLON":
+                self.next_token()
+            while self.current_token and self.current_token[0] not in ("KEYWORD_DECLARE", "KEYWORD_IF", "KEYWORD_LOOP", "KEYWORD_PRINT"):
+                else_branch.append(self.statement())
+
+        return ("if_chain", branches, else_branch)
 
     def loop_statement(self):
-        self.next_token()  # Skip 'pikeun'
+        self.next_token()
         if not self.current_token or self.current_token[0] != "VARIABLE":
             raise SyntaxError("Expected variable name after 'pikeun'")
         loop_var = self.current_token[1]
-        self.next_token()  # Skip variable name
+        self.next_token()
         if not self.current_token or self.current_token[1] != "=":
             raise SyntaxError("Expected '=' after loop variable")
-        self.next_token()  # Skip '='
+        self.next_token()
         if not self.current_token or self.current_token[0] not in ("NUMBER", "VARIABLE"):
             raise SyntaxError("Expected start value after '='")
         start_value = self.current_token[1]
-        self.next_token()  # Skip start value
+        self.next_token()
         if not self.current_token or self.current_token[1] != "TI":
-            raise SyntaxError("Expected 'TI' after start value in loop")
-        self.next_token()  # Skip 'TI'
+            raise SyntaxError("Expected 'TI' after start value")
+        self.next_token()
         if not self.current_token or self.current_token[0] not in ("NUMBER", "VARIABLE"):
             raise SyntaxError("Expected end value after 'TI'")
         end_value = self.current_token[1]
-        self.next_token()  # Skip end value
+        self.next_token()
         if not self.current_token or self.current_token[0] != "KEYWORD_RUN":
-            raise SyntaxError("Expected 'ngajalankeun' for loop execution")
-        self.next_token()  # Skip 'ngajalankeun'
+            raise SyntaxError("Expected 'ngajalankeun' keyword")
+        self.next_token()
 
         body = []
-        while self.current_token and self.current_token[0] != "KEYWORD_ELSE":
+        while self.current_token and self.current_token[0] not in ("KEYWORD_DECLARE", "KEYWORD_IF", "KEYWORD_LOOP", "KEYWORD_PRINT"):
             body.append(self.statement())
 
-        # Menghitung dan menjalankan iterasi berdasarkan start_value dan end_value
-        start_val = int(start_value) if start_value.isdigit() else 0
-        end_val = int(end_value) if end_value.isdigit() else 0
-
-        # Loop sesuai dengan rentang start_value hingga end_value
-        loop_count = 0
-        loop_result = []
-        while start_val <= end_val:
-            loop_count += 1
-            print(f"Loop {loop_count}: {loop_var} = {start_val}")  # Debugging
-            loop_result.append(f"{loop_var} = {start_val}")
-            start_val += 1
-
-        print(f"Loop Statement Parsed: variable={loop_var}, start_value={start_value}, end_value={end_value}, body={body}, iterations={loop_count}")
-        return ("loop", loop_var, start_value, end_value, body, loop_result)
+        return ("loop", loop_var, start_value, end_value, body)

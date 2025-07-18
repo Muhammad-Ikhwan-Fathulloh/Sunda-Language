@@ -12,6 +12,10 @@ class Interpreter:
             _, var_name, value = statement
             self.variables[var_name] = value
             print(f"{var_name} = {value}")
+            if value.startswith('"') and value.endswith('"'):
+                print(f"Kaluaran: {value.strip('\"')}")
+            else:
+                print(f"Nilai '{var_name}' diset kana {value}")
         elif statement[0] == "if":
             _, condition, body = statement
             if self.evaluate_condition(condition):

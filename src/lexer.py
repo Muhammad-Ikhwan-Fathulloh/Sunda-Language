@@ -3,7 +3,7 @@ import re
 class Lexer:
     def __init__(self, code):
         self.code = code.strip()
-        print(f"Input code: {self.code}")  # Print the input code
+        # print(f"Input code: {self.code}")  # Print the input code
 
     def tokenize(self):
         tokens = [
@@ -39,5 +39,5 @@ class Lexer:
                 # Print unexpected character for debugging
                 # print(f"Lexer Error: Unexpected character: {value}")
                 raise ValueError(f"Unexpected character: {value}")
-            print(f"Lexer Token: ({kind}, {value})")  # Debugging token
+            # print(f"Lexer Token: ({kind}, {value})")  # Debugging token
             yield (kind, value)
