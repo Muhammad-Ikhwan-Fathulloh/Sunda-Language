@@ -3,41 +3,44 @@ import re
 class Lexer:
     def __init__(self, code):
         self.code = code.strip()
-        # print(f"Input code: {self.code}")  # Print the input code
 
     def tokenize(self):
         tokens = [
-            ("KEYWORD_DECLARE", r"ngadeklarasikeun"),
-            ("KEYWORD_IF", r"upami"),
-            ("KEYWORD_ELSE", r"lain lamun"),
-            ("KEYWORD_LOOP", r"pikeun"),
-            ("KEYWORD_FUNC", r"fungsi"),
-            ("KEYWORD_RUN", r"ngajalankeun"),
+            ("KEYWORD_DECLARE", r"\bngadeklarasikeun\b"),
+            ("KEYWORD_IF", r"\bupami\b"),
+            ("KEYWORD_ELIF", r"\blamun\b"),
+            ("KEYWORD_ELSE", r"\blain lamun\b"),
+            ("KEYWORD_LOOP", r"\bpikeun\b"),
+            ("KEYWORD_WHILE", r"\bbari\b"),
+            ("KEYWORD_RUN", r"\bngajalankeun\b"),
+            ("KEYWORD_PRINT", r"\btampilkeun\b"),
+            ("KEYWORD_FUNC", r"\bfungsi\b"),
+            ("KEYWORD_RETURN", r"\bbalikkeun\b"),
+            ("KEYWORD_INPUT", r"\bmangga_eusian\b"),
+            ("BOOLEAN", r"\b(true|false)\b"),
+            ("NUMBER", r"\b\d+\b"),
+            ("STRING", r'\".*?\"'),
             ("VARIABLE", r"[a-zA-Z_][a-zA-Z_0-9]*"),
-            ("NUMBER", r"\d+"),
-            ("STRING", r"\".*?\""),
-            ("OPERATOR", r"[+\-*/=<>\^]"),
+            ("OPERATOR", r"(==|!=|<=|>=|[+\-*/=<>])"),
             ("COLON", r":"),
             ("LPAREN", r"\("),
             ("RPAREN", r"\)"),
-            ("LBRACE", r"\{"),
-            ("RBRACE", r"\}"),
+            ("LBRACKET", r"\["),
+            ("RBRACKET", r"\]"),
+            ("COMMA", r","),
             ("SEMICOLON", r";"),
-            ("NEWLINE", r"\n"),
-            ("SKIP", r"[ \t\r\n]+"),  # Mengabaikan spasi dan newline
-            ("MISMATCH", r"."),  # Catch-all untuk karakter yang tidak dikenali
+            ("SKIP", r"[ \t\r\n]+"),
+            ("MISMATCH", r"."),
         ]
-        regex = "|".join(f"(?P<{name}>{pattern})" for name, pattern in tokens)
-        regex = re.compile(regex)
 
-        for match in regex.finditer(self.code):
+        regex = "|".join(f"(?P<{name}>{pattern})" for name, pattern in tokens)
+        pattern = re.compile(regex)
+
+        for match in pattern.finditer(self.code):
             kind = match.lastgroup
-            value = match.group(kind)
+            value = match.group()
             if kind == "SKIP":
                 continue
             elif kind == "MISMATCH":
-                # Print unexpected character for debugging
-                # print(f"Lexer Error: Unexpected character: {value}")
-                raise ValueError(f"Unexpected character: {value}")
-            # print(f"Lexer Token: ({kind}, {value})")  # Debugging token
+                raise SyntaxError(f"Karakter teu dikenal: '{value}'")
             yield (kind, value)

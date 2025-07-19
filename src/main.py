@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
     # Step 1: Lexical Analysis
     lexer = Lexer(code)
-    tokens = lexer.tokenize()
+    tokens = list(lexer.tokenize())
 
     # Step 2: Parsing
     parser = Parser(tokens)
