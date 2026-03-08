@@ -1,0 +1,28 @@
+tampilkeun "=== Kalkulator Sunda ===";
+
+nyieun a = 20;
+nyieun b = 4;
+
+nyieun tambah = a + b;
+nyieun kurang = a - b;
+nyieun kali = a * b;
+nyieun bagi = a / b;
+nyieun modulo = a % b;
+
+tampilkeun "a = 20, b = 4";
+tampilkeun "a + b =";
+tampilkeun tambah;
+tampilkeun "a - b =";
+tampilkeun kurang;
+tampilkeun "a * b =";
+tampilkeun kali;
+tampilkeun "a / b =";
+tampilkeun bagi;
+tampilkeun "a % b =";
+tampilkeun modulo;
+
+upami tambah > 20:
+    tampilkeun "Hasil tambah leuwih ti 20";
+lainna:
+    tampilkeun "Hasil tambah kirang ti atawa sarua jeung 20";
+anggeus

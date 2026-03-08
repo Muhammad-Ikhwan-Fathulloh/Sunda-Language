@@ -1,25 +1,69 @@
 import sys
-from lexer import Lexer
-from sunda_parser import Parser
-from interpreter import Interpreter
+import os
+import io
+import argparse
 
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Gunakan: python main.py <nama_file>.sunda")
+# Fix Windows console encoding
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+
+# Support both installed (package) and direct (python src/main.py) execution
+try:
+    from src.lexer import Lexer
+    from src.sunda_parser import Parser
+    from src.interpreter import Interpreter
+except ImportError:
+    from lexer import Lexer
+    from sunda_parser import Parser
+    from interpreter import Interpreter
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        prog="sunda",
+        description="Sunda Language - Basa pamrograman nganggo Basa Sunda 🌺",
+        epilog="Conto: sunda examples/halo.sunda"
+    )
+    parser.add_argument("file", help="File .sunda anu bade dijalankeun")
+    parser.add_argument("--version", "-v", action="version", version="Sunda Language v1.0.0")
+
+    args = parser.parse_args()
+    filename = args.file
+
+    if not os.path.exists(filename):
+        print(f"❌ File '{filename}' teu kapanggih!")
         sys.exit(1)
 
-    filename = sys.argv[1]
+    if not filename.endswith(".sunda"):
+        print(f"⚠️  File kedah nganggo ékstensi .sunda")
+        sys.exit(1)
+
     with open(filename, "r", encoding="utf-8") as f:
         code = f.read()
 
-    # Step 1: Lexical Analysis
-    lexer = Lexer(code)
-    tokens = list(lexer.tokenize())
+    try:
+        # Léksér: Tokenisasi kode
+        lexer = Lexer(code)
+        tokens = list(lexer.tokenize())
 
-    # Step 2: Parsing
-    parser = Parser(tokens)
-    ast = parser.parse()
+        # Parser: Ngawangun AST
+        sunda_parser = Parser(tokens)
+        ast = sunda_parser.parse()
 
-    # Step 3: Interpretation
-    interpreter = Interpreter(ast)
-    interpreter.interpret()
+        # Interpreter: Ngajalankeun program
+        interpreter = Interpreter(ast)
+        interpreter.interpret()
+    except SyntaxError as e:
+        print(f"❌ Kasalahan sintaks: {e}")
+        sys.exit(1)
+    except RuntimeError as e:
+        print(f"❌ Kasalahan runtime: {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"❌ Kasalahan: {e}")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

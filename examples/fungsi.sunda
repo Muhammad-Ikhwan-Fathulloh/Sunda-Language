@@ -1,0 +1,23 @@
+fungsi tambah(a, b):
+    balikkeun a + b;
+anggeus
+
+fungsi kali(a, b):
+    balikkeun a * b;
+anggeus
+
+fungsi salam(nama):
+    tampilkeun "Halo, ";
+    tampilkeun nama;
+    balikkeun leres;
+anggeus
+
+nyieun hasil_tambah = tambah(10, 5);
+tampilkeun "10 + 5 =";
+tampilkeun hasil_tambah;
+
+nyieun hasil_kali = kali(4, 3);
+tampilkeun "4 * 3 =";
+tampilkeun hasil_kali;
+
+salam("Sunda");

@@ -1,11 +1,13 @@
-ngadeklarasikeun angka = 1;
-ngadeklarasikeun batas = 5;
+tampilkeun "=== Loop Pikeun ===";
 
-upami angka <= batas:
-    ngadeklarasikeun hasil = "Loop dimulai";
-    ngajalankeun
-    nalika angka <= batas:
-        ngadeklarasikeun hasil = "Angka " + angka;
-        angka = angka + 1;
-    ngajalankeun
-ngajalankeun
+pikeun i = 1 ti 5 ngajalankeun
+    tampilkeun i;
+anggeus
+
+tampilkeun "=== Loop Bari ===";
+
+nyieun counter = 1;
+bari counter <= 3 ngajalankeun
+    tampilkeun counter;
+    counter = counter + 1;
+anggeus

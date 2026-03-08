@@ -1,0 +1,39 @@
+{
+    "name": "sunda-language",
+    "displayName": "Sunda Language",
+    "description": "Syntax highlighting pikeun Basa Pamrograman Sunda 🌺",
+    "version": "1.0.0",
+    "publisher": "muhammad-ikhwan-fathulloh",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "sunda",
+                "aliases": [
+                    "Sunda",
+                    "sunda"
+                ],
+                "extensions": [
+                    ".sunda"
+                ],
+                "configuration": "./language-configuration.json",
+                "icon": {
+                    "light": "./icon.png",
+                    "dark": "./icon.png"
+                }
+            }
+        ],
+        "grammars": [
+            {
+                "language": "sunda",
+                "scopeName": "source.sunda",
+                "path": "./syntaxes/sunda.tmLanguage.json"
+            }
+        ]
+    }
+}

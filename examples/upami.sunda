@@ -1,7 +1,9 @@
-ngadeklarasikeun angka = 9;
+nyieun angka = 9;
+
 upami angka == 10:
     tampilkeun "sampurna";
 lamun angka == 9:
-    tampilkeun "hampir";
-lain lamun:
+    tampilkeun "ampir sampurna";
+lainna:
     tampilkeun "kirang";
+anggeus

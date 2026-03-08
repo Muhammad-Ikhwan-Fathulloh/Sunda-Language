@@ -10,9 +10,24 @@
   <!-- Hero Section -->
   <section class="bg-gradient-to-r from-amber-200 to-yellow-300 py-16 px-4 text-center">
     <div class="max-w-4xl mx-auto">
-      <h1 class="text-4xl md:text-6xl font-bold mb-4">Sunda Language</h1>
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">🌺 Sunda Language</h1>
       <p class="text-lg md:text-2xl mb-6">Basa pamrograman saderhana nganggo basa Sunda pikeun diajar jeung ngalatih logika.</p>
       <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank" class="bg-black text-white px-6 py-3 rounded-full shadow-md hover:bg-gray-800 transition">📦 GitHub Repositori</a>
+    </div>
+  </section>
+
+  <!-- Instalasi -->
+  <section class="py-12 px-4 max-w-4xl mx-auto">
+    <h2 class="text-3xl font-semibold text-center mb-8">⚡ Cara Install</h2>
+    <div class="bg-gray-900 text-green-400 rounded-lg p-6 font-mono text-sm">
+      <p class="text-gray-400 mb-2"># Install via pip</p>
+      <p>pip install -e .</p>
+      <br>
+      <p class="text-gray-400 mb-2"># Jalankeun program</p>
+      <p>sunda examples/hello_world.sunda</p>
+      <br>
+      <p class="text-gray-400 mb-2"># Install VS Code syntax highlighting</p>
+      <p>Copy-Item -Recurse sunda-vscode "$env:USERPROFILE\.vscode\extensions\sunda-language"</p>
     </div>
   </section>
 
@@ -22,37 +37,78 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
         <h3 class="text-xl font-bold mb-2">🔢 Deklarasi Variabel</h3>
-        <p>Gunakeun <code class="text-pink-600">ngadeklarasikeun</code> pikeun nyiptakeun variabel.</p>
-        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">ngadeklarasikeun angka = 10;</pre>
+        <p>Gunakeun <code class="text-pink-600">nyieun</code> pikeun nyiptakeun variabel.</p>
+        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">nyieun angka = 10;
+nyieun nama = "Sunda";
+nyieun aktif = leres;</pre>
       </div>
       <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
-        <h3 class="text-xl font-bold mb-2">🧠 Pengkondisian (Upami, Lamun, Lain Lamun)</h3>
-        <p>Logika <code class="text-pink-600">upami</code>, <code class="text-pink-600">lamun</code>, jeung <code class="text-pink-600">lain lamun</code> pikeun percabangan logis.</p>
+        <h3 class="text-xl font-bold mb-2">🧠 Pengkondisian</h3>
+        <p>Logika <code class="text-pink-600">upami</code>, <code class="text-pink-600">lamun</code>, jeung <code class="text-pink-600">lainna</code>.</p>
         <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">upami angka == 10:
-  tampilkeun "sampurna";
-lamun angka == 9:
-  tampilkeun "hampir";
-lain lamun:
-  tampilkeun "kirang";</pre>
+    tampilkeun "sampurna";
+lainna:
+    tampilkeun "kirang";
+anggeus</pre>
       </div>
       <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
-        <h3 class="text-xl font-bold mb-2">🔁 Perulangan (Pikeun)</h3>
-        <p>Pikeun ngalakukeun looping ti hiji angka ka nu sanesna.</p>
-        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">pikeun i = 1 TI 5 ngajalankeun:
-  tampilkeun i;</pre>
+        <h3 class="text-xl font-bold mb-2">🔁 Perulangan</h3>
+        <p>Pikeun (for) jeung Bari (while) loops.</p>
+        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">pikeun i = 1 ti 5 ngajalankeun
+    tampilkeun i;
+anggeus</pre>
       </div>
       <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
-        <h3 class="text-xl font-bold mb-2">🔂 Fungsi Jeung Balikkeun</h3>
-        <p>Ngadukung pembuatan fungsi ngagunakeun <code class="text-pink-600">fungsi</code> jeung <code class="text-pink-600">balikkeun</code>.</p>
-        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">fungsi tambah(x, y):
-  balikkeun x + y;</pre>
+        <h3 class="text-xl font-bold mb-2">🔂 Fungsi</h3>
+        <p>Definisi fungsi sareng parameter jeung return.</p>
+        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">fungsi tambah(a, b):
+    balikkeun a + b;
+anggeus
+
+tampilkeun tambah(10, 5);</pre>
       </div>
       <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
         <h3 class="text-xl font-bold mb-2">💬 Input Ti Pamaké</h3>
-        <p>Ngadukung input interaktif ngagunakeun <code class="text-pink-600">mangga_eusian</code>.</p>
-        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">ngadeklarasikeun nama = mangga_eusian("Asupkeun ngaran:");
+        <p>Input interaktif ngagunakeun <code class="text-pink-600">tanya</code>.</p>
+        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">tanya nama;
 tampilkeun nama;</pre>
       </div>
+      <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-bold mb-2">🎨 VS Code Highlighting</h3>
+        <p>Extension VS Code pikeun warna sintaks otomatis!</p>
+        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">Copy sunda-vscode ka
+~/.vscode/extensions/</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keyword Table -->
+  <section class="py-12 px-4 max-w-4xl mx-auto">
+    <h2 class="text-3xl font-semibold text-center mb-8">📋 Daftar Keyword</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse bg-white shadow rounded-lg overflow-hidden">
+        <thead class="bg-amber-300">
+          <tr>
+            <th class="p-3 text-left">Keyword</th>
+            <th class="p-3 text-left">Arti</th>
+            <th class="p-3 text-left">Contoh</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y">
+          <tr><td class="p-3 font-mono text-pink-600">nyieun</td><td class="p-3">Deklarasi variabel</td><td class="p-3 font-mono text-sm">nyieun x = 10;</td></tr>
+          <tr class="bg-gray-50"><td class="p-3 font-mono text-pink-600">tampilkeun</td><td class="p-3">Print / Cetak</td><td class="p-3 font-mono text-sm">tampilkeun x;</td></tr>
+          <tr><td class="p-3 font-mono text-pink-600">tanya</td><td class="p-3">Input dari user</td><td class="p-3 font-mono text-sm">tanya nama;</td></tr>
+          <tr class="bg-gray-50"><td class="p-3 font-mono text-pink-600">upami</td><td class="p-3">If (jika)</td><td class="p-3 font-mono text-sm">upami x == 10:</td></tr>
+          <tr><td class="p-3 font-mono text-pink-600">lamun</td><td class="p-3">Else if</td><td class="p-3 font-mono text-sm">lamun x == 5:</td></tr>
+          <tr class="bg-gray-50"><td class="p-3 font-mono text-pink-600">lainna</td><td class="p-3">Else</td><td class="p-3 font-mono text-sm">lainna:</td></tr>
+          <tr><td class="p-3 font-mono text-pink-600">pikeun</td><td class="p-3">For loop</td><td class="p-3 font-mono text-sm">pikeun i = 1 ti 5 ngajalankeun</td></tr>
+          <tr class="bg-gray-50"><td class="p-3 font-mono text-pink-600">bari</td><td class="p-3">While loop</td><td class="p-3 font-mono text-sm">bari x < 10 ngajalankeun</td></tr>
+          <tr><td class="p-3 font-mono text-pink-600">anggeus</td><td class="p-3">End blok</td><td class="p-3 font-mono text-sm">anggeus</td></tr>
+          <tr class="bg-gray-50"><td class="p-3 font-mono text-pink-600">fungsi</td><td class="p-3">Definisi fungsi</td><td class="p-3 font-mono text-sm">fungsi tambah(a, b):</td></tr>
+          <tr><td class="p-3 font-mono text-pink-600">balikkeun</td><td class="p-3">Return</td><td class="p-3 font-mono text-sm">balikkeun a + b;</td></tr>
+          <tr class="bg-gray-50"><td class="p-3 font-mono text-pink-600">leres / lepat</td><td class="p-3">True / False</td><td class="p-3 font-mono text-sm">nyieun aktif = leres;</td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -67,7 +123,7 @@ tampilkeun nama;</pre>
 
   <!-- Footer -->
   <footer class="bg-black text-white py-6 px-4 text-center">
-    <p class="text-sm">&copy; 2025 Sunda Language | MIT License | Dijieun ku komunitas Sunda</p>
+    <p class="text-sm">&copy; 2025 Sunda Language | MIT License | Dijieun ku komunitas Sunda 🌺</p>
   </footer>
 </body>
 </html>

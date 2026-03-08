@@ -1,0 +1,28 @@
+fungsi faktorial(n):
+    upami n <= 1:
+        balikkeun 1;
+    anggeus
+    balikkeun n * faktorial(n - 1);
+anggeus
+
+fungsi fibonacci(n):
+    upami n <= 0:
+        balikkeun 0;
+    anggeus
+    upami n == 1:
+        balikkeun 1;
+    anggeus
+    balikkeun fibonacci(n - 1) + fibonacci(n - 2);
+anggeus
+
+tampilkeun "=== Faktorial ===";
+pikeun i = 1 ti 6 ngajalankeun
+    nyieun hasil = faktorial(i);
+    tampilkeun hasil;
+anggeus
+
+tampilkeun "=== Fibonacci ===";
+pikeun i = 0 ti 8 ngajalankeun
+    nyieun fib = fibonacci(i);
+    tampilkeun fib;
+anggeus
