@@ -3,127 +3,245 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sunda Language - Basa Pamrograman Sunda</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Sunda Language - Basa Pamrograman Sunda | Live Playground</title>
+  <meta name="description" content="Sunda Language adalah bahasa pemrograman sederhana dengan sintaksis bahasa Sunda. Coba langsung di browser!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-<body class="bg-white text-gray-800 font-sans">
+<body>
+
   <!-- Hero Section -->
-  <section class="bg-gradient-to-r from-amber-200 to-yellow-300 py-16 px-4 text-center">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-4xl md:text-6xl font-bold mb-4">🌺 Sunda Language</h1>
-      <p class="text-lg md:text-2xl mb-6">Basa pamrograman saderhana nganggo basa Sunda pikeun diajar jeung ngalatih logika.</p>
-      <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank" class="bg-black text-white px-6 py-3 rounded-full shadow-md hover:bg-gray-800 transition">📦 GitHub Repositori</a>
+  <section class="hero" id="hero">
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-badge">🌺 Basa Pamrograman Sunda</div>
+      <h1 class="hero-title">Sunda <span class="gradient-text">Language</span></h1>
+      <p class="hero-desc">Basa pamrograman saderhana nganggo basa Sunda pikeun diajar jeung ngalatih logika. Cobian langsung di browser!</p>
+      <div class="hero-actions">
+        <a href="playground.html" class="btn btn-primary">🚀 Cobian Ayeuna</a>
+        <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank" class="btn btn-secondary">📦 GitHub</a>
+      </div>
     </div>
   </section>
 
-  <!-- Instalasi -->
-  <section class="py-12 px-4 max-w-4xl mx-auto">
-    <h2 class="text-3xl font-semibold text-center mb-8">⚡ Cara Install</h2>
-    <div class="bg-gray-900 text-green-400 rounded-lg p-6 font-mono text-sm">
-      <p class="text-gray-400 mb-2"># Install via pip</p>
-      <p>pip install -e .</p>
-      <br>
-      <p class="text-gray-400 mb-2"># Jalankeun program</p>
-      <p>sunda examples/hello_world.sunda</p>
-      <br>
-      <p class="text-gray-400 mb-2"># Install VS Code syntax highlighting</p>
-      <p>Copy-Item -Recurse sunda-vscode "$env:USERPROFILE\.vscode\extensions\sunda-language"</p>
+  <!-- Live Playground Section -->
+  <section class="playground-section" id="playground">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">⚡ Live <span class="gradient-text">Playground</span></h2>
+        <p class="section-desc">Tulis kode Sunda di handap, teras pencét "Jalankeun" pikeun ningali hasilna!</p>
+        <a href="playground.html" class="btn btn-primary" style="margin-top:20px;">🖥️ Buka Playground Lengkap</a>
+      </div>
+
+      <div class="playground-wrapper">
+        <!-- Example Selector -->
+        <div class="example-bar">
+          <label for="example-select">📂 Conto Kode:</label>
+          <select id="example-select">
+            <option value="hello_world">🌺 Hello World</option>
+            <option value="kalkulator">🔢 Kalkulator</option>
+            <option value="upami">🧠 Pengkondisian (Upami)</option>
+            <option value="pikeun">🔁 Perulangan (Pikeun/Bari)</option>
+            <option value="fungsi">🔂 Fungsi</option>
+            <option value="rekursi">♻️ Rekursi</option>
+          </select>
+        </div>
+
+        <div class="playground-grid">
+          <!-- Code Editor -->
+          <div class="editor-panel">
+            <div class="panel-header">
+              <div class="panel-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <span class="panel-title">📝 Kode Sunda</span>
+              <button class="btn-run" id="btn-run" title="Jalankeun kode (Ctrl+Enter)">
+                <span class="run-icon">▶</span> Jalankeun
+              </button>
+            </div>
+            <div class="editor-wrapper">
+              <div class="line-numbers" id="line-numbers"></div>
+              <textarea id="code-editor" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">tampilkeun "Halo Sunda! 🌺";
+tampilkeun "Wilujeng sumping di Basa Pamrograman Sunda!";</textarea>
+            </div>
+          </div>
+
+          <!-- Output Panel -->
+          <div class="output-panel">
+            <div class="panel-header">
+              <div class="panel-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <span class="panel-title">📟 Kaluaran</span>
+              <button class="btn-clear" id="btn-clear" title="Bersihkeun output">🗑️ Bersihkeun</button>
+            </div>
+            <div class="output-content" id="output-content">
+              <div class="output-placeholder">
+                <span class="placeholder-icon">🌺</span>
+                <p>Pencét "Jalankeun" pikeun ningali hasilna...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Features -->
-  <section class="py-20 px-4 max-w-6xl mx-auto">
-    <h2 class="text-3xl font-semibold text-center mb-12">Fitur Bahasa Sunda</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
-        <h3 class="text-xl font-bold mb-2">🔢 Deklarasi Variabel</h3>
-        <p>Gunakeun <code class="text-pink-600">nyieun</code> pikeun nyiptakeun variabel.</p>
-        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">nyieun angka = 10;
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">✨ Fitur <span class="gradient-text">Bahasa Sunda</span></h2>
+        <p class="section-desc">Klik dina kartu pikeun nyobaan langsung di playground!</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-example="nyieun angka = 10;\nnyieun nama = &quot;Sunda&quot;;\nnyieun aktif = leres;\n\ntampilkeun angka;\ntampilkeun nama;\ntampilkeun aktif;">
+          <div class="feature-icon">🔢</div>
+          <h3>Deklarasi Variabel</h3>
+          <p>Gunakeun <code>nyieun</code> pikeun nyiptakeun variabel.</p>
+          <pre>nyieun angka = 10;
 nyieun nama = "Sunda";
 nyieun aktif = leres;</pre>
-      </div>
-      <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
-        <h3 class="text-xl font-bold mb-2">🧠 Pengkondisian</h3>
-        <p>Logika <code class="text-pink-600">upami</code>, <code class="text-pink-600">lamun</code>, jeung <code class="text-pink-600">lainna</code>.</p>
-        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">upami angka == 10:
+        </div>
+        <div class="feature-card" data-example="nyieun angka = 9;\n\nupami angka == 10:\n    tampilkeun &quot;sampurna&quot;;\nlamun angka == 9:\n    tampilkeun &quot;ampir sampurna&quot;;\nlainna:\n    tampilkeun &quot;kirang&quot;;\nanggeus">
+          <div class="feature-icon">🧠</div>
+          <h3>Pengkondisian</h3>
+          <p>Logika <code>upami</code>, <code>lamun</code>, jeung <code>lainna</code>.</p>
+          <pre>upami angka == 10:
     tampilkeun "sampurna";
 lainna:
     tampilkeun "kirang";
 anggeus</pre>
-      </div>
-      <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
-        <h3 class="text-xl font-bold mb-2">🔁 Perulangan</h3>
-        <p>Pikeun (for) jeung Bari (while) loops.</p>
-        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">pikeun i = 1 ti 5 ngajalankeun
+        </div>
+        <div class="feature-card" data-example="tampilkeun &quot;=== Loop Pikeun ===&quot;;\n\npikeun i = 1 ti 5 ngajalankeun\n    tampilkeun i;\nanggeus\n\ntampilkeun &quot;=== Loop Bari ===&quot;;\n\nnyieun counter = 1;\nbari counter <= 3 ngajalankeun\n    tampilkeun counter;\n    counter = counter + 1;\nanggeus">
+          <div class="feature-icon">🔁</div>
+          <h3>Perulangan</h3>
+          <p>Pikeun (for) jeung Bari (while) loops.</p>
+          <pre>pikeun i = 1 ti 5 ngajalankeun
     tampilkeun i;
 anggeus</pre>
-      </div>
-      <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
-        <h3 class="text-xl font-bold mb-2">🔂 Fungsi</h3>
-        <p>Definisi fungsi sareng parameter jeung return.</p>
-        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">fungsi tambah(a, b):
+        </div>
+        <div class="feature-card" data-example="fungsi tambah(a, b):\n    balikkeun a + b;\nanggeus\n\nfungsi kali(a, b):\n    balikkeun a * b;\nanggeus\n\nnyieun hasil_tambah = tambah(10, 5);\ntampilkeun &quot;10 + 5 =&quot;;\ntampilkeun hasil_tambah;\n\nnyieun hasil_kali = kali(4, 3);\ntampilkeun &quot;4 * 3 =&quot;;\ntampilkeun hasil_kali;">
+          <div class="feature-icon">🔂</div>
+          <h3>Fungsi</h3>
+          <p>Definisi fungsi sareng parameter jeung return.</p>
+          <pre>fungsi tambah(a, b):
     balikkeun a + b;
 anggeus
 
 tampilkeun tambah(10, 5);</pre>
-      </div>
-      <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
-        <h3 class="text-xl font-bold mb-2">💬 Input Ti Pamaké</h3>
-        <p>Input interaktif ngagunakeun <code class="text-pink-600">tanya</code>.</p>
-        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">tanya nama;
-tampilkeun nama;</pre>
-      </div>
-      <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
-        <h3 class="text-xl font-bold mb-2">🎨 VS Code Highlighting</h3>
-        <p>Extension VS Code pikeun warna sintaks otomatis!</p>
-        <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">Copy sunda-vscode ka
-~/.vscode/extensions/</pre>
+        </div>
+        <div class="feature-card" data-example="fungsi faktorial(n):\n    upami n <= 1:\n        balikkeun 1;\n    anggeus\n    balikkeun n * faktorial(n - 1);\nanggeus\n\ntampilkeun &quot;=== Faktorial ===&quot;;\npikeun i = 1 ti 6 ngajalankeun\n    nyieun hasil = faktorial(i);\n    tampilkeun hasil;\nanggeus">
+          <div class="feature-icon">♻️</div>
+          <h3>Rekursi</h3>
+          <p>Dukung fungsi rekursif pikeun logika kompléks.</p>
+          <pre>fungsi faktorial(n):
+    upami n <= 1:
+        balikkeun 1;
+    anggeus
+    balikkeun n * faktorial(n - 1);
+anggeus</pre>
+        </div>
+        <div class="feature-card" data-example="tampilkeun &quot;=== Kalkulator Sunda ===&quot;;\n\nnyieun a = 20;\nnyieun b = 4;\n\nnyieun tambah = a + b;\nnyieun kurang = a - b;\nnyieun kali = a * b;\nnyieun bagi = a / b;\n\ntampilkeun &quot;a + b =&quot;;\ntampilkeun tambah;\ntampilkeun &quot;a - b =&quot;;\ntampilkeun kurang;\ntampilkeun &quot;a * b =&quot;;\ntampilkeun kali;\ntampilkeun &quot;a / b =&quot;;\ntampilkeun bagi;">
+          <div class="feature-icon">🧮</div>
+          <h3>Aritmatika</h3>
+          <p>Operator lengkap: <code>+ - * / %</code> jeung <code>== != &lt; &gt;</code></p>
+          <pre>nyieun a = 20;
+nyieun b = 4;
+tampilkeun a + b;</pre>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Keyword Table -->
-  <section class="py-12 px-4 max-w-4xl mx-auto">
-    <h2 class="text-3xl font-semibold text-center mb-8">📋 Daftar Keyword</h2>
-    <div class="overflow-x-auto">
-      <table class="w-full border-collapse bg-white shadow rounded-lg overflow-hidden">
-        <thead class="bg-amber-300">
-          <tr>
-            <th class="p-3 text-left">Keyword</th>
-            <th class="p-3 text-left">Arti</th>
-            <th class="p-3 text-left">Contoh</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y">
-          <tr><td class="p-3 font-mono text-pink-600">nyieun</td><td class="p-3">Deklarasi variabel</td><td class="p-3 font-mono text-sm">nyieun x = 10;</td></tr>
-          <tr class="bg-gray-50"><td class="p-3 font-mono text-pink-600">tampilkeun</td><td class="p-3">Print / Cetak</td><td class="p-3 font-mono text-sm">tampilkeun x;</td></tr>
-          <tr><td class="p-3 font-mono text-pink-600">tanya</td><td class="p-3">Input dari user</td><td class="p-3 font-mono text-sm">tanya nama;</td></tr>
-          <tr class="bg-gray-50"><td class="p-3 font-mono text-pink-600">upami</td><td class="p-3">If (jika)</td><td class="p-3 font-mono text-sm">upami x == 10:</td></tr>
-          <tr><td class="p-3 font-mono text-pink-600">lamun</td><td class="p-3">Else if</td><td class="p-3 font-mono text-sm">lamun x == 5:</td></tr>
-          <tr class="bg-gray-50"><td class="p-3 font-mono text-pink-600">lainna</td><td class="p-3">Else</td><td class="p-3 font-mono text-sm">lainna:</td></tr>
-          <tr><td class="p-3 font-mono text-pink-600">pikeun</td><td class="p-3">For loop</td><td class="p-3 font-mono text-sm">pikeun i = 1 ti 5 ngajalankeun</td></tr>
-          <tr class="bg-gray-50"><td class="p-3 font-mono text-pink-600">bari</td><td class="p-3">While loop</td><td class="p-3 font-mono text-sm">bari x < 10 ngajalankeun</td></tr>
-          <tr><td class="p-3 font-mono text-pink-600">anggeus</td><td class="p-3">End blok</td><td class="p-3 font-mono text-sm">anggeus</td></tr>
-          <tr class="bg-gray-50"><td class="p-3 font-mono text-pink-600">fungsi</td><td class="p-3">Definisi fungsi</td><td class="p-3 font-mono text-sm">fungsi tambah(a, b):</td></tr>
-          <tr><td class="p-3 font-mono text-pink-600">balikkeun</td><td class="p-3">Return</td><td class="p-3 font-mono text-sm">balikkeun a + b;</td></tr>
-          <tr class="bg-gray-50"><td class="p-3 font-mono text-pink-600">leres / lepat</td><td class="p-3">True / False</td><td class="p-3 font-mono text-sm">nyieun aktif = leres;</td></tr>
-        </tbody>
-      </table>
+  <section class="keyword-section" id="keywords">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">📋 Daftar <span class="gradient-text">Keyword</span></h2>
+      </div>
+      <div class="table-wrapper">
+        <table class="keyword-table">
+          <thead>
+            <tr><th>Keyword</th><th>Arti</th><th>Contoh</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>nyieun</code></td><td>Deklarasi variabel</td><td class="mono">nyieun x = 10;</td></tr>
+            <tr><td><code>tampilkeun</code></td><td>Print / Cetak</td><td class="mono">tampilkeun x;</td></tr>
+            <tr><td><code>tanya</code></td><td>Input dari user</td><td class="mono">tanya nama;</td></tr>
+            <tr><td><code>upami</code></td><td>If (jika)</td><td class="mono">upami x == 10:</td></tr>
+            <tr><td><code>lamun</code></td><td>Else if</td><td class="mono">lamun x == 5:</td></tr>
+            <tr><td><code>lainna</code></td><td>Else</td><td class="mono">lainna:</td></tr>
+            <tr><td><code>pikeun</code></td><td>For loop</td><td class="mono">pikeun i = 1 ti 5 ngajalankeun</td></tr>
+            <tr><td><code>bari</code></td><td>While loop</td><td class="mono">bari x &lt; 10 ngajalankeun</td></tr>
+            <tr><td><code>anggeus</code></td><td>End blok</td><td class="mono">anggeus</td></tr>
+            <tr><td><code>fungsi</code></td><td>Definisi fungsi</td><td class="mono">fungsi tambah(a, b):</td></tr>
+            <tr><td><code>balikkeun</code></td><td>Return</td><td class="mono">balikkeun a + b;</td></tr>
+            <tr><td><code>leres / lepat</code></td><td>True / False</td><td class="mono">nyieun aktif = leres;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install Section -->
+  <section class="install-section" id="install">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">⚡ Cara <span class="gradient-text">Install</span></h2>
+      </div>
+      <div class="install-card">
+        <div class="install-step">
+          <span class="step-num">1</span>
+          <div>
+            <h4>Install via pip</h4>
+            <code class="install-code">pip install -e .</code>
+          </div>
+        </div>
+        <div class="install-step">
+          <span class="step-num">2</span>
+          <div>
+            <h4>Jalankeun program</h4>
+            <code class="install-code">sunda examples/hello_world.sunda</code>
+          </div>
+        </div>
+        <div class="install-step">
+          <span class="step-num">3</span>
+          <div>
+            <h4>VS Code Extension</h4>
+            <code class="install-code">Copy-Item -Recurse sunda-vscode "$env:USERPROFILE\.vscode\extensions\sunda-language"</code>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Contribution -->
-  <section class="bg-gray-50 py-16 px-4 text-center">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="text-3xl font-semibold mb-4">Hoyong Kontribusi?</h2>
-      <p class="mb-6">Fork, tambahkeun fitur anyar, sareng kirimkeun Pull Request anjeun. Hayu babarengan ngembangkeun!</p>
-      <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank" class="bg-amber-400 text-black font-semibold px-6 py-3 rounded-full shadow hover:bg-amber-500 transition">Gabung GitHub</a>
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Hoyong Kontribusi? 🤝</h2>
+        <p>Fork, tambahkeun fitur anyar, sareng kirimkeun Pull Request anjeun. Hayu babarengan ngembangkeun!</p>
+        <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank" class="btn btn-primary">Gabung GitHub</a>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-black text-white py-6 px-4 text-center">
-    <p class="text-sm">&copy; 2025 Sunda Language | MIT License | Dijieun ku komunitas Sunda 🌺</p>
+  <footer class="footer">
+    <p>&copy; 2025 Sunda Language | MIT License | Dijieun ku komunitas Sunda 🌺</p>
   </footer>
+
+  <script src="js/sunda-engine.js"></script>
+  <script src="js/playground.js"></script>
 </body>
 </html>

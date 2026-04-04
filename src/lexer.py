@@ -15,7 +15,7 @@ class Lexer:
             ("KEYWORD_RUN", r"\bngajalankeun\b"),
             ("KEYWORD_END", r"\banggeus\b"),
             ("KEYWORD_PRINT", r"\btampilkeun\b"),
-            ("KEYWORD_FUNC", r"\bfungsi\b"),
+            ("KEYWORD_FUNC", r"\b(pungsi|fungsi)\b"),
             ("KEYWORD_RETURN", r"\bbalikkeun\b"),
             ("KEYWORD_INPUT", r"\b(tanya|mangga_eusian)\b"),
             ("BOOLEAN", r"\b(leres|lepat|true|false)\b"),

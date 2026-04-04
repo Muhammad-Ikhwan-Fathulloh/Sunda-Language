@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="su">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sunda Playground - Live Code Editor</title>
+  <meta name="description" content="Live code editor pikeun Sunda Language. Tulis, jalankeun, jeung diajar basa pamrograman Sunda langsung di browser!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/playground.css" />
+</head>
+<body class="pg-body">
+
+  <!-- Top Bar -->
+  <div class="pg-topbar">
+    <a href="index.html" class="pg-logo">
+      <span class="pg-logo-icon">🌺</span>
+      <span>Sunda</span>
+    </a>
+
+    <div class="pg-divider"></div>
+
+    <select id="pg-example-select" class="pg-example-select">
+      <option value="hello_world">🌺 Hello World</option>
+      <option value="kalkulator">🔢 Kalkulator</option>
+      <option value="upami">🧠 Pengkondisian</option>
+      <option value="pikeun">🔁 Perulangan</option>
+      <option value="fungsi">🔂 Fungsi</option>
+      <option value="rekursi">♻️ Rekursi</option>
+      <option value="while_loop">🎯 FizzBuzz</option>
+    </select>
+
+    <div class="pg-topbar-spacer"></div>
+
+    <button class="pg-btn pg-btn-run" id="pg-btn-run">▶ Jalankeun <span class="pg-shortcut">Ctrl+Enter</span></button>
+    <button class="pg-btn pg-btn-clear" id="pg-btn-clear">🗑️ Bersihkeun</button>
+    <button class="pg-btn pg-btn-share" id="pg-btn-share">🔗 Bagikeun</button>
+
+    <div class="pg-divider"></div>
+
+    <a href="index.html" class="pg-btn pg-btn-back">← Balik</a>
+  </div>
+
+  <!-- Main Editor Area -->
+  <div class="pg-main">
+    <!-- Editor Panel -->
+    <div class="pg-panel pg-panel-editor">
+      <div class="pg-panel-header">
+        <div class="dots"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+        <span class="label">📝 editor.sunda</span>
+      </div>
+      <div class="pg-editor-area">
+        <div class="pg-editor-scroll">
+          <div class="pg-line-numbers" id="pg-line-numbers"></div>
+          <div class="pg-editor-wrapper">
+            <div class="pg-highlight-layer" id="pg-highlight-layer" aria-hidden="true"></div>
+            <textarea
+              class="pg-code-input"
+              id="pg-code-input"
+              spellcheck="false"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              placeholder="Tulis kode Sunda di dieu..."
+            >tampilkeun "Halo Sunda! 🌺";
+tampilkeun "Wilujeng sumping di Basa Pamrograman Sunda!";</textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resize Handle -->
+    <div class="pg-resize-handle" id="pg-resize-handle"></div>
+
+    <!-- Output Panel -->
+    <div class="pg-panel pg-panel-output">
+      <div class="pg-panel-header">
+        <div class="dots"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
+        <span class="label">📟 Kaluaran</span>
+      </div>
+      <div class="pg-output-area" id="pg-output-area">
+        <div class="pg-output-placeholder">
+          <span class="icon">🌺</span>
+          <p>Pencét "Jalankeun" atawa Ctrl+Enter...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Status Bar -->
+  <footer class="pg-footer">
+    <span><span class="pg-status-dot" id="pg-status-dot"></span> <span id="pg-status-text">Siap</span></span>
+    <div class="pg-footer-spacer"></div>
+    <span id="pg-line-col">Baris 1, Kolom 1</span>
+    <span>Sunda Language v1.0</span>
+  </footer>
+
+  <script src="js/sunda-engine.js"></script>
+  <script src="js/sunda-highlighter.js"></script>
+  <script src="js/playground-page.js"></script>
+</body>
+</html>
