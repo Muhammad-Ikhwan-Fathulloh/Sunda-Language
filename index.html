@@ -373,6 +373,7 @@ tampilkeun hasil;</pre>
       // Theme toggle logic
       const themeToggle = document.getElementById('theme-toggle');
       const body = document.body;
+      const modeText = document.getElementById('mode-text');
       // Footer Year Range
       const yearRange = document.getElementById('year-range');
       const currentYear = new Date().getFullYear();
@@ -394,8 +395,8 @@ tampilkeun hasil;</pre>
       // Load preference
       if (localStorage.getItem('theme') === 'light') {
         body.classList.add('light-mode');
-        updateThemeUI();
       }
+      updateThemeUI();
 
       themeToggle.addEventListener('click', () => {
         body.classList.toggle('light-mode');
