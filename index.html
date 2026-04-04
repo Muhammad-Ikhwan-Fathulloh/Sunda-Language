@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="su">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sunda Language - Basa Pamrograman Sunda | Live Playground</title>
-  <meta name="description" content="Sunda Language adalah bahasa pemrograman sederhana dengan sintaksis bahasa Sunda. Coba langsung di browser!" />
+  <meta name="description"
+    content="Sunda Language adalah bahasa pemrograman sederhana dengan sintaksis bahasa Sunda. Coba langsung di browser!" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
 
   <!-- Hero Section -->
@@ -21,77 +26,12 @@
     <div class="container hero-content">
       <div class="hero-badge">🌺 Basa Pamrograman Sunda</div>
       <h1 class="hero-title">Sunda <span class="gradient-text">Language</span></h1>
-      <p class="hero-desc">Basa pamrograman saderhana nganggo basa Sunda pikeun diajar jeung ngalatih logika. Cobian langsung di browser!</p>
+      <p class="hero-desc">Basa pamrograman saderhana nganggo basa Sunda pikeun diajar jeung ngalatih logika. Cobian
+        langsung di browser!</p>
       <div class="hero-actions">
         <a href="playground.html" class="btn btn-primary">🚀 Cobian Ayeuna</a>
-        <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank" class="btn btn-secondary">📦 GitHub</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Live Playground Section -->
-  <section class="playground-section" id="playground">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">⚡ Live <span class="gradient-text">Playground</span></h2>
-        <p class="section-desc">Tulis kode Sunda di handap, teras pencét "Jalankeun" pikeun ningali hasilna!</p>
-        <a href="playground.html" class="btn btn-primary" style="margin-top:20px;">🖥️ Buka Playground Lengkap</a>
-      </div>
-
-      <div class="playground-wrapper">
-        <!-- Example Selector -->
-        <div class="example-bar">
-          <label for="example-select">📂 Conto Kode:</label>
-          <select id="example-select">
-            <option value="hello_world">🌺 Hello World</option>
-            <option value="kalkulator">🔢 Kalkulator</option>
-            <option value="upami">🧠 Pengkondisian (Upami)</option>
-            <option value="pikeun">🔁 Perulangan (Pikeun/Bari)</option>
-            <option value="fungsi">🔂 Fungsi</option>
-            <option value="rekursi">♻️ Rekursi</option>
-          </select>
-        </div>
-
-        <div class="playground-grid">
-          <!-- Code Editor -->
-          <div class="editor-panel">
-            <div class="panel-header">
-              <div class="panel-dots">
-                <span class="dot dot-red"></span>
-                <span class="dot dot-yellow"></span>
-                <span class="dot dot-green"></span>
-              </div>
-              <span class="panel-title">📝 Kode Sunda</span>
-              <button class="btn-run" id="btn-run" title="Jalankeun kode (Ctrl+Enter)">
-                <span class="run-icon">▶</span> Jalankeun
-              </button>
-            </div>
-            <div class="editor-wrapper">
-              <div class="line-numbers" id="line-numbers"></div>
-              <textarea id="code-editor" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">tampilkeun "Halo Sunda! 🌺";
-tampilkeun "Wilujeng sumping di Basa Pamrograman Sunda!";</textarea>
-            </div>
-          </div>
-
-          <!-- Output Panel -->
-          <div class="output-panel">
-            <div class="panel-header">
-              <div class="panel-dots">
-                <span class="dot dot-red"></span>
-                <span class="dot dot-yellow"></span>
-                <span class="dot dot-green"></span>
-              </div>
-              <span class="panel-title">📟 Kaluaran</span>
-              <button class="btn-clear" id="btn-clear" title="Bersihkeun output">🗑️ Bersihkeun</button>
-            </div>
-            <div class="output-content" id="output-content">
-              <div class="output-placeholder">
-                <span class="placeholder-icon">🌺</span>
-                <p>Pencét "Jalankeun" pikeun ningali hasilna...</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank"
+          class="btn btn-secondary">📦 GitHub</a>
       </div>
     </div>
   </section>
@@ -104,7 +44,8 @@ tampilkeun "Wilujeng sumping di Basa Pamrograman Sunda!";</textarea>
         <p class="section-desc">Klik dina kartu pikeun nyobaan langsung di playground!</p>
       </div>
       <div class="features-grid">
-        <div class="feature-card" data-example="nyieun angka = 10;\nnyieun nama = &quot;Sunda&quot;;\nnyieun aktif = leres;\n\ntampilkeun angka;\ntampilkeun nama;\ntampilkeun aktif;">
+        <div class="feature-card"
+          data-example="nyieun angka = 10;\nnyieun nama = &quot;Sunda&quot;;\nnyieun aktif = leres;\n\ntampilkeun angka;\ntampilkeun nama;\ntampilkeun aktif;">
           <div class="feature-icon">🔢</div>
           <h3>Deklarasi Variabel</h3>
           <p>Gunakeun <code>nyieun</code> pikeun nyiptakeun variabel.</p>
@@ -112,7 +53,8 @@ tampilkeun "Wilujeng sumping di Basa Pamrograman Sunda!";</textarea>
 nyieun nama = "Sunda";
 nyieun aktif = leres;</pre>
         </div>
-        <div class="feature-card" data-example="nyieun angka = 9;\n\nupami angka == 10:\n    tampilkeun &quot;sampurna&quot;;\nlamun angka == 9:\n    tampilkeun &quot;ampir sampurna&quot;;\nlainna:\n    tampilkeun &quot;kirang&quot;;\nanggeus">
+        <div class="feature-card"
+          data-example="nyieun angka = 9;\n\nupami angka == 10:\n    tampilkeun &quot;sampurna&quot;;\nlamun angka == 9:\n    tampilkeun &quot;ampir sampurna&quot;;\nlainna:\n    tampilkeun &quot;kirang&quot;;\nanggeus">
           <div class="feature-icon">🧠</div>
           <h3>Pengkondisian</h3>
           <p>Logika <code>upami</code>, <code>lamun</code>, jeung <code>lainna</code>.</p>
@@ -122,7 +64,8 @@ lainna:
     tampilkeun "kirang";
 anggeus</pre>
         </div>
-        <div class="feature-card" data-example="tampilkeun &quot;=== Loop Pikeun ===&quot;;\n\npikeun i = 1 ti 5 ngajalankeun\n    tampilkeun i;\nanggeus\n\ntampilkeun &quot;=== Loop Bari ===&quot;;\n\nnyieun counter = 1;\nbari counter <= 3 ngajalankeun\n    tampilkeun counter;\n    counter = counter + 1;\nanggeus">
+        <div class="feature-card"
+          data-example="tampilkeun &quot;=== Loop Pikeun ===&quot;;\n\npikeun i = 1 ti 5 ngajalankeun\n    tampilkeun i;\nanggeus\n\ntampilkeun &quot;=== Loop Bari ===&quot;;\n\nnyieun counter = 1;\nbari counter <= 3 ngajalankeun\n    tampilkeun counter;\n    counter = counter + 1;\nanggeus">
           <div class="feature-icon">🔁</div>
           <h3>Perulangan</h3>
           <p>Pikeun (for) jeung Bari (while) loops.</p>
@@ -130,28 +73,32 @@ anggeus</pre>
     tampilkeun i;
 anggeus</pre>
         </div>
-        <div class="feature-card" data-example="fungsi tambah(a, b):\n    balikkeun a + b;\nanggeus\n\nfungsi kali(a, b):\n    balikkeun a * b;\nanggeus\n\nnyieun hasil_tambah = tambah(10, 5);\ntampilkeun &quot;10 + 5 =&quot;;\ntampilkeun hasil_tambah;\n\nnyieun hasil_kali = kali(4, 3);\ntampilkeun &quot;4 * 3 =&quot;;\ntampilkeun hasil_kali;">
-          <div class="feature-icon">🔂</div>
-          <h3>Fungsi</h3>
-          <p>Definisi fungsi sareng parameter jeung return.</p>
-          <pre>fungsi tambah(a, b):
+        <div class="feature-card"
+          data-example="pungsi tambah(a, b):\n    balikkeun a + b;\nanggeus\n\npungsi kali(a, b):\n    balikkeun a * b;\nanggeus\n\nnyieun hasil_tambah = tambah(10, 5);\ntampilkeun &quot;10 + 5 =&quot;;\ntampilkeun hasil_tambah;\n\nnyieun hasil_kali = kali(4, 3);\ntampilkeun &quot;4 * 3 =&quot;;\ntampilkeun hasil_kali;">
+          <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
+            <h3 class="text-xl font-bold mb-2">🔂 Pungsi</h3>
+            <p>Definisi pungsi sareng parameter jeung return.</p>
+            <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">pungsi tambah(a, b):
     balikkeun a + b;
 anggeus
 
 tampilkeun tambah(10, 5);</pre>
+          </div>
         </div>
-        <div class="feature-card" data-example="fungsi faktorial(n):\n    upami n <= 1:\n        balikkeun 1;\n    anggeus\n    balikkeun n * faktorial(n - 1);\nanggeus\n\ntampilkeun &quot;=== Faktorial ===&quot;;\npikeun i = 1 ti 6 ngajalankeun\n    nyieun hasil = faktorial(i);\n    tampilkeun hasil;\nanggeus">
+        <div class="feature-card"
+          data-example="pungsi faktorial(n):\n    upami n <= 1:\n        balikkeun 1;\n    anggeus\n    balikkeun n * faktorial(n - 1);\nanggeus\n\ntampilkeun &quot;=== Faktorial ===&quot;;\npikeun i = 1 ti 6 ngajalankeun\n    nyieun hasil = faktorial(i);\n    tampilkeun hasil;\nanggeus">
           <div class="feature-icon">♻️</div>
           <h3>Rekursi</h3>
-          <p>Dukung fungsi rekursif pikeun logika kompléks.</p>
-          <pre>fungsi faktorial(n):
+          <p>Dukung pungsi rekursif pikeun logika kompléks.</p>
+          <pre>pungsi faktorial(n):
     upami n <= 1:
         balikkeun 1;
     anggeus
     balikkeun n * faktorial(n - 1);
 anggeus</pre>
         </div>
-        <div class="feature-card" data-example="tampilkeun &quot;=== Kalkulator Sunda ===&quot;;\n\nnyieun a = 20;\nnyieun b = 4;\n\nnyieun tambah = a + b;\nnyieun kurang = a - b;\nnyieun kali = a * b;\nnyieun bagi = a / b;\n\ntampilkeun &quot;a + b =&quot;;\ntampilkeun tambah;\ntampilkeun &quot;a - b =&quot;;\ntampilkeun kurang;\ntampilkeun &quot;a * b =&quot;;\ntampilkeun kali;\ntampilkeun &quot;a / b =&quot;;\ntampilkeun bagi;">
+        <div class="feature-card"
+          data-example="tampilkeun &quot;=== Kalkulator Sunda ===&quot;;\n\nnyieun a = 20;\nnyieun b = 4;\n\nnyieun tambah = a + b;\nnyieun kurang = a - b;\nnyieun kali = a * b;\nnyieun bagi = a / b;\n\ntampilkeun &quot;a + b =&quot;;\ntampilkeun tambah;\ntampilkeun &quot;a - b =&quot;;\ntampilkeun kurang;\ntampilkeun &quot;a * b =&quot;;\ntampilkeun kali;\ntampilkeun &quot;a / b =&quot;;\ntampilkeun bagi;">
           <div class="feature-icon">🧮</div>
           <h3>Aritmatika</h3>
           <p>Operator lengkap: <code>+ - * / %</code> jeung <code>== != &lt; &gt;</code></p>
@@ -160,7 +107,6 @@ nyieun b = 4;
 tampilkeun a + b;</pre>
         </div>
       </div>
-    </div>
   </section>
 
   <!-- Keyword Table -->
@@ -172,21 +118,73 @@ tampilkeun a + b;</pre>
       <div class="table-wrapper">
         <table class="keyword-table">
           <thead>
-            <tr><th>Keyword</th><th>Arti</th><th>Contoh</th></tr>
+            <tr>
+              <th>Keyword</th>
+              <th>Arti</th>
+              <th>Contoh</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td><code>nyieun</code></td><td>Deklarasi variabel</td><td class="mono">nyieun x = 10;</td></tr>
-            <tr><td><code>tampilkeun</code></td><td>Print / Cetak</td><td class="mono">tampilkeun x;</td></tr>
-            <tr><td><code>tanya</code></td><td>Input dari user</td><td class="mono">tanya nama;</td></tr>
-            <tr><td><code>upami</code></td><td>If (jika)</td><td class="mono">upami x == 10:</td></tr>
-            <tr><td><code>lamun</code></td><td>Else if</td><td class="mono">lamun x == 5:</td></tr>
-            <tr><td><code>lainna</code></td><td>Else</td><td class="mono">lainna:</td></tr>
-            <tr><td><code>pikeun</code></td><td>For loop</td><td class="mono">pikeun i = 1 ti 5 ngajalankeun</td></tr>
-            <tr><td><code>bari</code></td><td>While loop</td><td class="mono">bari x &lt; 10 ngajalankeun</td></tr>
-            <tr><td><code>anggeus</code></td><td>End blok</td><td class="mono">anggeus</td></tr>
-            <tr><td><code>fungsi</code></td><td>Definisi fungsi</td><td class="mono">fungsi tambah(a, b):</td></tr>
-            <tr><td><code>balikkeun</code></td><td>Return</td><td class="mono">balikkeun a + b;</td></tr>
-            <tr><td><code>leres / lepat</code></td><td>True / False</td><td class="mono">nyieun aktif = leres;</td></tr>
+            <tr>
+              <td><code>nyieun</code></td>
+              <td>Deklarasi variabel</td>
+              <td class="mono">nyieun x = 10;</td>
+            </tr>
+            <tr>
+              <td><code>tampilkeun</code></td>
+              <td>Print / Cetak</td>
+              <td class="mono">tampilkeun x;</td>
+            </tr>
+            <tr>
+              <td><code>tanya</code></td>
+              <td>Input dari user</td>
+              <td class="mono">tanya nama;</td>
+            </tr>
+            <tr>
+              <td><code>upami</code></td>
+              <td>If (jika)</td>
+              <td class="mono">upami x == 10:</td>
+            </tr>
+            <tr>
+              <td><code>lamun</code></td>
+              <td>Else if</td>
+              <td class="mono">lamun x == 5:</td>
+            </tr>
+            <tr>
+              <td><code>lainna</code></td>
+              <td>Else</td>
+              <td class="mono">lainna:</td>
+            </tr>
+            <tr>
+              <td><code>pikeun</code></td>
+              <td>For loop</td>
+              <td class="mono">pikeun i = 1 ti 5 ngajalankeun</td>
+            </tr>
+            <tr>
+              <td><code>bari</code></td>
+              <td>While loop</td>
+              <td class="mono">bari x &lt; 10 ngajalankeun</td>
+            </tr>
+            <tr>
+              <td><code>anggeus</code></td>
+              <td>End blok</td>
+              <td class="mono">anggeus</td>
+            </tr>
+            <tr>
+              <td><code>pungsi</code></td>
+              <td>Definisi pungsi</td>
+              <td class="mono">pungsi tambah(a, b):</td>
+            </tr>
+            <tr>
+              <td><code>balikkeun</code></td>
+              <td>Return</td>
+              <td class="mono">balikkeun a + b;</td>
+            </tr>
+            <tr>
+              <td><code>leres / lepat</code></td>
+              <td>True / False</td>
+              <td class="mono">nyieun aktif = leres;</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -218,7 +216,104 @@ tampilkeun a + b;</pre>
           <span class="step-num">3</span>
           <div>
             <h4>VS Code Extension</h4>
-            <code class="install-code">Copy-Item -Recurse sunda-vscode "$env:USERPROFILE\.vscode\extensions\sunda-language"</code>
+            <code
+              class="install-code">Copy-Item -Recurse sunda-vscode "$env:USERPROFILE\.vscode\extensions\sunda-language"</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tutorial Section (Gamified) -->
+  <section class="py-20 px-4 bg-white dark-alt-bg" id="tutorial">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">🎮 <span class="gradient-text">Tantangan</span> Sunda Koding</h2>
+        <p class="section-desc">Selesaikan 5 level tantangan pikeun jadi jawara Sunda Koding!</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 items-start">
+        <!-- Level Content (Left) -->
+        <div class="space-y-12">
+          <!-- Level 1 -->
+          <div class="tutorial-part">
+            <h3 class="text-2xl font-bold mb-4 flex items-center">
+              <span class="level-badge">1</span>Dasar Variabel
+            </h3>
+            <p class="mb-4">Urang ngagunakeun <code>nyieun</code> pikeun nyimpen data. Tampilkeun hasilna nganggo
+              <code>tampilkeun</code>.
+            </p>
+            <a href="playground.html#challenge=1" class="btn-challenge">🎯 Mimitian Tantangan 1</a>
+          </div>
+
+          <!-- Level 2 -->
+          <div class="tutorial-part">
+            <h3 class="text-2xl font-bold mb-4 flex items-center">
+              <span class="level-badge">2</span>Logika Upami (If)
+            </h3>
+            <p class="mb-4">Gunakeun <code>upami</code>, <code>lamun</code> (else if), jeung <code>lainna</code> (else)
+              pikeun nyieun kaputusan.</p>
+            <a href="playground.html#challenge=2" class="btn-challenge">🎯 Mimitian Tantangan 2</a>
+          </div>
+
+          <!-- Level 3 -->
+          <div class="tutorial-part">
+            <h3 class="text-2xl font-bold mb-4 flex items-center">
+              <span class="level-badge">3</span>Perulangan (Loops)
+            </h3>
+            <p class="mb-4">Ngulang kode nganggo <code>pikeun</code> (for) atanapi <code>bari</code> (while) nepi ka
+              <code>anggeus</code>.
+            </p>
+            <a href="playground.html#challenge=3" class="btn-challenge">🎯 Mimitian Tantangan 3</a>
+          </div>
+
+          <!-- Level 4 -->
+          <div class="tutorial-part">
+            <h3 class="text-2xl font-bold mb-4 flex items-center">
+              <span class="level-badge">4</span>Pungsi (Functions)
+            </h3>
+            <p class="mb-4">Bungkus kode dina <code>pungsi</code> supados tiasa dianggo deui. Gunakeun
+              <code>balikkeun</code> pikeun hasilna.
+            </p>
+            <a href="playground.html#challenge=4" class="btn-challenge">🎯 Mimitian Tantangan 4</a>
+          </div>
+
+          <!-- Level 5 -->
+          <div class="tutorial-part">
+            <h3 class="text-2xl font-bold mb-4 flex items-center">
+              <span class="level-badge">5</span>Input User
+            </h3>
+            <p class="mb-4">Gunakeun <code>tanya</code> pikeun nyandak data ti pangguna langsung dina terminal.</p>
+            <a href="playground.html#challenge=5" class="btn-challenge">🎯 Mimitian Tantangan 5</a>
+          </div>
+        </div>
+
+        <!-- Comprehensive Code Example (Right) -->
+        <div class="tutorial-code-box sticky top-24">
+          <div class="bg-gray-900 rounded-xl p-6 shadow-2xl">
+            <div class="flex items-center gap-2 mb-4 border-b border-gray-800 pb-2">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              <span class="text-gray-500 text-xs font-mono ml-2">jawara_koding.sunda</span>
+            </div>
+            <pre class="tutorial-pre text-sm leading-relaxed" style="background:transparent; border:none; padding:0;">// Conto kode lengkep Sunda Language
+pungsi pariksa_angka(n):
+    upami n % 2 == 0:
+        balikkeun "Genap";
+    lainna:
+        balikkeun "Ganjil";
+    anggeus
+anggeus
+
+tampilkeun "=== Program Pariksa ===";
+nyieun angka = 10;
+nyieun hasil = pariksa_angka(angka);
+
+tampilkeun "Angka:";
+tampilkeun angka;
+tampilkeun "Hasilna nyaéta:";
+tampilkeun hasil;</pre>
           </div>
         </div>
       </div>
@@ -231,17 +326,85 @@ tampilkeun a + b;</pre>
       <div class="cta-card">
         <h2>Hoyong Kontribusi? 🤝</h2>
         <p>Fork, tambahkeun fitur anyar, sareng kirimkeun Pull Request anjeun. Hayu babarengan ngembangkeun!</p>
-        <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank" class="btn btn-primary">Gabung GitHub</a>
+        <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank"
+          class="btn btn-primary">Gabung GitHub</a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2025 Sunda Language | MIT License | Dijieun ku komunitas Sunda 🌺</p>
+    <div class="container footer-content">
+      <div class="footer-info">
+        <p>&copy; <span id="year-range">2025</span> Sunda Language</p>
+        <p class="text-xs mt-1">Dijieun ku <a href="https://github.com/Muhammad-Ikhwan-Fathulloh" target="_blank"
+            class="hover:underline">Muhammad Ikhwan Fathulloh</a></p>
+      </div>
+
+      <div class="footer-theme-status">
+        <span class="mode-text" id="mode-text">Mode: Poék</span>
+        <div class="theme-switch" id="theme-toggle" title="Ganti Téma">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+          <div class="switch-knob">
+            <span class="knob-icon"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank"
+          class="text-sm font-bold gradient-text">📦 GitHub Project</a>
+      </div>
+    </div>
   </footer>
 
   <script src="js/sunda-engine.js"></script>
   <script src="js/playground.js"></script>
+  <script src="js/sunda-engine.js"></script>
+  <script src="js/sunda-highlighter.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Highlight all pre blocks
+      document.querySelectorAll('pre, .tutorial-pre').forEach(el => {
+        sundaHighlighter.highlightElement(el);
+      });
+
+      // Theme toggle logic
+      const themeToggle = document.getElementById('theme-toggle');
+      const body = document.body;
+      // Footer Year Range
+      const yearRange = document.getElementById('year-range');
+      const currentYear = new Date().getFullYear();
+      if (yearRange && currentYear > 2025) {
+        yearRange.textContent = `2025 - ${currentYear}`;
+      }
+
+      function updateThemeUI() {
+        const isLight = body.classList.contains('light-mode');
+        const knobIcon = document.querySelector('.knob-icon');
+        if (modeText) {
+          modeText.innerHTML = isLight ? "Mode: Caang" : "Mode: Poék";
+        }
+        if (knobIcon) {
+          knobIcon.innerHTML = isLight ? "☀️" : "🌙";
+        }
+      }
+
+      // Load preference
+      if (localStorage.getItem('theme') === 'light') {
+        body.classList.add('light-mode');
+        updateThemeUI();
+      }
+
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        const isLight = body.classList.contains('light-mode');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        updateThemeUI();
+      });
+    });
+  </script>
 </body>
+
 </html>

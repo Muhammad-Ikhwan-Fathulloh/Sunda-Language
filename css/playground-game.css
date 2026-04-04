@@ -1,0 +1,83 @@
+/* ========== PLAYGROUND MISSION & TOAST STYLES ========== */
+
+.pg-mission-panel {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  z-index: 100;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  animation: pgSlideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pgSlideDown {
+  from { opacity: 0; transform: translate(-50%, -20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.mission-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px;
+  background: rgba(245, 158, 11, 0.1);
+  border-bottom: 1px solid var(--color-border);
+}
+.mission-icon { font-size: 1.2rem; }
+.mission-title { font-weight: 800; font-size: 0.9rem; flex: 1; text-transform: uppercase; letter-spacing: 1px; color: var(--color-accent); }
+.mission-close { background: none; border: none; color: var(--color-text-muted); font-size: 1.5rem; cursor: pointer; }
+
+.mission-body { padding: 16px; font-size: 0.95rem; line-height: 1.6; }
+.mission-body code { background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); color: var(--color-accent-light); }
+
+/* --- Success Toast --- */
+.pg-success-toast {
+  position: fixed;
+  inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  animation: pgFadeIn 0.3s ease;
+}
+
+@keyframes pgFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.toast-content {
+  background: var(--color-surface);
+  border: 2px solid var(--color-green);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  animation: pgScaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pgScaleIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.toast-icon { font-size: 4rem; display: block; margin-bottom: 20px; }
+.toast-text h4 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; color: var(--color-green); }
+.toast-text p { color: var(--color-text-muted); margin-bottom: 24px; }
+
+.toast-btn {
+  background: var(--color-green); color: #000;
+  padding: 12px 32px; border-radius: 50px;
+  font-weight: 800; border: none; cursor: pointer;
+  transition: all 0.2s;
+}
+.toast-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+/* --- Layout Adjustments for Light Mode --- */
+body.light-mode .pg-mission-panel {
+  background: #fff;
+  border-color: var(--color-accent);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+body.light-mode .mission-header { background: #fffbeb; }
+body.light-mode .mission-body code { background: #f1f5f9; color: #b45309; }
+body.light-mode .pg-success-toast { background: rgba(255,255,255,0.7); }
+body.light-mode .toast-content { background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }

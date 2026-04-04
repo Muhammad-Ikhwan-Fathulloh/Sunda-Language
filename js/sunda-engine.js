@@ -7,6 +7,7 @@ class SundaLexer {
 
   tokenize() {
     const tokenDefs = [
+      ["COMMENT", /\/\/.*(?:\r?\n|$)/],
       ["KEYWORD_DECLARE", /\b(nyieun|ngadeklarasikeun)\b/],
       ["KEYWORD_IF", /\bupami\b/],
       ["KEYWORD_ELIF", /\blamun\b/],
@@ -43,7 +44,7 @@ class SundaLexer {
     while ((match = combined.exec(this.code)) !== null) {
       for (const [name] of tokenDefs) {
         if (match.groups[name] !== undefined) {
-          if (name === "SKIP") break;
+          if (name === "SKIP" || name === "COMMENT") break;
           if (name === "MISMATCH") {
             throw new SyntaxError(`Karakter teu dikenal: '${match.groups[name]}'`);
           }

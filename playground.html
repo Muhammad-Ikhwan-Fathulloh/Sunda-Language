@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/playground.css" />
+  <link rel="stylesheet" href="css/playground-game.css" />
 </head>
 <body class="pg-body">
 
@@ -26,7 +27,7 @@
       <option value="kalkulator">🔢 Kalkulator</option>
       <option value="upami">🧠 Pengkondisian</option>
       <option value="pikeun">🔁 Perulangan</option>
-      <option value="fungsi">🔂 Fungsi</option>
+      <option value="pungsi">🔂 Pungsi</option>
       <option value="rekursi">♻️ Rekursi</option>
       <option value="while_loop">🎯 FizzBuzz</option>
     </select>
@@ -36,10 +37,41 @@
     <button class="pg-btn pg-btn-run" id="pg-btn-run">▶ Jalankeun <span class="pg-shortcut">Ctrl+Enter</span></button>
     <button class="pg-btn pg-btn-clear" id="pg-btn-clear">🗑️ Bersihkeun</button>
     <button class="pg-btn pg-btn-share" id="pg-btn-share">🔗 Bagikeun</button>
+    <div class="theme-switch" id="theme-toggle" title="Ganti Téma" style="margin-left:10px;">
+      <span class="icon-sun">☀️</span>
+      <span class="icon-moon">🌙</span>
+      <div class="switch-knob">
+        <span class="knob-icon">🌙</span>
+      </div>
+    </div>
 
     <div class="pg-divider"></div>
 
     <a href="index.html" class="pg-btn pg-btn-back">← Balik</a>
+  </div>
+
+  <!-- Mission Panel (Hidden by default) -->
+  <div class="pg-mission-panel" id="pg-mission-panel" style="display:none;">
+    <div class="mission-header">
+      <span class="mission-icon">🎯</span>
+      <span class="mission-title">Tantangan Level <span id="mission-level">1</span></span>
+      <button class="mission-close" onclick="this.parentElement.parentElement.style.display='none'">&times;</button>
+    </div>
+    <div class="mission-body">
+      <p id="mission-desc">Tampilkeun pesen "Halo Sunda! 🌺" nganggo <code>tampilkeun</code>.</p>
+    </div>
+  </div>
+
+  <!-- Success Toast -->
+  <div class="pg-success-toast" id="pg-success-toast" style="display:none;">
+    <div class="toast-content">
+      <span class="toast-icon">🎊</span>
+      <div class="toast-text">
+        <h4>Gawé Alus!</h4>
+        <p>Anjeun parantos ngaréngsékeun tantangan ieu.</p>
+      </div>
+      <button class="toast-btn" onclick="document.getElementById('pg-success-toast').style.display='none'">Lajengkeun</button>
+    </div>
   </div>
 
   <!-- Main Editor Area -->
@@ -90,14 +122,54 @@ tampilkeun "Wilujeng sumping di Basa Pamrograman Sunda!";</textarea>
 
   <!-- Footer Status Bar -->
   <footer class="pg-footer">
-    <span><span class="pg-status-dot" id="pg-status-dot"></span> <span id="pg-status-text">Siap</span></span>
+    <span>
+      <span class="pg-status-dot" id="pg-status-dot"></span> 
+      <span id="pg-status-text">Siap</span>
+      <span class="pg-mode-text" id="pg-mode-text" style="margin-left:15px; opacity:0.6; font-weight:600;">Mode: Poék</span>
+    </span>
     <div class="pg-footer-spacer"></div>
     <span id="pg-line-col">Baris 1, Kolom 1</span>
-    <span>Sunda Language v1.0</span>
+    <span>&copy; <span id="year-range">2025</span> Sunda Language v1.0</span>
   </footer>
 
   <script src="js/sunda-engine.js"></script>
   <script src="js/sunda-highlighter.js"></script>
   <script src="js/playground-page.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const themeToggle = document.getElementById('theme-toggle');
+      const body = document.body;
+      const modeText = document.getElementById('pg-mode-text');
+      const yearRange = document.getElementById('year-range');
+
+      const currentYear = new Date().getFullYear();
+      if (yearRange && currentYear > 2025) {
+        yearRange.textContent = `2025 - ${currentYear}`;
+      }
+
+      function updateThemeUI() {
+        const isLight = body.classList.contains('light-mode');
+        const knobIcon = document.querySelector('.knob-icon');
+        if (modeText) {
+          modeText.innerHTML = isLight ? "Mode: Caang" : "Mode: Poék";
+        }
+        if (knobIcon) {
+          knobIcon.innerHTML = isLight ? "☀️" : "🌙";
+        }
+      }
+
+      if (localStorage.getItem('theme') === 'light') {
+        body.classList.add('light-mode');
+        updateThemeUI();
+      }
+
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        const isLight = body.classList.contains('light-mode');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        updateThemeUI();
+      });
+    });
+  </script>
 </body>
 </html>

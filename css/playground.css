@@ -1,22 +1,22 @@
 /* ========== PLAYGROUND PAGE STYLES ========== */
 
 /* --- Highlighter Token Colors --- */
-.hl-keyword-declare { color: #c084fc; font-weight: 600; }
-.hl-keyword-print { color: #60a5fa; font-weight: 600; }
-.hl-keyword-input { color: #f472b6; font-weight: 600; }
-.hl-keyword-control { color: #fb923c; font-weight: 600; }
-.hl-keyword-loop { color: #fb923c; font-weight: 600; }
-.hl-keyword-func { color: #a78bfa; font-weight: 600; }
-.hl-keyword-end { color: #94a3b8; font-weight: 600; }
-.hl-string { color: #86efac; }
-.hl-number { color: #fbbf24; }
-.hl-boolean { color: #f472b6; font-style: italic; }
-.hl-operator { color: #67e8f9; }
-.hl-assign { color: #67e8f9; }
-.hl-punctuation { color: #94a3b8; }
-.hl-semicolon { color: #64748b; }
-.hl-variable { color: #e2e8f0; }
-.hl-comment { color: #475569; font-style: italic; }
+.hl-keyword-declare { color: var(--hl-keyword-declare); font-weight: 600; }
+.hl-keyword-print { color: var(--hl-keyword-print); font-weight: 600; }
+.hl-keyword-input { color: var(--hl-keyword-input); font-weight: 600; }
+.hl-keyword-control { color: var(--hl-keyword-control); font-weight: 600; }
+.hl-keyword-loop { color: var(--hl-keyword-loop); font-weight: 600; }
+.hl-keyword-func { color: var(--hl-keyword-func); font-weight: 600; }
+.hl-keyword-end { color: var(--hl-keyword-end); font-weight: 600; }
+.hl-string { color: var(--hl-string); }
+.hl-number { color: var(--hl-number); }
+.hl-boolean { color: var(--hl-boolean); font-style: italic; }
+.hl-operator { color: var(--hl-operator); }
+.hl-assign { color: var(--hl-assign); }
+.hl-punctuation { color: var(--hl-punctuation); }
+.hl-semicolon { color: var(--hl-semicolon); }
+.hl-variable { color: var(--hl-variable); }
+.hl-comment { color: var(--hl-comment); font-style: italic; }
 
 /* --- Layout --- */
 .pg-body {
@@ -221,7 +221,7 @@
   background: transparent;
   border: none; outline: none;
   color: transparent;
-  caret-color: #f59e0b;
+  caret-color: var(--color-accent);
   font-family: var(--font-mono); font-size: 0.82rem;
   line-height: 1.7;
   resize: none;
@@ -231,6 +231,20 @@
   z-index: 2;
   -webkit-text-fill-color: transparent;
 }
+
+body.light-mode .pg-highlight-layer {
+  color: transparent;
+}
+
+body.light-mode .pg-line-numbers {
+  background: rgba(0,0,0,0.03);
+  color: rgba(0,0,0,0.2);
+}
+
+body.light-mode .pg-editor-scroll {
+  background: #fff;
+}
+
 
 .pg-code-input::selection {
   background: rgba(245, 158, 11, 0.25);

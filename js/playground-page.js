@@ -1,14 +1,49 @@
-// ========== PLAYGROUND PAGE CONTROLLER ==========
+// ========== PLAYGROUND PAGE CONTROLLER (GAMIFIED) ==========
 
 const EXAMPLES = {
   hello_world: `tampilkeun "Halo Sunda! 🌺";\ntampilkeun "Wilujeng sumping di Basa Pamrograman Sunda!";`,
   kalkulator: `tampilkeun "=== Kalkulator Sunda ===";\n\nnyieun a = 20;\nnyieun b = 4;\n\nnyieun tambah = a + b;\nnyieun kurang = a - b;\nnyieun kali = a * b;\nnyieun bagi = a / b;\nnyieun modulo = a % b;\n\ntampilkeun "a = 20, b = 4";\ntampilkeun "a + b =";\ntampilkeun tambah;\ntampilkeun "a - b =";\ntampilkeun kurang;\ntampilkeun "a * b =";\ntampilkeun kali;\ntampilkeun "a / b =";\ntampilkeun bagi;\ntampilkeun "a % b =";\ntampilkeun modulo;\n\nupami tambah > 20:\n    tampilkeun "Hasil tambah leuwih ti 20";\nlainna:\n    tampilkeun "Hasil tambah kirang ti atawa sarua jeung 20";\nanggeus`,
   upami: `nyieun angka = 9;\n\nupami angka == 10:\n    tampilkeun "sampurna";\nlamun angka == 9:\n    tampilkeun "ampir sampurna";\nlainna:\n    tampilkeun "kirang";\nanggeus`,
   pikeun: `tampilkeun "=== Loop Pikeun ===";\n\npikeun i = 1 ti 5 ngajalankeun\n    tampilkeun i;\nanggeus\n\ntampilkeun "=== Loop Bari ===";\n\nnyieun counter = 1;\nbari counter <= 3 ngajalankeun\n    tampilkeun counter;\n    counter = counter + 1;\nanggeus`,
-  fungsi: `fungsi tambah(a, b):\n    balikkeun a + b;\nanggeus\n\nfungsi kali(a, b):\n    balikkeun a * b;\nanggeus\n\nfungsi salam(nama):\n    tampilkeun "Halo, ";\n    tampilkeun nama;\n    balikkeun leres;\nanggeus\n\nnyieun hasil_tambah = tambah(10, 5);\ntampilkeun "10 + 5 =";\ntampilkeun hasil_tambah;\n\nnyieun hasil_kali = kali(4, 3);\ntampilkeun "4 * 3 =";\ntampilkeun hasil_kali;\n\nsalam("Sunda");`,
-  rekursi: `fungsi faktorial(n):\n    upami n <= 1:\n        balikkeun 1;\n    anggeus\n    balikkeun n * faktorial(n - 1);\nanggeus\n\nfungsi fibonacci(n):\n    upami n <= 0:\n        balikkeun 0;\n    anggeus\n    upami n == 1:\n        balikkeun 1;\n    anggeus\n    balikkeun fibonacci(n - 1) + fibonacci(n - 2);\nanggeus\n\ntampilkeun "=== Faktorial ===";\npikeun i = 1 ti 6 ngajalankeun\n    nyieun hasil = faktorial(i);\n    tampilkeun hasil;\nanggeus\n\ntampilkeun "=== Fibonacci ===";\npikeun i = 0 ti 8 ngajalankeun\n    nyieun fib = fibonacci(i);\n    tampilkeun fib;\nanggeus`,
+  pungsi: `pungsi tambah(a, b):\n    balikkeun a + b;\nanggeus\n\npungsi kali(a, b):\n    balikkeun a * b;\nanggeus\n\npungsi salam(nama):\n    tampilkeun "Halo, ";\n    tampilkeun nama;\n    balikkeun leres;\nanggeus\n\nnyieun hasil_tambah = tambah(10, 5);\ntampilkeun "10 + 5 =";\ntampilkeun hasil_tambah;\n\nnyieun hasil_kali = kali(4, 3);\ntampilkeun "4 * 3 =";\ntampilkeun hasil_kali;\n\nsalam("Sunda");`,
+  rekursi: `pungsi faktorial(n):\n    upami n <= 1:\n        balikkeun 1;\n    anggeus\n    balikkeun n * faktorial(n - 1);\nanggeus\n\npungsi fibonacci(n):\n    upami n <= 0:\n        balikkeun 0;\n    anggeus\n    upami n == 1:\n        balikkeun 1;\n    anggeus\n    balikkeun fibonacci(n - 1) + fibonacci(n - 2);\nanggeus\n\ntampilkeun "=== Faktorial ===";\npikeun i = 1 ti 6 ngajalankeun\n    nyieun hasil = faktorial(i);\n    tampilkeun hasil;\nanggeus\n\ntampilkeun "=== Fibonacci ===";\npikeun i = 0 ti 8 ngajalankeun\n    nyieun fib = fibonacci(i);\n    tampilkeun fib;\nanggeus`,
   while_loop: `tampilkeun "=== FizzBuzz Sunda ===";\n\nnyieun i = 1;\nbari i <= 20 ngajalankeun\n    nyieun mod3 = i % 3;\n    nyieun mod5 = i % 5;\n    upami mod3 == 0:\n        upami mod5 == 0:\n            tampilkeun "FizzBuzz";\n        lainna:\n            tampilkeun "Fizz";\n        anggeus\n    lamun mod5 == 0:\n        tampilkeun "Buzz";\n    lainna:\n        tampilkeun i;\n    anggeus\n    i = i + 1;\nanggeus`,
 };
+
+const CHALLENGES = {
+  "1": {
+    name: "Dasar Variabel",
+    desc: `Tampilkeun pesen <code>"Halo Sunda! 🌺"</code> nganggo <code>tampilkeun</code>.`,
+    init: `// Tulis kode anjeun di dieu\n`,
+    goal: (out) => out.includes("Halo Sunda! 🌺")
+  },
+  "2": {
+    name: "Logika Upami",
+    desc: `Nyieun variabel <code>angka = 15</code>. Tampilkeun <code>"Badag"</code> upami angka > 10, atanapi <code>"Leutik"</code> upami sanés.`,
+    init: `nyieun angka = 15;\n// Tambahkeun logika upami di dieu\n`,
+    goal: (out) => out.includes("Badag")
+  },
+  "3": {
+    name: "Perulangan",
+    desc: `Gunakeun <code>pikeun</code> pikeun nampilkeun angka 1 dugi ka 3 sacara ngaruntuy.`,
+    init: `// Gunakeun pikeun i = 1 ti 3 ngajalankeun ...\n`,
+    goal: (out) => out.includes("1") && out.includes("2") && out.includes("3")
+  },
+  "4": {
+    name: "Pungsi",
+    desc: `Nyieun <code>pungsi kali(a, b)</code> nu ngabalikkeun hasil <code>a * b</code>. Tampilkeun hasil <code>kali(5, 4)</code>.`,
+    init: `pungsi kali(a, b):\n    // eusi pungsi\nanggeus\n\ntampilkeun kali(5, 4);`,
+    goal: (out) => out.includes("20")
+  },
+  "5": {
+    name: "Input User",
+    desc: `Gunakeun <code>tanya</code> pikeun nyandak input <code>nami</code>, teras tampilkeun <code>"Halo [nami]"</code>.`,
+    init: `tanya nami;\n// tampilkeun hasilna\n`,
+    goal: (out) => out.some(line => line.startsWith("Halo "))
+  }
+};
+
+let currentChallenge = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   const codeInput = document.getElementById("pg-code-input");
@@ -22,6 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const statusText = document.getElementById("pg-status-text");
   const statusDot = document.getElementById("pg-status-dot");
   const lineColInfo = document.getElementById("pg-line-col");
+  
+  const missionPanel = document.getElementById("pg-mission-panel");
+  const missionLevel = document.getElementById("mission-level");
+  const missionDesc = document.getElementById("mission-desc");
+  const successToast = document.getElementById("pg-success-toast");
 
   // ---- Syntax Highlighting ----
   function updateHighlight() {
@@ -37,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ).join("");
   }
 
-  // Sync scroll between textarea and highlight
   function syncScroll() {
     highlightLayer.scrollTop = codeInput.scrollTop;
     highlightLayer.scrollLeft = codeInput.scrollLeft;
@@ -47,7 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
   codeInput.addEventListener("input", updateHighlight);
   codeInput.addEventListener("scroll", syncScroll);
 
-  // Update cursor position info
   codeInput.addEventListener("click", updateCursorInfo);
   codeInput.addEventListener("keyup", updateCursorInfo);
 
@@ -60,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
     lineColInfo.textContent = `Baris ${line}, Kolom ${col}`;
   }
 
-  // Tab support
   codeInput.addEventListener("keydown", (e) => {
     if (e.key === "Tab") {
       e.preventDefault();
@@ -89,9 +126,16 @@ document.addEventListener("DOMContentLoaded", () => {
     btnRun.innerHTML = "⏳ Ngajalankeun...";
     setStatus("running", "Ngajalankeun...");
 
+    // Mock prompt for 'tanya' if challenge 5
+    const inputs = [];
+    if (code.includes("tanya")) {
+      const p = prompt("Mangga eusian input pangguna:");
+      if (p !== null) inputs.push(p);
+    }
+
     setTimeout(() => {
       const startTime = performance.now();
-      const result = runSundaCode(code, []);
+      const result = runSundaCode(code, inputs);
       const elapsed = (performance.now() - startTime).toFixed(2);
 
       const lines = [];
@@ -102,6 +146,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (result.success) {
         lines.push({ text: `✅ Réngsé dina ${elapsed}ms`, type: "success" });
         setStatus("ok", `Réngsé (${elapsed}ms)`);
+        
+        // CHECK CHALLENGE GOAL
+        if (currentChallenge && currentChallenge.goal(result.output)) {
+          setTimeout(() => { successToast.style.display = "flex"; }, 500);
+        }
       } else {
         lines.push({ text: `❌ ${result.error}`, type: "error" });
         setStatus("error", "Kasalahan");
@@ -131,6 +180,27 @@ document.addEventListener("DOMContentLoaded", () => {
     statusText.textContent = msg;
   }
 
+  // ---- Challenges ----
+  function setupChallenge(level) {
+    const chall = CHALLENGES[level];
+    if (!chall) {
+      missionPanel.style.display = "none";
+      currentChallenge = null;
+      return;
+    }
+    
+    currentChallenge = chall;
+    missionLevel.textContent = level;
+    missionDesc.innerHTML = chall.desc;
+    missionPanel.style.display = "block";
+    
+    codeInput.value = chall.init;
+    updateHighlight();
+    
+    // Auto-clear output for new challenge
+    outputArea.innerHTML = `<div class="pg-output-placeholder"><span class="icon">🎯</span><p>Tugas: ${chall.name}</p></div>`;
+  }
+
   // ---- Buttons ----
   btnRun.addEventListener("click", runCode);
   btnClear.addEventListener("click", () => {
@@ -138,7 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setStatus("ok", "Siap");
   });
 
-  // Share via URL hash
   btnShare.addEventListener("click", () => {
     const code = codeInput.value;
     const encoded = btoa(unescape(encodeURIComponent(code)));
@@ -151,26 +220,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Example selector
   exampleSelect.addEventListener("change", () => {
     const code = EXAMPLES[exampleSelect.value];
     if (code) {
+      currentChallenge = null;
+      missionPanel.style.display = "none";
       codeInput.value = code;
       updateHighlight();
       updateCursorInfo();
     }
   });
 
-  // Load code from URL hash
   function loadFromHash() {
     const hash = window.location.hash;
-    if (hash.startsWith("#code=")) {
+    if (hash.startsWith("#challenge=")) {
+      const level = hash.slice(11);
+      setupChallenge(level);
+    } else if (hash.startsWith("#code=")) {
       try {
         const decoded = decodeURIComponent(escape(atob(hash.slice(6))));
         codeInput.value = decoded;
+        updateHighlight();
       } catch (e) { /* ignore */ }
     }
   }
+
+  window.addEventListener("hashchange", loadFromHash);
 
   // ---- Resize Handle ----
   const resizeHandle = document.getElementById("pg-resize-handle");
@@ -216,7 +291,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ---- Init ----
   loadFromHash();
-  updateHighlight();
+  if (!currentChallenge) {
+    updateHighlight();
+  }
   updateCursorInfo();
   setStatus("ok", "Siap");
 });

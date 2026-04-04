@@ -88,9 +88,9 @@ bari counter <= 3 ngajalankeun
 anggeus
 ```
 
-### **6. Fungsi**
+### **6. Pungsi**
 ```sunda
-fungsi tambah(a, b):
+pungsi tambah(a, b):
     balikkeun a + b;
 anggeus
 
@@ -120,7 +120,7 @@ tampilkeun nama;
 | `bari`                        | While loop          | `bari x < 10 ngajalankeun`       |
 | `ngajalankeun`                | Run / Jalankan      | (penutup kondisi loop)           |
 | `anggeus`                     | End / Selesai       | (penutup blok)                   |
-| `fungsi`                      | Definisi fungsi     | `fungsi tambah(a, b):`           |
+| `pungsi`                      | Definisi pungsi     | `pungsi tambah(a, b):`           |
 | `balikkeun`                   | Return              | `balikkeun a + b;`               |
 | `leres`                       | True (benar)        | `nyieun aktif = leres;`          |
 | `lepat`                       | False (salah)       | `nyieun aktif = lepat;`          |

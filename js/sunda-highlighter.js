@@ -3,8 +3,7 @@
 class SundaHighlighter {
   constructor() {
     // IMPORTANT: No capturing groups inside regex patterns!
-    // Only non-capturing groups (?:...) allowed, because each rule
-    // gets wrapped in exactly one capture group by the combined regex.
+    // Only non-capturing groups (?:...) allowed.
     this.rules = [
       { regex: /\/\/[^\n]*/, cls: "hl-comment" },
       { regex: /"(?:[^"\\]|\\.)*"/, cls: "hl-string" },
@@ -23,7 +22,6 @@ class SundaHighlighter {
       { regex: /[:()\[\],]/, cls: "hl-punctuation" },
     ];
 
-    // Build combined regex — one capture group per rule + catch-alls
     const parts = this.rules.map(r => `(${r.regex.source})`);
     parts.push("([a-zA-Z_][a-zA-Z_0-9]*)"); // identifier
     parts.push("([ \\t]+)");                  // whitespace
@@ -39,8 +37,6 @@ class SundaHighlighter {
 
     while ((match = this.combined.exec(code)) !== null) {
       const fullMatch = match[0];
-
-      // Find which group matched (groups are 1-indexed)
       let groupIdx = -1;
       for (let i = 1; i < match.length; i++) {
         if (match[i] !== undefined) {
@@ -50,15 +46,12 @@ class SundaHighlighter {
       }
 
       if (groupIdx < this.rules.length) {
-        // Matched a highlighting rule
         result.push(`<span class="${this.rules[groupIdx].cls}">${this.escapeHtml(fullMatch)}</span>`);
       } else {
         const offset = groupIdx - this.rules.length;
         if (offset === 0) {
-          // Identifier (variable/function name)
           result.push(`<span class="hl-variable">${this.escapeHtml(fullMatch)}</span>`);
         } else {
-          // Whitespace, newline, or unknown — pass through
           result.push(offset === 2 ? "\n" : this.escapeHtml(fullMatch));
         }
       }
@@ -73,6 +66,12 @@ class SundaHighlighter {
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+  }
+
+  // Highlight all elements with data-sunda attribute or matching selector
+  highlightElement(el) {
+    const code = el.textContent;
+    el.innerHTML = this.highlight(code);
   }
 }
 

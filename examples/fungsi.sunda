@@ -1,12 +1,12 @@
-fungsi tambah(a, b):
+pungsi tambah(a, b):
     balikkeun a + b;
 anggeus
 
-fungsi kali(a, b):
+pungsi kali(a, b):
     balikkeun a * b;
 anggeus
 
-fungsi salam(nama):
+pungsi salam(nama):
     tampilkeun "Halo, ";
     tampilkeun nama;
     balikkeun leres;

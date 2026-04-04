@@ -1,11 +1,11 @@
-fungsi faktorial(n):
+pungsi faktorial(n):
     upami n <= 1:
         balikkeun 1;
     anggeus
     balikkeun n * faktorial(n - 1);
 anggeus
 
-fungsi fibonacci(n):
+pungsi fibonacci(n):
     upami n <= 0:
         balikkeun 0;
     anggeus
