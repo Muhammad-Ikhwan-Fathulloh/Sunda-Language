@@ -1,168 +1,45 @@
-# **Sunda Language (ᮞᮥᮔ᮪ᮓ ᮜᮔ᮪ᮌᮥᮃᮌᮨ)** 🌺
-
-**Sampurasun!** 🙏 
-
-**Sunda Language** adalah bahasa pemrograman sederhana dengan sintaksis menggunakan bahasa Sunda. Bahasa ini dirancang untuk memberikan pengalaman pemrograman dengan menggunakan bahasa daerah yang berakar kuat pada kearifan lokal Nusantara, khususnya di tatar Sunda (Jawa Barat). 
-
-🌐 **Situs Resmi / Landing Page:** [https://sunda-language.netlify.app/](https://sunda-language.netlify.app/)  
-🎮 **Live Code Playground (ᮕᮣᮚ᮪ᮌᮢᮧᮅᮔ᮪ᮓ᮪):** [https://sunda-language.netlify.app/playground](https://sunda-language.netlify.app/playground)
-
----
-
-## **Instalasi (ᮄᮔ᮪ᮞ᮪ᮒᮜᮞᮤ)**
-
-### Cara 1: Install via pip (Direkomendasikan)
-```bash
-pip install -e .
-```
-
-Setelah install, Anda bisa langsung jalankan:
-```bash
-sunda examples/hello_world.sunda
-```
-
-### Cara 2: Jalankan langsung
-```bash
-python src/main.py examples/hello_world.sunda
-```
-
-### Cara 3: Pakai batch file (Windows)
-```bash
-run-sunda examples/hello_world.sunda
-```
-
----
-
-## **VS Code Extension (Syntax Highlighting)**
-
-Supaya kode `.sunda` tampil éndah di VS Code:
-
-```powershell
-# Windows (PowerShell)
-Copy-Item -Recurse sunda-vscode "$env:USERPROFILE\.vscode\extensions\sunda-language"
-```
-
-```bash
-# macOS / Linux
-cp -r sunda-vscode ~/.vscode/extensions/sunda-language
-```
-
-Restart VS Code, lalu buka file `.sunda` → kode akan berwarna! 🎨
-
----
-
-## **Sintaks Sunda (ᮞᮤᮔ᮪ᮒᮊ᮪ᮞ᮪ ᮞᮥᮔ᮪ᮓ)**
-
-### **1. Deklarasi Variabel**
-```sunda
-nyieun angka = 10;
-nyieun nama = "Sunda";
-nyieun aktif = leres;
-```
-
-### **2. Tampilkeun (Print)**
-```sunda
-tampilkeun "Halo Sunda!";
-tampilkeun angka;
-```
-
-### **3. Pengkondisian (Upami / Lamun / Lainna)**
-```sunda
-upami angka == 10:
-    tampilkeun "sampurna";
-lamun angka == 9:
-    tampilkeun "ampir";
+<div align="center"><h1><img src="https://www.google.com/search?q=https://img.shields.io/badge/Sunda-Language-6d28d9%3Fstyle%3Dfor-the-badge%26logo%3Dcodeproject%26logoColor%3Dwhite" alt="Sunda Language Badge" />ᮞᮥᮔ᮪ᮓ ᮜᮔ᮪ᮌᮥᮃᮌᮨ 🌺</h1><p><b>Sampurasun! 🙏</b></p><p><i>"Ngarumat Budaya ku Teknologi"</i></p><p><b>Sunda Language</b> adalah bahasa pemrograman <i>interpreted</i> yang dirancang khusus dengan sintaksis berbasis Bahasa Sunda. Proyek ini bertujuan untuk memperkenalkan logika pemrograman melalui pendekatan kearifan lokal (Nusantara).</p><a href="https://sunda-language.netlify.app/"><img src="https://www.google.com/search?q=https://img.shields.io/badge/Situs_Resmi-6d28d9%3Fstyle%3Dflat-square%26logo%3Dgoogle-chrome%26logoColor%3Dwhite" alt="Website" /></a><a href="https://sunda-language.netlify.app/playground"><img src="https://www.google.com/search?q=https://img.shields.io/badge/Playground-f59e0b%3Fstyle%3Dflat-square%26logo%3Dgoogle-play%26logoColor%3Dwhite" alt="Playground" /></a><a href="https://sunda-language.netlify.app/aksara"><img src="https://www.google.com/search?q=https://img.shields.io/badge/Versi_Aksara-10b981%3Fstyle%3Dflat-square%26logo%3Dpencipta%26logoColor%3Dwhite" alt="Aksara" /></a></div>🚀 Fitur Utama🗣️ Sintaksis Akrab: Menggunakan kata kerja dan instruksi dalam Bahasa Sunda (Lemes & Loma).🛠️ Full Featured: Mendukung variabel, fungsi, pengkondisian, perulangan, hingga OOP (Class).🛡️ Error Handling: Mekanisme coba-cekel (try-catch) yang intuitif.🎨 Tooling: Tersedia ekstensi VS Code untuk syntax highlighting.📥 Instalasi (ᮄᮔ᮪ᮞ᮪ᮒᮜᮞᮤ)Cara 1: Install via pip (Direkomendasikan)pip install -e .
+Lajeng jalankeun:sunda examples/hello_world.sunda
+Cara 2: Jalankan manual via PythonPastikan Anda berada di direktori root proyek:python src/main.py examples/program_simpel.sunda
+💻 Panduan Sintaksis (ᮞᮤᮔ᮪ᮒᮊ᮪ᮞ᮪)1. Tipe Data & VariabelSunda Language mendukung tipe data Dinamis:nyieun nami = "Asep";         # String
+nyieun umur = 25;              # Angka
+nyieun mahasiswa = leres;      # Boolean (leres/lepat)
+nyieun data = kosong;          # Null (kosong)
+2. Struktur Kontrol (Upami & Perulangan)# Pengkondisian
+upami umur >= 17:
+    tampilkeun "Atos tiasa gaduh KTP";
 lainna:
-    tampilkeun "kirang";
+    tampilkeun "Teu acan tiasa";
 anggeus
-```
 
-### **4. Perulangan For (Pikeun)**
-```sunda
+# Perulangan (Pikeun)
 pikeun i = 1 ti 5 ngajalankeun
-    tampilkeun i;
+    tampilkeun "Iterasi ka: " + i;
 anggeus
-```
-
-### **5. Perulangan While (Bari)**
-```sunda
-nyieun counter = 1;
-bari counter <= 3 ngajalankeun
-    tampilkeun counter;
-    counter = counter + 1;
-anggeus
-```
-
-### **6. Pungsi**
-```sunda
-pungsi tambah(a, b):
-    balikkeun a + b;
+3. Pungsi (Fungsi)pungsi sapa(nami):
+    balikkeun "Wilujeng sumping, " + nami;
 anggeus
 
-nyieun hasil = tambah(10, 5);
-tampilkeun hasil;
-```
+tampilkeun sapa("Baraya");
+4. OOP (Kelas)kelas Jalma:
+    pungsi __mimitian__(nami):
+        ieu.nami = nami;
+    anggeus
 
-### **7. Input**
-```sunda
-tanya nama;
-tampilkeun nama;
-```
+    pungsi sebatNami():
+        tampilkeun "Nami simkuring nyaeta " + ieu.nami;
+    anggeus
+anggeus
 
----
-
-## **Daftar Keyword (ᮓᮖ᮪ᮒᮁ ᮊᮤᮝᮧᮁᮓ᮪)**
-
-| Keyword                       | Arti                | Contoh                           |
-| ----------------------------- | ------------------- | -------------------------------- |
-| `nyieun` / `ngadeklarasikeun` | Deklarasi variabel  | `nyieun x = 10;`                 |
-| `tampilkeun`                  | Print / Cetak       | `tampilkeun x;`                  |
-| `tanya` / `mangga_eusian`     | Input dari user     | `tanya nama;`                    |
-| `upami`                       | If (jika)           | `upami x == 10:`                 |
-| `lamun`                       | Else if (atau jika) | `lamun x == 5:`                  |
-| `lainna` / `lain lamun`       | Else (lainnya)      | `lainna:`                        |
-| `pikeun`                      | For loop            | `pikeun i = 1 ti 5 ngajalankeun` |
-| `bari`                        | While loop          | `bari x < 10 ngajalankeun`       |
-| `ti` / `nepi`                 | Rentang (From/To)   | `ti 1 nepi 10`                   |
-| `eureun` / `teraskeun`        | Break / Continue    | `eureun;`                        |
-| `ngajalankeun`                | Run / Jalankan      | (penutup kondisi loop)           |
-| `anggeus`                     | End / Selesai       | (penutup blok)                   |
-| `pungsi`                      | Definisi pungsi     | `pungsi tambah(a, b):`           |
-| `balikkeun`                   | Return              | `balikkeun a + b;`               |
-| `leres` / `lepat`             | True / False        | `nyieun aktif = leres;`          |
-| `jeung` / `atawa` / `lain`    | And / Or / Not      | `leres jeung lepat;`             |
-| `coba` / `cekel`              | Try / Catch         | `coba: ... cekel e: ...`         |
-| `tungtungna` / `balangkeun`   | Finally / Throw     | `balangkeun "Error!";`           |
-| `kelas` / `anyar`             | Class / New         | `kelas Jalma:` `anyar Jalma();`  |
-| `ieu` / `turunan`             | This/Self / Extends | `ieu.nama` / `turunan Bapa`      |
-| `kosong`                      | Null / None         | `nyieun data = kosong;`          |
-
----
-
-## **Operator**
-
-| Operator                    | Keterangan   |
-| --------------------------- | ------------ |
-| `+` `-` `*` `/` `%`         | Aritmatika   |
-| `==` `!=` `<` `>` `<=` `>=` | Perbandingan |
-| `=`                         | Assignment   |
-
----
-
-## **Lisensi**
-
-Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE) untuk informasi lebih lanjut.
-
----
-
-## **Kontribusi (ᮊᮧᮔ᮪ᮒᮢᮤᮘᮥᮞᮤ)**
-
-1. **Fork repositori ini**
-2. **Buat cabang baru** - `git checkout -b nama-fitur`
-3. **Lakukan commit** - `git commit -am 'Menambahkan fitur baru'`
-4. **Push ke cabang Anda** - `git push origin nama-fitur`
-5. **Buat Pull Request**
-
-Hatur nuhun pisan! Mugia mangpaat! 🙏😊
-
----
+nyieun asep = anyar Jalma("Asep");
+asep.sebatNami();
+📖 Kamus Keyword (ᮊᮤᮝᮧᮁᮓ᮪)KeywordSinonimPadanan Inggrisnyieunngadeklarasikeunvar / lettampilkeun-print / console.logupami-iflamun-else iflainnalain lamunelsepikeun-forbari-whilepungsi-functionbalikkeun-returncoba-trycekel-catchanyar-newieu-this / self🛠️ Operator & Konstanta<table width="100%"><tr><td width="30%"><b>Logika</b></td><td><code>jeung</code> (AND), <code>atawa</code> (OR), <code>lain</code> (NOT)</td></tr><tr><td><b>Boolean</b></td><td><code>leres</code> (True), <code>lepat</code> (False)</td></tr><tr><td><b>Aritmatika</b></td><td><code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>%</code></td></tr></table>📂 Struktur Proyek.
+├── src/                # Kode sumber Interpreter
+│   ├── lexer.py        # Analisis leksikal
+│   ├── parser.py       # Analisis sintaksis
+│   └── interpreter.py  # Eksekusi kode
+├── examples/           # Contoh program (.sunda)
+├── sunda-vscode/       # Plugin VS Code
+├── setup.py            # Konfigurasi instalasi PIP
+└── README.md           # Dokumentasi
+🤝 Kontribusi (ᮊᮧᮔ᮪ᮒᮢᮤᮘᮥᮞᮤ)Kami nampi pisan kontribusi ti sadayana pikeun ngembangkeun basa ieu!Fork repositori ieu.Buat cabang (git checkout -b fitur-anyar).Commit parobahan (git commit -m 'Nambahkeun fitur anyar').Push (git push origin fitur-anyar).Pull Request.<div align="center"><p><i>Proyek ini dilisensikan di bawah <b>MIT License</b></i></p><p><b>Hatur nuhun pisan! Mugia mangpaat kanggo urang sadayana! 🙏😊</b></p><p>Sunda Language Team - 2024</p></div>
