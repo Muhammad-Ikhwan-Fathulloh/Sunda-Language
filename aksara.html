@@ -1,111 +1,689 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="su">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aksara Sunda Programming - Coming Soon</title>
+  <title>Aksara Sunda Language - Playground</title>
   
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+Sundanese&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Styles -->
   <link rel="stylesheet" href="css/style.css">
   
   <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      justify-content: center;
-      align-items: center;
+    /* ========== AKSARA SPECIFIC STYLES ========== */
+    .aksara-header {
+      padding: 100px 0 40px;
+      text-align: center;
+      position: relative;
       overflow: hidden;
     }
     
-    .coming-soon-container {
-      text-align: center;
-      position: relative;
-      z-index: 10;
-      padding: 40px;
-      background: var(--gradient-surface);
+    .kbd-section { padding: 40px 0; }
+    
+    .aksara-playground-wrapper {
+      background: var(--gradient-surface); 
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-premium);
-      max-width: 600px;
-      width: 90%;
-      backdrop-filter: blur(10px);
+      border-radius: var(--radius-xl); 
+      overflow: hidden;
+      box-shadow: var(--shadow-glow);
+      display: flex;
+      flex-direction: column;
     }
     
-    .aksara-title {
+    .editor-container {
+      padding: 20px;
+      border-bottom: 1px solid var(--color-border);
+      background: rgba(0,0,0,0.1);
+    }
+    
+    #aksara-editor {
+      width: 100%;
+      height: 200px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      outline: none;
+      color: var(--color-text);
       font-family: var(--font-aksara);
-      font-size: 5rem;
-      color: var(--color-sunda-gold);
-      margin-bottom: 10px;
-      line-height: 1;
-      text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
-    }
-    
-    .subtitle {
       font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 15px;
-      color: var(--color-text);
+      line-height: 1.5;
+      resize: none;
+      padding: 15px;
+      transition: border-color 0.3s;
     }
     
-    .desc {
-      color: var(--color-text-muted);
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-      line-height: 1.6;
+    body.light-mode #aksara-editor {
+      border-color: rgba(0,0,0,0.1);
+    }
+
+    #aksara-editor:focus { border-color: var(--color-accent); }
+    #aksara-editor::placeholder { color: rgba(150, 150, 150, 0.5); font-family: var(--font-sans); font-size: 1rem;}
+
+    .keyboard-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--color-border);
     }
     
-    .aksara-bg {
-      position: absolute;
-      font-size: 20rem;
+    .kbd-status {
+      font-size: 0.85rem;
+      color: var(--color-accent-light);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .key-shift-indicator {
+      background: rgba(255,255,255,0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      display: inline-block;
+    }
+    .key-shift-indicator.active {
+      background: var(--color-accent);
+      color: #000;
+    }
+
+    /* QWERTY Virtual Keyboard Layout */
+    .keyboard-base {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(0,0,0,0.2);
+      align-items: center;
+      user-select: none;
+    }
+    
+    body.light-mode .keyboard-base { background: rgba(255,255,255,0.5); }
+
+    .kbd-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .key-btn {
+      flex: 1;
+      height: 50px;
+      min-width: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
       color: var(--color-text);
-      opacity: 0.03;
-      z-index: 0;
-      pointer-events: none;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.1s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .key-btn:hover {
+      background: var(--color-accent);
+      color: #000;
+      transform: translateY(-2px);
+    }
+    
+    .key-btn:active {
+        transform: translateY(0);
+        background: var(--color-sunda-green);
+    }
+
+    .key-main {
       font-family: var(--font-aksara);
-      animation: floatAksara 10s ease-in-out infinite;
+      font-size: 1.4rem;
+      pointer-events: none;
     }
-    
-    @keyframes floatAksara {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-30px) rotate(5deg); }
+
+    .key-sub {
+      font-family: var(--font-sans);
+      font-size: 0.6rem;
+      color: var(--color-text-muted);
+      position: absolute;
+      top: 3px;
+      left: 5px;
+      pointer-events: none;
     }
-    
-    .aksara-bg-1 { top: -10%; left: -5%; }
-    .aksara-bg-2 { bottom: -10%; right: -5%; animation-delay: -5s; }
+
+    .key-btn:hover .key-sub { color: rgba(0,0,0,0.6); }
+
+    /* Special Keys */
+    .key-special {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: rgba(255,255,255,0.05);
+      min-width: unset;
+    }
+    .k-backspace { flex: 2; }
+    .k-tab { flex: 1.5; }
+    .k-caps { flex: 1.75; }
+    .k-enter { flex: 2.25; }
+    .k-shift { flex: 2.5; }
+    .k-space { flex: 10; }
+
+    .key-rarangken .key-main::before {
+      content: '◌';
+      opacity: 0.3;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Keyword Table */
+    .mapping-table { margin-top: 40px; }
+    .mapping-table td.aksara-col {
+      font-family: var(--font-aksara);
+      font-size: 1.5rem;
+      color: var(--color-accent);
+    }
   </style>
 </head>
 <body class="pattern-megamendung">
 
-  <div class="aksara-bg aksara-bg-1">ᮃ</div>
-  <div class="aksara-bg aksara-bg-2">ᮞ</div>
-
-  <div class="coming-soon-container reveal reveal-zoom active">
-    <div class="aksara-title">ᮃᮊ᮪ᮞᮛ</div>
-    <h1 class="subtitle">Bahasa Pemrograman <span class="gradient-text">Aksara Sunda</span></h1>
-    <p class="desc">Kami sedang mengembangkan versi bahasa pemrograman Sunda yang ditulis sepenuhnya menggunakan karakter Aksara Sunda asli. Pengalaman koding yang benar-benar kultural akan segera hadir.</p>
-    
-    <div style="display: flex; gap: 15px; justify-content: center;">
-      <a href="index.html" class="btn btn-secondary">
-        <i class="fa-solid fa-arrow-left"></i> Kembali ka Beranda
+  <!-- Navbar -->
+  <nav class="navbar" style="padding: 20px 0; border-bottom: 1px solid var(--color-border); background: var(--color-bg); position: sticky; top: 0; z-index: 100;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <a href="index.html" style="text-decoration: none; color: var(--color-text); font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+        🌺 <span>Sunda Lang</span>
+      </a>
+      <a href="index.html" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">
+        <i class="fa-solid fa-arrow-left"></i> ka Beranda
       </a>
     </div>
-  </div>
+  </nav>
+
+  <!-- Header Section -->
+  <section class="aksara-header">
+    <div class="container">
+      <div class="hero-badge reveal">ᮕᮣᮚ᮪ᮌᮢᮧᮅᮔ᮪ᮓ᮪ • Visualisasi QWERTY</div>
+      <h1 class="hero-title reveal reveal-delay-1">Versi <span class="gradient-text">Aksara Sunda</span></h1>
+      <p class="hero-desc reveal reveal-delay-2">Uji coba simulasi panempatan keyboard Sunda. Anjeun ogé tiasa langsung ngetik nganggo keyboard fisik anjeun.</p>
+    </div>
+  </section>
+
+  <!-- Virtual Keyboard Playground -->
+  <section class="kbd-section" id="playground">
+    <div class="container">
+      <div class="aksara-playground-wrapper reveal reveal-delay-3">
+        
+        <div class="keyboard-tools">
+          <div class="kbd-status">
+            <i class="fa-solid fa-keyboard"></i> QWERTY Sunda
+            <span class="key-shift-indicator" id="shift-indicator">SHIFT</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary" style="opacity: 0.6; cursor: not-allowed;" title="Kompiler nuju didamel (Coming Soon)"><i class="fa-solid fa-play"></i> Jalankeun (Coming Soon)</button>
+            <button class="btn-clear" id="btn-copy"><i class="fa-solid fa-copy"></i> Salin</button>
+            <button class="btn-clear" id="btn-clear" style="color: #ef4444; border-color: rgba(239,68,68,0.2);"><i class="fa-solid fa-trash"></i> Hapus</button>
+          </div>
+        </div>
+
+        <div class="editor-container">
+          <textarea id="aksara-editor" placeholder="Ngetik ku keyboard nirkabel atawa klik tombol di handap..."></textarea>
+        </div>
+
+        <div class="keyboard-base" id="vkbd">
+            <!-- Row 1: Numbers & Symbols -->
+            <div class="kbd-row">
+              <button class="key-btn" data-norm="`" data-shift="~"><span class="key-sub">`</span><span class="key-main">`</span></button>
+              <button class="key-btn" data-norm="᮱" data-shift="!"><span class="key-sub">1</span><span class="key-main">᮱</span></button>
+              <button class="key-btn" data-norm="᮲" data-shift="@"><span class="key-sub">2</span><span class="key-main">᮲</span></button>
+              <button class="key-btn" data-norm="᮳" data-shift="#"><span class="key-sub">3</span><span class="key-main">᮳</span></button>
+              <button class="key-btn" data-norm="᮴" data-shift="$"><span class="key-sub">4</span><span class="key-main">᮴</span></button>
+              <button class="key-btn" data-norm="᮵" data-shift="%"><span class="key-sub">5</span><span class="key-main">᮵</span></button>
+              <button class="key-btn" data-norm="᮶" data-shift="^"><span class="key-sub">6</span><span class="key-main">᮶</span></button>
+              <button class="key-btn" data-norm="᮷" data-shift="&"><span class="key-sub">7</span><span class="key-main">᮷</span></button>
+              <button class="key-btn" data-norm="᮸" data-shift="*"><span class="key-sub">8</span><span class="key-main">᮸</span></button>
+              <button class="key-btn" data-norm="᮹" data-shift="("><span class="key-sub">9</span><span class="key-main">᮹</span></button>
+              <button class="key-btn" data-norm="᮰" data-shift=")"><span class="key-sub">0</span><span class="key-main">᮰</span></button>
+              <button class="key-btn" data-norm="-" data-shift="_"><span class="key-sub">-</span><span class="key-main">-</span></button>
+              <button class="key-btn" data-norm="=" data-shift="+"><span class="key-sub">=</span><span class="key-main">=</span></button>
+              <button class="key-btn key-special k-backspace" id="kb-backspace"><i class="fa-solid fa-delete-left"></i></button>
+            </div>
+            
+            <!-- Row 2: QWERTY -->
+            <div class="kbd-row">
+              <button class="key-btn key-special k-tab" id="kb-tab">Tab</button>
+              <button class="key-btn" data-norm="ᮋ" data-shift="ᮋ"><span class="key-sub">q</span><span class="key-main">ᮋ</span></button>
+              <button class="key-btn" data-norm="ᮝ" data-shift="ᮝ"><span class="key-sub">w</span><span class="key-main">ᮝ</span></button>
+              <button class="key-btn" data-norm="ᮈ" data-shift="ᮆ"><span class="key-sub">e</span><span class="key-main">ᮈ</span></button>
+              <button class="key-btn" data-norm="ᮛ" data-shift="ᮁ"><span class="key-sub">r</span><span class="key-main">ᮛ</span></button>
+              <button class="key-btn" data-norm="ᮒ" data-shift="ᮒ"><span class="key-sub">t</span><span class="key-main">ᮒ</span></button>
+              <button class="key-btn" data-norm="ᮚ" data-shift="ᮡ"><span class="key-sub">y</span><span class="key-main">ᮚ</span></button>
+              <button class="key-btn" data-norm="ᮅ" data-shift="ᮅ"><span class="key-sub">u</span><span class="key-main">ᮅ</span></button>
+              <button class="key-btn" data-norm="ᮄ" data-shift="ᮄ"><span class="key-sub">i</span><span class="key-main">ᮄ</span></button>
+              <button class="key-btn" data-norm="ᮇ" data-shift="ᮇ"><span class="key-sub">o</span><span class="key-main">ᮇ</span></button>
+              <button class="key-btn" data-norm="ᮕ" data-shift="ᮕ"><span class="key-sub">p</span><span class="key-main">ᮕ</span></button>
+              <button class="key-btn key-rarangken" data-norm="ᮨ" data-shift="{"><span class="key-sub">[</span><span class="key-main">ᮨ</span></button>
+              <button class="key-btn key-rarangken" data-norm="ᮩ" data-shift="}"><span class="key-sub">]</span><span class="key-main">ᮩ</span></button>
+              <button class="key-btn" data-norm="|" data-shift="|"><span class="key-sub">\</span><span class="key-main">|</span></button>
+            </div>
+
+            <!-- Row 3: ASDFGH -->
+            <div class="kbd-row">
+              <button class="key-btn key-special k-caps" id="kb-caps">Caps</button>
+              <button class="key-btn" data-norm="ᮃ" data-shift="ᮃ"><span class="key-sub">a</span><span class="key-main">ᮃ</span></button>
+              <button class="key-btn" data-norm="ᮞ" data-shift="ᮞ"><span class="key-sub">s</span><span class="key-main">ᮞ</span></button>
+              <button class="key-btn" data-norm="ᮓ" data-shift="ᮓ"><span class="key-sub">d</span><span class="key-main">ᮓ</span></button>
+              <button class="key-btn" data-norm="ᮖ" data-shift="ᮖ"><span class="key-sub">f</span><span class="key-main">ᮖ</span></button>
+              <button class="key-btn" data-norm="ᮌ" data-shift="ᮌ"><span class="key-sub">g</span><span class="key-main">ᮌ</span></button>
+              <button class="key-btn" data-norm="ᮠ" data-shift="ᮂ"><span class="key-sub">h</span><span class="key-main">ᮠ</span></button>
+              <button class="key-btn" data-norm="ᮏ" data-shift="ᮏ"><span class="key-sub">j</span><span class="key-main">ᮏ</span></button>
+              <button class="key-btn" data-norm="ᮊ" data-shift="ᮊ"><span class="key-sub">k</span><span class="key-main">ᮊ</span></button>
+              <button class="key-btn" data-norm="ᮜ" data-shift="ᮣ"><span class="key-sub">l</span><span class="key-main">ᮜ</span></button>
+              <button class="key-btn key-rarangken" data-norm="᮪" data-shift=":"><span class="key-sub">;</span><span class="key-main">᮪</span></button>
+              <button class="key-btn key-rarangken" data-norm="ᮂ" data-shift="&quot;"><span class="key-sub">'</span><span class="key-main">ᮂ</span></button>
+              <button class="key-btn key-special k-enter" id="kb-enter">Enter</button>
+            </div>
+
+            <!-- Row 4: ZXCVBN -->
+            <div class="kbd-row">
+              <button class="key-btn key-special k-shift" id="kb-shift-l">Shift</button>
+              <button class="key-btn" data-norm="ᮐ" data-shift="ᮐ"><span class="key-sub">z</span><span class="key-main">ᮐ</span></button>
+              <button class="key-btn" data-norm="ᮟ" data-shift="ᮟ"><span class="key-sub">x</span><span class="key-main">ᮟ</span></button>
+              <button class="key-btn" data-norm="ᮎ" data-shift="ᮎ"><span class="key-sub">c</span><span class="key-main">ᮎ</span></button>
+              <button class="key-btn" data-norm="ᮗ" data-shift="ᮗ"><span class="key-sub">v</span><span class="key-main">ᮗ</span></button>
+              <button class="key-btn" data-norm="ᮘ" data-shift="ᮘ"><span class="key-sub">b</span><span class="key-main">ᮘ</span></button>
+              <button class="key-btn" data-norm="ᮔ" data-shift="ᮑ"><span class="key-sub">n</span><span class="key-main">ᮔ</span></button>
+              <button class="key-btn" data-norm="ᮙ" data-shift="ᮙ"><span class="key-sub">m</span><span class="key-main">ᮙ</span></button>
+              <button class="key-btn key-rarangken" data-norm="," data-shift="<"><span class="key-sub">,</span><span class="key-main">ᮡ</span></button>
+              <button class="key-btn key-rarangken" data-norm="." data-shift=">"><span class="key-sub">.</span><span class="key-main">ᮢ</span></button>
+              <button class="key-btn key-rarangken" data-norm="/" data-shift="?"><span class="key-sub">/</span><span class="key-main">ᮣ</span></button>
+              <button class="key-btn key-special k-shift" id="kb-shift-r">Shift</button>
+            </div>
+
+            <!-- Row 5: Space -->
+            <div class="kbd-row" style="margin-top: 5px;">
+              <button class="key-btn key-special k-space" id="kb-space">Spasi</button>
+            </div>
+        </div>
+
+      </div>
+      
+      <div class="sunda-divider reveal"><span>ᮊᮥᮔ᮪ᮎᮤ</span></div>
+      
+      <!-- Keywords Table -->
+      <div class="section-header reveal">
+        <h2 class="section-title">Pemetaan <span class="gradient-text">Keyword Pribumi</span></h2>
+        <p class="section-desc">Pardanan keyword basa Latin kana naskah Aksara Sunda (drafting phase).</p>
+      </div>
+
+      <div class="table-wrapper reveal mapping-table">
+        <table class="keyword-table">
+          <thead>
+            <tr>
+              <th>Keyword (Latin)</th>
+              <th>Tarjamah (Aksara)</th>
+              <th>Harti</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>nyieun</code></td>
+              <td class="aksara-col">ᮑᮤᮉᮔ᮪</td>
+              <td>Deklarasi variabel</td>
+            </tr>
+            <tr>
+              <td><code>tampilkeun</code></td>
+              <td class="aksara-col">ᮒᮙ᮪ᮕᮤᮜ᮪ᮊᮩᮔ᮪</td>
+              <td>Print / Output</td>
+            </tr>
+            <tr>
+              <td><code>tanya</code></td>
+              <td class="aksara-col">ᮒᮑ</td>
+              <td>Input user</td>
+            </tr>
+            <tr>
+              <td><code>upami</code></td>
+              <td class="aksara-col">ᮅᮕᮙᮤ</td>
+              <td>If (Jika)</td>
+            </tr>
+            <tr>
+              <td><code>pikeun</code></td>
+              <td class="aksara-col">ᮕᮤᮊᮩᮔ᮪</td>
+              <td>For loop</td>
+            </tr>
+            <tr>
+              <td><code>leres / lepat</code></td>
+              <td class="aksara-col">ᮜᮨᮛᮨᮞ᮪ / ᮜᮨᮕᮒ᮪</td>
+              <td>True / False</td>
+            </tr>
+            <tr>
+              <td><code>kosong</code></td>
+              <td class="aksara-col">ᮊᮧᮞᮧᮀ</td>
+              <td>Null / None</td>
+            </tr>
+            <tr>
+              <td><code>kelas</code></td>
+              <td class="aksara-col">ᮊᮨᮜᮞ᮪</td>
+              <td>OOP Class</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sunda-divider reveal" style="margin-top: 60px;"><span>ᮊᮙᮥᮞ᮪</span></div>
+
+      <!-- Kamus Aksara -->
+      <div class="section-header reveal">
+        <h2 class="section-title">Kamus <span class="gradient-text">Aksara Sunda</span></h2>
+        <p class="section-desc">Pituduh dasar huruf Aksara Sunda (Swara, Ngalagena, Rarangkén, sareng Angka).<br>
+          <small>Sumber rujukan utama: <a href="https://sundadigi.com/panduan" target="_blank" style="color: var(--color-accent); font-weight: 600;">SundaDigi Panduan Aksara</a></small>
+        </p>
+      </div>
+
+      <!-- Aksara Swara -->
+      <div class="reveal" style="margin-bottom: 40px;">
+        <h3 style="margin-bottom: 15px; color: var(--color-accent);">1. Aksara Swara (Vokal Mandiri)</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px;">
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">a</span><span class="key-main">ᮃ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">i</span><span class="key-main">ᮄ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">u</span><span class="key-main">ᮅ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">é</span><span class="key-main">ᮆ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">o</span><span class="key-main">ᮇ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">e</span><span class="key-main">ᮈ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">eu</span><span class="key-main">ᮉ</span></div>
+        </div>
+      </div>
+
+      <!-- Aksara Ngalagena -->
+      <div class="reveal" style="margin-bottom: 40px;">
+        <h3 style="margin-bottom: 15px; color: var(--color-accent);">2. Aksara Ngalagena (Konsonan Dasar)</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px;">
+            <!-- Kaganga -->
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">ka</span><span class="key-main">ᮊ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">ga</span><span class="key-main">ᮌ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">nga</span><span class="key-main">ᮍ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">ca</span><span class="key-main">ᮎ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">ja</span><span class="key-main">ᮏ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">nya</span><span class="key-main">ᮑ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">ta</span><span class="key-main">ᮒ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">da</span><span class="key-main">ᮓ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">na</span><span class="key-main">ᮔ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">pa</span><span class="key-main">ᮕ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">ba</span><span class="key-main">ᮘ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">ma</span><span class="key-main">ᮙ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">ya</span><span class="key-main">ᮚ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">ra</span><span class="key-main">ᮛ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">la</span><span class="key-main">ᮜ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">wa</span><span class="key-main">ᮝ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">sa</span><span class="key-main">ᮞ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">ha</span><span class="key-main">ᮠ</span></div>
+            <!-- Serapan -->
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">fa</span><span class="key-main">ᮖ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">va</span><span class="key-main">ᮗ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">qa/xa</span><span class="key-main">ᮟ</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">za</span><span class="key-main">ᮐ</span></div>
+        </div>
+      </div>
+
+      <!-- Rarangkén -->
+      <div class="reveal" style="margin-bottom: 40px;">
+        <h3 style="margin-bottom: 15px; color: var(--color-accent);">3. Rarangkén (Vokalisasi & Tanda Baca)</h3>
+        <div class="table-wrapper">
+          <table class="keyword-table">
+            <thead>
+              <tr>
+                <th>Nami Rarangkén</th>
+                <th>Sunda</th>
+                <th>Épék Vokalisasi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Panghulu</td><td class="aksara-col">◌ᮤ</td><td>Sora <code style="padding:2px 5px">i</code></td></tr>
+              <tr><td>Panyuku</td><td class="aksara-col">◌ᮥ</td><td>Sora <code style="padding:2px 5px">u</code></td></tr>
+              <tr><td>Panéléng</td><td class="aksara-col">◌ᮦ</td><td>Sora <code style="padding:2px 5px">é</code></td></tr>
+              <tr><td>Panolong</td><td class="aksara-col">◌ᮧ</td><td>Sora <code style="padding:2px 5px">o</code></td></tr>
+              <tr><td>Pamepet</td><td class="aksara-col">◌ᮨ</td><td>Sora <code style="padding:2px 5px">e</code></td></tr>
+              <tr><td>Paneuleung</td><td class="aksara-col">◌ᮩ</td><td>Sora <code style="padding:2px 5px">eu</code></td></tr>
+              <tr><td>Pamaéh</td><td class="aksara-col">◌᮪</td><td>Maehan/Mati konsonan</td></tr>
+              <tr><td>Pangwisad</td><td class="aksara-col">◌ᮂ</td><td>Sora mati <code style="padding:2px 5px">-h</code></td></tr>
+              <tr><td>Panglayar</td><td class="aksara-col">◌ᮁ</td><td>Sora mati <code style="padding:2px 5px">-r</code></td></tr>
+              <tr><td>Panyecek</td><td class="aksara-col">◌ᮀ</td><td>Sora mati <code style="padding:2px 5px">-ng</code></td></tr>
+              <tr><td>Pamingkal</td><td class="aksara-col">◌ᮡ</td><td>Sora <code style="padding:2px 5px">-ya</code></td></tr>
+              <tr><td>Panyakra</td><td class="aksara-col">◌ᮢ</td><td>Sora <code style="padding:2px 5px">-ra</code></td></tr>
+              <tr><td>Panyiku</td><td class="aksara-col">◌ᮣ</td><td>Sora <code style="padding:2px 5px">-la</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Angka -->
+      <div class="reveal" style="margin-bottom: 40px;">
+        <h3 style="margin-bottom: 15px; color: var(--color-accent);">4. Angka</h3>
+        <p style="margin-bottom: 10px; font-size: 0.9rem;"><i>Catetan: Angka dina basa Sunda umumna diapit ku dua gurat (contona: |᮱|) sangkan teu pahili jeung aksara.</i></p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px;">
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">0</span><span class="key-main">᮰</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">1</span><span class="key-main">᮱</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">2</span><span class="key-main">᮲</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">3</span><span class="key-main">᮳</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">4</span><span class="key-main">᮴</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">5</span><span class="key-main">᮵</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">6</span><span class="key-main">᮶</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">7</span><span class="key-main">᮷</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">8</span><span class="key-main">᮸</span></div>
+            <div class="key-btn" style="pointer-events: none;"><span class="key-sub">9</span><span class="key-main">᮹</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-info">
+        <p>&copy; <span id="year-range">2025</span> Sunda Language</p>
+        <p class="text-xs mt-1">Dijieun ku <a href="https://ikhwanfathulloh.netlify.app/" target="_blank"
+            class="hover:underline">Muhammad Ikhwan Fathulloh</a></p>
+      </div>
+
+      <div class="footer-theme-status">
+        <span class="mode-text" id="mode-text">Mode: Poék</span>
+        <div class="theme-switch" id="theme-toggle" title="Ganti Téma">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+          <div class="switch-knob">
+            <span class="knob-icon"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank"
+          class="text-sm font-bold gradient-text">📦 GitHub Project</a>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    // Theme initialization based on localStorage
+    const body = document.body;
     if (localStorage.getItem('theme') === 'light' || 
         (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-      document.body.classList.add('light-mode');
+      body.classList.add('light-mode');
     }
+
+    // Theme toggle logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const modeText = document.getElementById('mode-text');
+    const yearRange = document.getElementById('year-range');
+    const currentYear = new Date().getFullYear();
+    if (yearRange && currentYear > 2025) {
+      yearRange.textContent = `2025 - ${currentYear}`;
+    }
+
+    function updateThemeUI() {
+      const isLight = body.classList.contains('light-mode');
+      const knobIcon = document.querySelector('.knob-icon');
+      if (modeText) modeText.innerHTML = isLight ? "Mode: Caang" : "Mode: Poék";
+      if (knobIcon) knobIcon.innerHTML = isLight ? "☀️" : "🌙";
+    }
+    updateThemeUI();
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        const isLight = body.classList.contains('light-mode');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        updateThemeUI();
+      });
+    }
+
+    const editor = document.getElementById('aksara-editor');
+    const shiftIndicator = document.getElementById('shift-indicator');
+    let isShift = false;
+    let isCaps = false;
+
+    // Keyboard action buttons
+    const btnBackspace = document.getElementById('kb-backspace');
+    const btnTab = document.getElementById('kb-tab');
+    const btnCaps = document.getElementById('kb-caps');
+    const btnEnter = document.getElementById('kb-enter');
+    const btnShiftL = document.getElementById('kb-shift-l');
+    const btnShiftR = document.getElementById('kb-shift-r');
+    const btnSpace = document.getElementById('kb-space');
+    
+    // Tools
+    const btnClear = document.getElementById('btn-clear');
+    const btnCopy = document.getElementById('btn-copy');
+
+    function insertAtCursor(text) {
+      const startPos = editor.selectionStart;
+      const endPos = editor.selectionEnd;
+      const val = editor.value;
+      editor.value = val.substring(0, startPos) + text + val.substring(endPos, val.length);
+      editor.selectionStart = editor.selectionEnd = startPos + text.length;
+      editor.focus();
+    }
+
+    function doBackspace() {
+      const startPos = editor.selectionStart;
+      const endPos = editor.selectionEnd;
+      if (startPos === endPos && startPos > 0) {
+        const val = editor.value;
+        const newStart = Array.from(val.substring(0, startPos)).slice(0, -1).join('').length;
+        editor.value = val.substring(0, newStart) + val.substring(endPos, val.length);
+        editor.selectionStart = editor.selectionEnd = newStart;
+      } else if (startPos !== endPos) {
+        const val = editor.value;
+        editor.value = val.substring(0, startPos) + val.substring(endPos, val.length);
+        editor.selectionStart = editor.selectionEnd = startPos;
+      }
+      editor.focus();
+    }
+
+    function updateShiftVisuals() {
+      const keys = document.querySelectorAll('.kb-key-char');
+      const shiftActive = isShift || isCaps;
+      
+      if (shiftActive) shiftIndicator.classList.add('active');
+      else shiftIndicator.classList.remove('active');
+
+      document.querySelectorAll('.key-btn[data-norm]').forEach(btn => {
+        const main = btn.querySelector('.key-main');
+        if (shiftActive && btn.getAttribute('data-shift')) {
+          main.innerText = btn.getAttribute('data-shift');
+        } else {
+          main.innerText = btn.getAttribute('data-norm');
+        }
+      });
+    }
+
+    document.querySelectorAll('.key-btn[data-norm]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const shiftActive = isShift || isCaps;
+        let val = btn.getAttribute('data-norm');
+        if (shiftActive && btn.getAttribute('data-shift')) {
+          val = btn.getAttribute('data-shift');
+        }
+        insertAtCursor(val);
+        
+        // Auto-disable shift after one click if caps is not on
+        if (isShift && !isCaps) {
+          isShift = false;
+          updateShiftVisuals();
+        }
+      });
+    });
+
+    btnSpace.addEventListener('click', () => insertAtCursor(' '));
+    btnEnter.addEventListener('click', () => insertAtCursor('\n'));
+    btnBackspace.addEventListener('click', () => doBackspace());
+    btnTab.addEventListener('click', () => insertAtCursor('    '));
+    
+    [btnShiftL, btnShiftR].forEach(btn => {
+      btn.addEventListener('click', () => {
+        isShift = !isShift;
+        updateShiftVisuals();
+      });
+    });
+
+    btnCaps.addEventListener('click', () => {
+      isCaps = !isCaps;
+      if (isCaps) btnCaps.style.background = 'var(--color-accent)';
+      else btnCaps.style.background = '';
+      updateShiftVisuals();
+    });
+
+    btnClear.addEventListener('click', () => {
+      editor.value = '';
+      editor.focus();
+    });
+
+    btnCopy.addEventListener('click', () => {
+      editor.select();
+      document.execCommand('copy');
+      const originalText = btnCopy.innerHTML;
+      btnCopy.innerHTML = '<i class="fa-solid fa-check"></i> Disalin!';
+      setTimeout(() => { btnCopy.innerHTML = originalText; }, 2000);
+    });
+
+    // Hardware Keyboard Mapping (Latin typing to Aksara)
+    const keyMap = {
+      'q':'ᮋ', 'w':'ᮝ', 'e':'ᮈ', 'E':'ᮆ', 'r':'ᮛ', 't':'ᮒ', 'y':'ᮚ', 'u':'ᮅ', 'i':'ᮄ', 'o':'ᮇ', 'p':'ᮕ', '[':'ᮨ', ']':'ᮩ',
+      'a':'ᮃ', 's':'ᮞ', 'd':'ᮓ', 'f':'ᮖ', 'g':'ᮌ', 'h':'ᮠ', 'j':'ᮏ', 'k':'ᮊ', 'l':'ᮜ', ';':'᮪', '\'':'ᮂ',
+      'z':'ᮐ', 'x':'ᮟ', 'c':'ᮎ', 'v':'ᮗ', 'b':'ᮘ', 'n':'ᮔ', 'm':'ᮙ', ',':'ᮡ', '.':'ᮢ', '/':'ᮣ',
+      '1': '᮱', '2': '᮲', '3': '᮳', '4':'᮴', '5':'᮵', '6':'᮶', '7':'᮷', '8':'᮸', '9':'᮹', '0':'᮰'
+    };
+
+    editor.addEventListener('keydown', (e) => {
+      if (e.ctrlKey || e.altKey || e.metaKey || e.key.length > 1) return; // Allow system keys like Backspace, Enter, Ctrl+C
+      
+      const char = e.key;
+      const mappedChar = keyMap[char];
+      
+      if (mappedChar) {
+        e.preventDefault();
+        insertAtCursor(mappedChar);
+      }
+    });
+
+    function reveal() {
+      var reveals = document.querySelectorAll('.reveal');
+      for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        if (elementTop < windowHeight - 50) {
+          reveals[i].classList.add('active');
+        }
+      }
+    }
+    window.addEventListener('scroll', reveal);
+    reveal();
+
   </script>
 </body>
 </html>
