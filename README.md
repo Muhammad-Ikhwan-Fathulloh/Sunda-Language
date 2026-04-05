@@ -137,37 +137,37 @@ anggeus
 Kamus leutik kanggo daptar kosa kata nu digunakeun dina struktur basa pamrograman ieu.
 *Sumber rujukan utama: [SundaDigi Kamus](https://sundadigi.com/kamus) sareng padanan umum Aksara.*
 
-| Basa Sunda | Bahasa Indonesia |
-|---|---|
-| `nyieun` / `ngadeklarasikeun` | Membuat / Mendeklarasikan |
-| `tampilkeun` | Tampilkan / Perlihatkan |
-| `tanya` / `mangga_eusian` | Tanya / Silakan isi (Input) |
-| `upami` | Jikalau / Seandainya / Jika |
-| `lamun` | Kalau / Misal |
-| `lainna` / `lain lamun` | Lainnya / Atau Kalau (Sebaliknya) |
-| `pikeun` | Untuk (Bagi) |
-| `ti ... nepi` | Dari ... Sampai (Rentang) |
-| `bari` | Sambil / Selagi (While) |
-| `ngajalankeun` | Menjalankan |
-| `anggeus` | Selesai / Tamat |
-| `pungsi` / `fungsi` | Fungsi |
-| `balikkeun` | Kembalikan (Return) |
-| `leres` | Benar / Lurus |
-| `lepat` | Salah / Keliru |
-| `jeung` | Dan |
-| `atawa` | Atau |
-| `lain` | Bukan |
-| `kosong` | Kosong / Hampa |
-| `coba` | Coba |
-| `cekel` | Pegang / Tangkap (Catch) |
-| `tungtungna` | Pada akhirnya / Ujungnya (Finally) |
-| `balangkeun` | Lemparkan (Throw) |
-| `kelas` | Kelas |
-| `anyar` | Baru |
-| `ieu` | Ini (Konteks merujuk pada objek/diri sendiri) |
-| `turunan` | Keturunan (Extends/Inherits) |
-| `eureun` | Berhenti |
-| `teraskeun` | Teruskan / Lanjutkan |
+| Basa Sunda                    | Bahasa Indonesia                              |
+| ----------------------------- | --------------------------------------------- |
+| `nyieun` / `ngadeklarasikeun` | Membuat / Mendeklarasikan                     |
+| `tampilkeun`                  | Tampilkan / Perlihatkan                       |
+| `tanya` / `mangga_eusian`     | Tanya / Silakan isi (Input)                   |
+| `upami`                       | Jikalau / Seandainya / Jika                   |
+| `lamun`                       | Kalau / Misal                                 |
+| `lainna` / `lain lamun`       | Lainnya / Atau Kalau (Sebaliknya)             |
+| `pikeun`                      | Untuk (Bagi)                                  |
+| `ti ... nepi`                 | Dari ... Sampai (Rentang)                     |
+| `bari`                        | Sambil / Selagi (While)                       |
+| `ngajalankeun`                | Menjalankan                                   |
+| `anggeus`                     | Selesai / Tamat                               |
+| `pungsi` / `fungsi`           | Fungsi                                        |
+| `balikkeun`                   | Kembalikan (Return)                           |
+| `leres`                       | Benar / Lurus                                 |
+| `lepat`                       | Salah / Keliru                                |
+| `jeung`                       | Dan                                           |
+| `atawa`                       | Atau                                          |
+| `lain`                        | Bukan                                         |
+| `kosong`                      | Kosong / Hampa                                |
+| `coba`                        | Coba                                          |
+| `cekel`                       | Pegang / Tangkap (Catch)                      |
+| `tungtungna`                  | Pada akhirnya / Ujungnya (Finally)            |
+| `balangkeun`                  | Lemparkan (Throw)                             |
+| `kelas`                       | Kelas                                         |
+| `anyar`                       | Baru                                          |
+| `ieu`                         | Ini (Konteks merujuk pada objek/diri sendiri) |
+| `turunan`                     | Keturunan (Extends/Inherits)                  |
+| `eureun`                      | Berhenti                                      |
+| `teraskeun`                   | Teruskan / Lanjutkan                          |
 
 ---
 
@@ -218,5 +218,5 @@ Kami nampi pisan kontribusi ti sadayana pikeun ngembangkeun basa ieu!
 <div align="center">
 <p><i>Proyek ini dilisensikan di bawah <b>MIT License</b></i></p>
 <p><b>Hatur nuhun pisan! Mugia mangpaat kanggo urang sadayana! 🙏😊</b></p>
-<p>Sunda Language Team &copy; <script>document.write(new Date().getFullYear())</script><noscript>2025</noscript></p>
+<p>Sunda Language Team &copy; <noscript>2025 - 2026</noscript></p>
 </div>
