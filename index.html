@@ -9,9 +9,14 @@
     content="Sunda Language adalah bahasa pemrograman sederhana dengan sintaksis bahasa Sunda. Coba langsung di browser!" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Sundanese&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    :root {
+      --font-aksara: 'Noto Sans Sundanese', serif;
+    }
+  </style>
 </head>
 
 <body>
@@ -22,13 +27,18 @@
       <div class="shape shape-1"></div>
       <div class="shape shape-2"></div>
       <div class="shape shape-3"></div>
+      <div class="aksara-hero aksara-1">ᮞᮥ</div>
+      <div class="aksara-hero aksara-2">ᮔ᮪</div>
+      <div class="aksara-hero aksara-3">ᮓ</div>
     </div>
     <div class="container hero-content">
-      <div class="hero-badge">🌺 Basa Pamrograman Sunda</div>
-      <h1 class="hero-title">Sunda <span class="gradient-text">Language</span></h1>
-      <p class="hero-desc">Basa pamrograman saderhana nganggo basa Sunda pikeun diajar jeung ngalatih logika. Cobian
+      <div class="hero-badge reveal">🌺 <span class="aksara">ᮘᮞ ᮞᮥᮔ᮪ᮓ</span> Basa Pamrograman Sunda</div>
+      <h1 class="hero-title reveal reveal-delay-1">Sunda <span class="gradient-text">Language</span> <span
+          class="aksara" style="font-size: 0.5em; opacity: 0.5; display: block; margin-top: 10px;">ᮞᮥᮔ᮪ᮓ</span></h1>
+      <p class="hero-desc reveal reveal-delay-2">Basa pamrograman saderhana nganggo basa Sunda pikeun diajar jeung
+        ngalatih logika. Cobian
         langsung di browser!</p>
-      <div class="hero-actions">
+      <div class="hero-actions reveal reveal-delay-3">
         <a href="playground.html" class="btn btn-primary">🚀 Cobian Ayeuna</a>
         <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank"
           class="btn btn-secondary">📦 GitHub</a>
@@ -36,15 +46,21 @@
     </div>
   </section>
 
+  <!-- Floating Ornament -->
+  <div class="floating-aksara-wrap">
+    <div class="floating-aksara">ᮞᮥ</div>
+  </div>
+
   <!-- Features Section -->
-  <section class="features-section" id="features">
+  <section class="features-section pattern-megamendung" id="features">
     <div class="container">
       <div class="section-header">
+        <span class="section-subtitle-aksara">ᮖᮤᮒᮥᮁ</span>
         <h2 class="section-title">✨ Fitur <span class="gradient-text">Bahasa Sunda</span></h2>
         <p class="section-desc">Klik dina kartu pikeun nyobaan langsung di playground!</p>
       </div>
       <div class="features-grid">
-        <div class="feature-card"
+        <div class="feature-card reveal"
           data-example="nyieun angka = 10;\nnyieun nama = &quot;Sunda&quot;;\nnyieun aktif = leres;\n\ntampilkeun angka;\ntampilkeun nama;\ntampilkeun aktif;">
           <div class="feature-icon">🔢</div>
           <h3>Deklarasi Variabel</h3>
@@ -53,7 +69,7 @@
 nyieun nama = "Sunda";
 nyieun aktif = leres;</pre>
         </div>
-        <div class="feature-card"
+        <div class="feature-card reveal reveal-delay-1"
           data-example="nyieun angka = 9;\n\nupami angka == 10:\n    tampilkeun &quot;sampurna&quot;;\nlamun angka == 9:\n    tampilkeun &quot;ampir sampurna&quot;;\nlainna:\n    tampilkeun &quot;kirang&quot;;\nanggeus">
           <div class="feature-icon">🧠</div>
           <h3>Pengkondisian</h3>
@@ -73,17 +89,16 @@ anggeus</pre>
     tampilkeun i;
 anggeus</pre>
         </div>
-        <div class="feature-card"
+        <div class="feature-card reveal"
           data-example="pungsi tambah(a, b):\n    balikkeun a + b;\nanggeus\n\npungsi kali(a, b):\n    balikkeun a * b;\nanggeus\n\nnyieun hasil_tambah = tambah(10, 5);\ntampilkeun &quot;10 + 5 =&quot;;\ntampilkeun hasil_tambah;\n\nnyieun hasil_kali = kali(4, 3);\ntampilkeun &quot;4 * 3 =&quot;;\ntampilkeun hasil_kali;">
-          <div class="bg-white border rounded-lg p-6 shadow hover:shadow-lg transition">
-            <h3 class="text-xl font-bold mb-2">🔂 Pungsi</h3>
-            <p>Definisi pungsi sareng parameter jeung return.</p>
-            <pre class="bg-gray-100 p-2 mt-2 text-sm overflow-x-auto">pungsi tambah(a, b):
+          <div class="feature-icon">🔂</div>
+          <h3>Pungsi</h3>
+          <p>Definisi pungsi sareng parameter jeung return.</p>
+          <pre>pungsi tambah(a, b):
     balikkeun a + b;
 anggeus
 
 tampilkeun tambah(10, 5);</pre>
-          </div>
         </div>
         <div class="feature-card"
           data-example="pungsi faktorial(n):\n    upami n <= 1:\n        balikkeun 1;\n    anggeus\n    balikkeun n * faktorial(n - 1);\nanggeus\n\ntampilkeun &quot;=== Faktorial ===&quot;;\npikeun i = 1 ti 6 ngajalankeun\n    nyieun hasil = faktorial(i);\n    tampilkeun hasil;\nanggeus">
@@ -95,6 +110,29 @@ tampilkeun tambah(10, 5);</pre>
         balikkeun 1;
     anggeus
     balikkeun n * faktorial(n - 1);
+anggeus</pre>
+        </div>
+        <div class="feature-card"
+          data-example="kelas Jalma:\n    nyieun jenengan = &quot;&quot;;\n\n    pungsi bageakeun():\n        tampilkeun &quot;Halo, nami simkuring &quot;, ieu.jenengan;\n    anggeus\nanggeus\n\nnyieun p = anyar Jalma();\np.jenengan = &quot;Asep&quot;;\np.bageakeun();">
+          <div class="feature-icon">🏗️</div>
+          <h3>Object-Oriented (OOP)</h3>
+          <p>Dukung <code>kelas</code>, <code>ieu</code> (this), jeung <code>anyar</code> (new).</p>
+          <pre>kelas Jalma:
+    nyieun jenengan = "";
+    pungsi bageakeun():
+        tampilkeun ieu.jenengan;
+    anggeus
+anggeus</pre>
+        </div>
+        <div class="feature-card"
+          data-example="coba:\n    nyieun angka = 10 / 0;\ncekel kasalahan:\n    tampilkeun &quot;Aya masalah: &quot;, kasalahan;\ntungtungna:\n    tampilkeun &quot;Selesai pariksa.&quot;;\nanggeus">
+          <div class="feature-icon">🛡️</div>
+          <h3>Error Handling</h3>
+          <p>Gunakeun <code>coba</code>, <code>cekel</code>, jeung <code>tungtungna</code>.</p>
+          <pre>coba:
+    nyieun x = 10 / 0;
+cekel e:
+    tampilkeun e;
 anggeus</pre>
         </div>
         <div class="feature-card"
@@ -110,12 +148,13 @@ tampilkeun a + b;</pre>
   </section>
 
   <!-- Keyword Table -->
-  <section class="keyword-section" id="keywords">
+  <section class="keyword-section pattern-megamendung" id="keywords">
     <div class="container">
       <div class="section-header">
+        <span class="section-subtitle-aksara">ᮊᮥᮔ᮪ᮎᮤ</span>
         <h2 class="section-title">📋 Daftar <span class="gradient-text">Keyword</span></h2>
       </div>
-      <div class="table-wrapper">
+      <div class="table-wrapper reveal">
         <table class="keyword-table">
           <thead>
             <tr>
@@ -185,6 +224,36 @@ tampilkeun a + b;</pre>
               <td>True / False</td>
               <td class="mono">nyieun aktif = leres;</td>
             </tr>
+            <tr>
+              <td><code>coba / cekel</code></td>
+              <td>Try / Catch</td>
+              <td class="mono">coba: ... cekel e: ... anggeus</td>
+            </tr>
+            <tr>
+              <td><code>balangkeun</code></td>
+              <td>Throw</td>
+              <td class="mono">balangkeun "Error!";</td>
+            </tr>
+            <tr>
+              <td><code>kelas</code></td>
+              <td>Class</td>
+              <td class="mono">kelas Jalma: ... anggeus</td>
+            </tr>
+            <tr>
+              <td><code>anyar</code></td>
+              <td>New / Instantiate</td>
+              <td class="mono">anyar Jalma();</td>
+            </tr>
+            <tr>
+              <td><code>ieu</code></td>
+              <td>This / Self</td>
+              <td class="mono">ieu.jenengan = "Asep";</td>
+            </tr>
+            <tr>
+              <td><code>turunan</code></td>
+              <td>Inheritance</td>
+              <td class="mono">kelas Guru turunan Jalma:</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -197,7 +266,7 @@ tampilkeun a + b;</pre>
       <div class="section-header">
         <h2 class="section-title">⚡ Cara <span class="gradient-text">Install</span></h2>
       </div>
-      <div class="install-card">
+      <div class="install-card reveal">
         <div class="install-step">
           <span class="step-num">1</span>
           <div>
@@ -225,11 +294,12 @@ tampilkeun a + b;</pre>
   </section>
 
   <!-- Tutorial Section (Gamified) -->
-  <section class="py-20 px-4 bg-white dark-alt-bg" id="tutorial">
-    <div class="container">
+  <section class="py-20 px-4 bg-white dark-alt-bg pattern-megamendung" id="tutorial" style="background:transparent;">
+    <div class="container reveal">
       <div class="section-header">
+        <span class="section-subtitle-aksara">ᮒᮔ᮪ᮒᮍᮔ᮪</span>
         <h2 class="section-title">🎮 <span class="gradient-text">Tantangan</span> Sunda Koding</h2>
-        <p class="section-desc">Selesaikan 5 level tantangan pikeun jadi jawara Sunda Koding!</p>
+        <p class="section-desc">Selesaikan 7 level tantangan pikeun jadi jawara Sunda Koding!</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 items-start">
@@ -286,6 +356,25 @@ tampilkeun a + b;</pre>
             <p class="mb-4">Gunakeun <code>tanya</code> pikeun nyandak data ti pangguna langsung dina terminal.</p>
             <a href="playground.html#challenge=5" class="btn-challenge">🎯 Mimitian Tantangan 5</a>
           </div>
+
+          <!-- Level 6 -->
+          <div class="tutorial-part">
+            <h3 class="text-2xl font-bold mb-4 flex items-center">
+              <span class="level-badge">6</span>Kelas & Objék (OOP)
+            </h3>
+            <p class="mb-4">Anggo <code>kelas</code> pikeun nyieun struktur data kompléks. Gunakeun <code>ieu</code>
+              pikeun ngakses properti sorangan.</p>
+            <a href="playground.html#challenge=6" class="btn-challenge">🎯 Mimitian Tantangan 6</a>
+          </div>
+
+          <!-- Level 7 -->
+          <div class="tutorial-part">
+            <h3 class="text-2xl font-bold mb-4 flex items-center">
+              <span class="level-badge">7</span>Ngolah Kasalahan (Try-Catch)
+            </h3>
+            <p class="mb-4">Jaga program supados teu 'crash' nganggo <code>coba</code> jeung <code>cekel</code>.</p>
+            <a href="playground.html#challenge=7" class="btn-challenge">🎯 Mimitian Tantangan 7</a>
+          </div>
         </div>
 
         <!-- Comprehensive Code Example (Right) -->
@@ -323,7 +412,7 @@ tampilkeun hasil;</pre>
   <!-- Contribution -->
   <section class="cta-section">
     <div class="container">
-      <div class="cta-card">
+      <div class="cta-card reveal">
         <h2>Hoyong Kontribusi? 🤝</h2>
         <p>Fork, tambahkeun fitur anyar, sareng kirimkeun Pull Request anjeun. Hayu babarengan ngembangkeun!</p>
         <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language" target="_blank"
@@ -337,7 +426,7 @@ tampilkeun hasil;</pre>
     <div class="container footer-content">
       <div class="footer-info">
         <p>&copy; <span id="year-range">2025</span> Sunda Language</p>
-        <p class="text-xs mt-1">Dijieun ku <a href="https://github.com/Muhammad-Ikhwan-Fathulloh" target="_blank"
+        <p class="text-xs mt-1">Dijieun ku <a href="https://ikhwanfathulloh.netlify.app/" target="_blank"
             class="hover:underline">Muhammad Ikhwan Fathulloh</a></p>
       </div>
 
@@ -404,6 +493,22 @@ tampilkeun hasil;</pre>
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
         updateThemeUI();
       });
+
+      // Reveal Animation with Intersection Observer
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     });
   </script>
 </body>

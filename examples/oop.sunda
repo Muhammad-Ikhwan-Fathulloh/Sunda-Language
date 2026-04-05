@@ -1,0 +1,30 @@
+// === OOP dina Basa Sunda ===
+kelas Jalma:
+    nyieun jenengan = "";
+    nyieun umur = 0;
+
+    pungsi bageakeun():
+        tampilkeun "Halo! Nami simkuring", ieu.jenengan;
+        tampilkeun "Umur simkuring", ieu.umur, "taun.";
+    anggeus
+
+    pungsi ultah():
+        ieu.umur = ieu.umur + 1;
+        tampilkeun "Abdi nuju ultah! Ayeuna umur", ieu.umur;
+    anggeus
+anggeus
+
+tampilkeun "--- Nyieun Objék ---";
+nyieun asep = anyar Jalma();
+asep.jenengan = "Asep Surasep";
+asep.umur = 25;
+
+asep.bageakeun();
+asep.ultah();
+
+tampilkeun "";
+tampilkeun "--- Objek Kadua ---";
+nyieun ceu_edoh = anyar Jalma();
+ceu_edoh.jenengan = "Ceu Edoh";
+ceu_edoh.umur = 40;
+ceu_edoh.bageakeun();

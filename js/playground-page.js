@@ -8,6 +8,8 @@ const EXAMPLES = {
   pungsi: `pungsi tambah(a, b):\n    balikkeun a + b;\nanggeus\n\npungsi kali(a, b):\n    balikkeun a * b;\nanggeus\n\npungsi salam(nama):\n    tampilkeun "Halo, ";\n    tampilkeun nama;\n    balikkeun leres;\nanggeus\n\nnyieun hasil_tambah = tambah(10, 5);\ntampilkeun "10 + 5 =";\ntampilkeun hasil_tambah;\n\nnyieun hasil_kali = kali(4, 3);\ntampilkeun "4 * 3 =";\ntampilkeun hasil_kali;\n\nsalam("Sunda");`,
   rekursi: `pungsi faktorial(n):\n    upami n <= 1:\n        balikkeun 1;\n    anggeus\n    balikkeun n * faktorial(n - 1);\nanggeus\n\npungsi fibonacci(n):\n    upami n <= 0:\n        balikkeun 0;\n    anggeus\n    upami n == 1:\n        balikkeun 1;\n    anggeus\n    balikkeun fibonacci(n - 1) + fibonacci(n - 2);\nanggeus\n\ntampilkeun "=== Faktorial ===";\npikeun i = 1 ti 6 ngajalankeun\n    nyieun hasil = faktorial(i);\n    tampilkeun hasil;\nanggeus\n\ntampilkeun "=== Fibonacci ===";\npikeun i = 0 ti 8 ngajalankeun\n    nyieun fib = fibonacci(i);\n    tampilkeun fib;\nanggeus`,
   while_loop: `tampilkeun "=== FizzBuzz Sunda ===";\n\nnyieun i = 1;\nbari i <= 20 ngajalankeun\n    nyieun mod3 = i % 3;\n    nyieun mod5 = i % 5;\n    upami mod3 == 0:\n        upami mod5 == 0:\n            tampilkeun "FizzBuzz";\n        lainna:\n            tampilkeun "Fizz";\n        anggeus\n    lamun mod5 == 0:\n        tampilkeun "Buzz";\n    lainna:\n        tampilkeun i;\n    anggeus\n    i = i + 1;\nanggeus`,
+  oop: `kelas Kucing:\n    nyieun sora = "Méong";\n\n    pungsi nyora():\n        tampilkeun "Kucing nyora: ", ieu.sora;\n    anggeus\nanggeus\n\nnyieun k = anyar Kucing();\nk.nyora();\n\nk.sora = "Rawrr!";\nk.nyora();`,
+  kasalahan: `coba:\n    tampilkeun "Nyobaan bagi ku enol...";\n    nyieun x = 10 / 0;\ncekel e:\n    tampilkeun "Aya kasalahan: ", e;\ntungtungna:\n    tampilkeun "Proses réngsé.";\nanggeus`,
 };
 
 const CHALLENGES = {
@@ -15,31 +17,43 @@ const CHALLENGES = {
     name: "Dasar Variabel",
     desc: `Tampilkeun pesen <code>"Halo Sunda! 🌺"</code> nganggo <code>tampilkeun</code>.`,
     init: `// Tulis kode anjeun di dieu\n`,
-    goal: (out) => out.includes("Halo Sunda! 🌺")
+    goal: (out) => out.some(line => line.includes("Halo Sunda! 🌺"))
   },
   "2": {
     name: "Logika Upami",
     desc: `Nyieun variabel <code>angka = 15</code>. Tampilkeun <code>"Badag"</code> upami angka > 10, atanapi <code>"Leutik"</code> upami sanés.`,
     init: `nyieun angka = 15;\n// Tambahkeun logika upami di dieu\n`,
-    goal: (out) => out.includes("Badag")
+    goal: (out) => out.some(line => line.includes("Badag"))
   },
   "3": {
     name: "Perulangan",
     desc: `Gunakeun <code>pikeun</code> pikeun nampilkeun angka 1 dugi ka 3 sacara ngaruntuy.`,
     init: `// Gunakeun pikeun i = 1 ti 3 ngajalankeun ...\n`,
-    goal: (out) => out.includes("1") && out.includes("2") && out.includes("3")
+    goal: (out) => out.some(line => line === "1") && out.some(line => line === "2") && out.some(line => line === "3")
   },
   "4": {
     name: "Pungsi",
     desc: `Nyieun <code>pungsi kali(a, b)</code> nu ngabalikkeun hasil <code>a * b</code>. Tampilkeun hasil <code>kali(5, 4)</code>.`,
     init: `pungsi kali(a, b):\n    // eusi pungsi\nanggeus\n\ntampilkeun kali(5, 4);`,
-    goal: (out) => out.includes("20")
+    goal: (out) => out.some(line => line.includes("20"))
   },
   "5": {
     name: "Input User",
     desc: `Gunakeun <code>tanya</code> pikeun nyandak input <code>nami</code>, teras tampilkeun <code>"Halo [nami]"</code>.`,
     init: `tanya nami;\n// tampilkeun hasilna\n`,
     goal: (out) => out.some(line => line.startsWith("Halo "))
+  },
+  "6": {
+    name: "OOP (Kelas)",
+    desc: `Nyieun kelas <code>Mobil</code> kalayan properti <code>merek</code>. Pasihan nilai <code>"Tesla"</code> teras tampilkeun merekna.`,
+    init: `kelas Mobil:\n    nyieun merek = "";\nanggeus\n\nnyieun m = anyar Mobil();\n// pasihan nilai teras tampilkeun\n`,
+    goal: (out) => out.some(line => line.includes("Tesla"))
+  },
+  "7": {
+    name: "Try-Catch",
+    desc: `Gunakeun blok <code>coba</code> jeung <code>cekel</code> pikeun nampilkeun <code>"Aya Masalah"</code> upami aya pembagian ku enol.`,
+    init: `coba:\n    nyieun hasil = 10 / 0;\ncekel e:\n    // tampilkeun pesen\nanggeus`,
+    goal: (out) => out.some(line => line.includes("Masalah"))
   }
 };
 

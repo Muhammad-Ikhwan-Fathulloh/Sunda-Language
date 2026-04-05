@@ -6,6 +6,7 @@ class Lexer:
 
     def tokenize(self):
         tokens = [
+            ("COMMENT", r"//.*"),
             ("KEYWORD_DECLARE", r"\b(nyieun|ngadeklarasikeun)\b"),
             ("KEYWORD_IF", r"\bupami\b"),
             ("KEYWORD_ELIF", r"\blamun\b"),
@@ -18,11 +19,20 @@ class Lexer:
             ("KEYWORD_FUNC", r"\b(pungsi|fungsi)\b"),
             ("KEYWORD_RETURN", r"\bbalikkeun\b"),
             ("KEYWORD_INPUT", r"\b(tanya|mangga_eusian)\b"),
+            ("KEYWORD_TRY", r"\bcoba\b"),
+            ("KEYWORD_CATCH", r"\bcekel\b"),
+            ("KEYWORD_FINALLY", r"\btungtungna\b"),
+            ("KEYWORD_THROW", r"\bbalangkeun\b"),
+            ("KEYWORD_CLASS", r"\bkelas\b"),
+            ("KEYWORD_THIS", r"\bieu\b"),
+            ("KEYWORD_NEW", r"\banyar\b"),
+            ("KEYWORD_EXTENDS", r"\bturunan\b"),
             ("BOOLEAN", r"\b(leres|lepat|true|false)\b"),
             ("NUMBER", r"\b\d+(\.\d+)?\b"),
             ("STRING", r'\"[^\"]*\"'),
             ("VARIABLE", r"[a-zA-Z_][a-zA-Z_0-9]*"),
-            ("OPERATOR", r"(==|!=|<=|>=|[+\-*/%=<>])"),
+            ("OPERATOR", r"==|!=|<=|>=|[+\-*/%=<>]"),
+            ("DOT", r"\."),
             ("COLON", r":"),
             ("LPAREN", r"\("),
             ("RPAREN", r"\)"),
@@ -40,7 +50,7 @@ class Lexer:
         for match in pattern.finditer(self.code):
             kind = match.lastgroup
             value = match.group()
-            if kind == "SKIP":
+            if kind == "SKIP" or kind == "COMMENT":
                 continue
             elif kind == "MISMATCH":
                 raise SyntaxError(f"Karakter teu dikenal: '{value}'")

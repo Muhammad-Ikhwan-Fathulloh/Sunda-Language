@@ -208,7 +208,7 @@
   white-space: pre;
   overflow: hidden;
   pointer-events: none;
-  color: transparent;
+  color: var(--color-text);
   word-wrap: normal;
   border: none;
 }
@@ -233,7 +233,7 @@
 }
 
 body.light-mode .pg-highlight-layer {
-  color: transparent;
+  color: inherit;
 }
 
 body.light-mode .pg-line-numbers {

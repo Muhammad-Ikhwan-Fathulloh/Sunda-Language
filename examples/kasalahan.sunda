@@ -1,0 +1,30 @@
+// === Coba-Cekel dina Basa Sunda ===
+pungsi bagi(a, b):
+    upami b == 0:
+        balangkeun "Teu bisa dibagi ku nol!";
+    anggeus
+    balikkeun a / b;
+anggeus
+
+tampilkeun "--- Nyobaan Anu Bener ---";
+coba:
+    nyieun hasil = bagi(10, 2);
+    tampilkeun "10 / 2 =", hasil;
+cekel e:
+    tampilkeun "Aya kasalahan:", e;
+anggeus
+
+tampilkeun "";
+tampilkeun "--- Nyobaan Anu Salah ---";
+coba:
+    nyieun hasil_salah = bagi(10, 0);
+    tampilkeun "Ieu moal kaluar";
+cekel kasalahan:
+    tampilkeun "Cekel!";
+    tampilkeun "Pesen kasalahan:", kasalahan;
+tungtungna:
+    tampilkeun "Tungtungna urang anggeus.";
+anggeus
+
+tampilkeun "";
+tampilkeun "Program masih jalan saatosna.";

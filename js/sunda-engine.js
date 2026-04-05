@@ -20,11 +20,20 @@ class SundaLexer {
       ["KEYWORD_FUNC", /\b(?:pungsi|fungsi)\b/],
       ["KEYWORD_RETURN", /\bbalikkeun\b/],
       ["KEYWORD_INPUT", /\b(tanya|mangga_eusian)\b/],
+      ["KEYWORD_TRY", /\bcoba\b/],
+      ["KEYWORD_CATCH", /\bcekel\b/],
+      ["KEYWORD_FINALLY", /\btungtungna\b/],
+      ["KEYWORD_THROW", /\bbalangkeun\b/],
+      ["KEYWORD_CLASS", /\bkelas\b/],
+      ["KEYWORD_THIS", /\bieu\b/],
+      ["KEYWORD_NEW", /\banyar\b/],
+      ["KEYWORD_EXTENDS", /\bturunan\b/],
       ["BOOLEAN", /\b(leres|lepat|true|false)\b/],
       ["NUMBER", /\b\d+(\.\d+)?\b/],
       ["STRING", /"[^"]*"/],
       ["VARIABLE", /[a-zA-Z_][a-zA-Z_0-9]*/],
       ["OPERATOR", /(==|!=|<=|>=|[+\-*/%=<>])/],
+      ["DOT", /\./],
       ["COLON", /:/],
       ["LPAREN", /\(/],
       ["RPAREN", /\)/],
@@ -98,10 +107,18 @@ class SundaParser {
     if (kind === "KEYWORD_WHILE") return this.whileStmt();
     if (kind === "KEYWORD_FUNC") return this.funcStmt();
     if (kind === "KEYWORD_RETURN") return this.returnStmt();
+    if (kind === "KEYWORD_CLASS") return this.classStmt();
+    if (kind === "KEYWORD_TRY") return this.tryStmt();
+    if (kind === "KEYWORD_THROW") return this.throwStmt();
     if (kind === "VARIABLE") {
       const next = this.pos + 1 < this.tokens.length ? this.tokens[this.pos + 1] : null;
       if (next && next[0] === "OPERATOR" && next[1] === "=") return this.assignmentStmt();
+      if (next && next[0] === "DOT") return this.memberAssignmentStmt();
       return this.exprStmt();
+    }
+    if (kind === "KEYWORD_THIS") {
+      const next = this.pos + 1 < this.tokens.length ? this.tokens[this.pos + 1] : null;
+      if (next && next[0] === "DOT") return this.memberAssignmentStmt();
     }
     throw new SyntaxError(`Sintaks teu dikenal: ${value}`);
   }
@@ -129,18 +146,48 @@ class SundaParser {
     return ["expr", expr];
   }
 
+  memberAssignmentStmt() {
+    const target = this.memberAccess();
+    if (this.currentToken() && this.currentToken()[0] === "OPERATOR" && this.currentToken()[1] === "=") {
+      this.eat("OPERATOR");
+      const expr = this.expression();
+      this.eat("SEMICOLON");
+      return ["member_assign", target, expr];
+    }
+    // If no '=', it's just a method call or property access used as a statement
+    this.eat("SEMICOLON");
+    return ["expr", target];
+  }
+
   printStmt() {
     this.eat("KEYWORD_PRINT");
-    const expr = this.expression();
+    const expressions = [];
+    expressions.push(this.expression());
+
+    while (this.currentToken() && this.currentToken()[0] === "COMMA") {
+      this.eat("COMMA");
+      expressions.push(this.expression());
+    }
+
     this.eat("SEMICOLON");
-    return ["print", expr];
+    return ["print", expressions];
   }
 
   inputStmt() {
     this.eat("KEYWORD_INPUT");
+    let promptStr = null;
+
+    // Check if there is an optional prompt string
+    if (this.currentToken() && this.currentToken()[0] === "STRING") {
+      promptStr = this.eat("STRING")[1].slice(1, -1);
+      if (this.currentToken() && this.currentToken()[0] === "COMMA") {
+        this.eat("COMMA");
+      }
+    }
+
     const varName = this.eat("VARIABLE")[1];
     this.eat("SEMICOLON");
-    return ["input", varName];
+    return ["input", varName, promptStr];
   }
 
   ifStmt() {
@@ -218,9 +265,67 @@ class SundaParser {
     return ["return", expr];
   }
 
+  classStmt() {
+    this.eat("KEYWORD_CLASS");
+    const name = this.eat("VARIABLE")[1];
+    let parent = null;
+    if (this.currentToken() && this.currentToken()[0] === "KEYWORD_EXTENDS") {
+      this.eat("KEYWORD_EXTENDS");
+      parent = this.eat("VARIABLE")[1];
+    }
+    this.eat("COLON");
+    const body = [];
+    while (this.currentToken() && this.currentToken()[0] !== "KEYWORD_END") {
+      const token = this.currentToken();
+      if (token[0] === "KEYWORD_DECLARE") {
+        this.eat("KEYWORD_DECLARE");
+        const varName = this.eat("VARIABLE")[1];
+        this.eat("OPERATOR");
+        const expr = this.expression();
+        this.eat("SEMICOLON");
+        body.push(["property", varName, expr]);
+      } else if (token[0] === "KEYWORD_FUNC") {
+        body.push(this.funcStmt());
+      } else {
+        throw new SyntaxError(`Sintaks kelas teu dikenal: ${token[1]}`);
+      }
+    }
+    this.eat("KEYWORD_END");
+    return ["class", name, parent, body];
+  }
+
+  tryStmt() {
+    this.eat("KEYWORD_TRY");
+    this.eat("COLON");
+    const tryBody = this.block();
+    let catchVar = null;
+    let catchBody = null;
+    if (this.currentToken() && this.currentToken()[0] === "KEYWORD_CATCH") {
+      this.eat("KEYWORD_CATCH");
+      catchVar = this.eat("VARIABLE")[1];
+      this.eat("COLON");
+      catchBody = this.block();
+    }
+    let finallyBody = null;
+    if (this.currentToken() && this.currentToken()[0] === "KEYWORD_FINALLY") {
+      this.eat("KEYWORD_FINALLY");
+      this.eat("COLON");
+      finallyBody = this.block();
+    }
+    this.eat("KEYWORD_END");
+    return ["try", tryBody, catchVar, catchBody, finallyBody];
+  }
+
+  throwStmt() {
+    this.eat("KEYWORD_THROW");
+    const expr = this.expression();
+    this.eat("SEMICOLON");
+    return ["throw", expr];
+  }
+
   block() {
     const statements = [];
-    const stopTokens = ["KEYWORD_END", "KEYWORD_ELIF", "KEYWORD_ELSE"];
+    const stopTokens = ["KEYWORD_END", "KEYWORD_ELIF", "KEYWORD_ELSE", "KEYWORD_CATCH", "KEYWORD_FINALLY"];
     while (this.currentToken() && !stopTokens.includes(this.currentToken()[0])) {
       statements.push(this.statement());
     }
@@ -228,6 +333,51 @@ class SundaParser {
   }
 
   expression() { return this.comparison(); }
+
+  memberAccess() {
+    let node;
+    const isThis = this.currentToken()[0] === "KEYWORD_THIS";
+    if (isThis) {
+      this.eat("KEYWORD_THIS");
+      node = ["this"];
+    } else {
+      const token = this.eat("VARIABLE");
+      node = ["variable", token[1]];
+      // Handle regular function call: func(args)
+      if (this.currentToken() && this.currentToken()[0] === "LPAREN") {
+        this.eat("LPAREN");
+        const args = this.parseArgs();
+        this.eat("RPAREN");
+        node = ["call", token[1], args];
+      }
+    }
+
+    while (this.currentToken() && this.currentToken()[0] === "DOT") {
+      this.eat("DOT");
+      const member = this.eat("VARIABLE")[1];
+      if (this.currentToken() && this.currentToken()[0] === "LPAREN") {
+        this.eat("LPAREN");
+        const args = this.parseArgs();
+        this.eat("RPAREN");
+        node = ["member_call", node, member, args];
+      } else {
+        node = ["member_get", node, member];
+      }
+    }
+    return node;
+  }
+
+  parseArgs() {
+    const args = [];
+    if (this.currentToken() && this.currentToken()[0] !== "RPAREN") {
+      args.push(this.expression());
+      while (this.currentToken() && this.currentToken()[0] === "COMMA") {
+        this.eat("COMMA");
+        args.push(this.expression());
+      }
+    }
+    return args;
+  }
 
   comparison() {
     let node = this.arithmetic();
@@ -266,21 +416,23 @@ class SundaParser {
     if (kind === "NUMBER") return ["number", value.includes(".") ? parseFloat(value) : parseInt(value)];
     if (kind === "STRING") return ["string", value.slice(1, -1)];
     if (kind === "BOOLEAN") return ["boolean", value === "leres" || value === "true"];
-    if (kind === "VARIABLE") {
-      if (this.currentToken() && this.currentToken()[0] === "LPAREN") {
-        this.eat("LPAREN");
-        const args = [];
-        if (this.currentToken() && this.currentToken()[0] !== "RPAREN") {
+    if (kind === "VARIABLE" || kind === "KEYWORD_THIS") {
+      this.pos--; // Put it back to use memberAccess
+      return this.memberAccess();
+    }
+    if (kind === "KEYWORD_NEW") {
+      const clsName = this.eat("VARIABLE")[1];
+      this.eat("LPAREN");
+      const args = [];
+      if (this.currentToken() && this.currentToken()[0] !== "RPAREN") {
+        args.push(this.expression());
+        while (this.currentToken() && this.currentToken()[0] === "COMMA") {
+          this.eat("COMMA");
           args.push(this.expression());
-          while (this.currentToken() && this.currentToken()[0] === "COMMA") {
-            this.eat("COMMA");
-            args.push(this.expression());
-          }
         }
-        this.eat("RPAREN");
-        return ["call", value, args];
       }
-      return ["variable", value];
+      this.eat("RPAREN");
+      return ["new", clsName, args];
     }
     if (kind === "LPAREN") {
       const node = this.expression();
@@ -292,13 +444,56 @@ class SundaParser {
   }
 }
 
+class SundaClass {
+  constructor(name, parent, body) {
+    this.name = name;
+    this.parent = parent;
+    this.properties = {}; // name -> initialExpr
+    this.methods = {}; // name -> [params, body]
+    body.forEach(stmt => {
+      if (stmt[0] === "property") this.properties[stmt[1]] = stmt[2];
+      else if (stmt[0] === "function") this.methods[stmt[1]] = [stmt[2], stmt[3]];
+    });
+  }
+}
+
+class SundaInstance {
+  constructor(cls, interpreter) {
+    this.cls = cls;
+    this.fields = {};
+    // Initialize properties
+    let currentCls = cls;
+    const classes = [];
+    while (currentCls) {
+      classes.unshift(currentCls);
+      currentCls = interpreter.classes[currentCls.parent];
+    }
+    classes.forEach(c => {
+      for (const [name, expr] of Object.entries(c.properties)) {
+        this.fields[name] = interpreter.evaluate(expr);
+      }
+    });
+  }
+
+  getMethod(name, interpreter) {
+    let currentCls = this.cls;
+    while (currentCls) {
+      if (name in currentCls.methods) return currentCls.methods[name];
+      currentCls = interpreter.classes[currentCls.parent];
+    }
+    return null;
+  }
+}
+
 class SundaInterpreter {
-  constructor(ast, variables, functions, outputFn, inputFn) {
+  constructor(ast, variables, functions, outputFn, inputFn, classes) {
     this.ast = ast;
     this.variables = variables || {};
     this.functions = functions || {};
+    this.classes = classes || {};
     this.outputFn = outputFn || console.log;
     this.inputFn = inputFn || (() => "");
+    this.thisContext = null;
     this.returnFlag = false;
     this.returnValue = null;
     this.stepCount = 0;
@@ -324,7 +519,51 @@ class SundaInterpreter {
     if (kind === "variable") {
       const name = node[1];
       if (name in this.variables) return this.variables[name];
+      if (name in this.functions) return name; // For first-class functions if needed
       throw new Error(`Variabel '${name}' teu kapanggih.`);
+    }
+    if (kind === "this") {
+      if (!this.thisContext) throw new Error("'ieu' ngan bisa dipaké di jero kelas.");
+      return this.thisContext;
+    }
+    if (kind === "member_get") {
+      const obj = this.evaluate(node[1]);
+      if (!(obj instanceof SundaInstance)) throw new Error("Aksés member ngan bisa dipaké dina objék.");
+      if (node[2] in obj.fields) return obj.fields[node[2]];
+      throw new Error(`Member '${node[2]}' teu kapanggih dina objék.`);
+    }
+    if (kind === "member_call") {
+      const obj = this.evaluate(node[1]);
+      const methodName = node[2];
+      const args = node[3];
+      if (!(obj instanceof SundaInstance)) throw new Error("Geroan métode ngan bisa dipaké dina objék.");
+      const method = obj.getMethod(methodName, this);
+      if (!method) throw new Error(`Métode '${methodName}' teu kapanggih dina kelas ${obj.cls.name}.`);
+      
+      const [params, body] = method;
+      const localVars = {};
+      params.forEach((p, i) => localVars[p] = this.evaluate(args[i]));
+      const methodInterp = new SundaInterpreter(body, localVars, this.functions, this.outputFn, this.inputFn, this.classes);
+      methodInterp.thisContext = obj;
+      methodInterp.interpret();
+      return methodInterp.returnValue;
+    }
+    if (kind === "new") {
+      const clsName = node[1];
+      if (!(clsName in this.classes)) throw new Error(`Kelas '${clsName}' teu kapanggih.`);
+      const instance = new SundaInstance(this.classes[clsName], this);
+      // Optional: call constructor (init) if exists
+      const init = instance.getMethod("nyieun", this); // Use 'nyieun' as constructor name?
+      if (init) {
+        const [params, body] = init;
+        const args = node[2];
+        const localVars = {};
+        params.forEach((p, i) => localVars[p] = this.evaluate(args[i]));
+        const initInterp = new SundaInterpreter(body, localVars, this.functions, this.outputFn, this.inputFn, this.classes);
+        initInterp.thisContext = instance;
+        initInterp.interpret();
+      }
+      return instance;
     }
     if (kind === "binop") {
       const left = this.evaluate(node[1]);
@@ -346,7 +585,7 @@ class SundaInterpreter {
       }
       const localVars = {};
       funcParams.forEach((param, i) => { localVars[param] = this.evaluate(args[i]); });
-      const funcInterp = new SundaInterpreter(funcBody, localVars, this.functions, this.outputFn, this.inputFn);
+      const funcInterp = new SundaInterpreter(funcBody, localVars, this.functions, this.outputFn, this.inputFn, this.classes);
       funcInterp.stepCount = this.stepCount;
       funcInterp.maxSteps = this.maxSteps;
       funcInterp.interpret();
@@ -370,52 +609,102 @@ class SundaInterpreter {
   }
 
   execute(ast) {
+    if (!ast) return;
     for (const stmt of ast) {
       this.checkSteps();
       if (this.returnFlag) break;
-      const kind = stmt[0];
+      this.executeStmt(stmt);
+    }
+  }
 
-      if (kind === "declare" || kind === "assign") {
-        this.variables[stmt[1]] = this.evaluate(stmt[2]);
-      } else if (kind === "print") {
-        const val = this.evaluate(stmt[1]);
-        this.outputFn(val);
-      } else if (kind === "input") {
-        this.variables[stmt[1]] = this.inputFn(`Mangga eusian ${stmt[1]}: `);
-      } else if (kind === "if_chain") {
-        const [, branches, elseBranch] = stmt;
-        let executed = false;
-        for (const [, condition, body] of branches) {
-          if (this.evaluate(condition)) {
-            this.execute(body);
-            executed = true;
-            break;
-          }
+  executeStmt(stmt) {
+    const kind = stmt[0];
+    if (kind === "declare" || kind === "assign") {
+      this.variables[stmt[1]] = this.evaluate(stmt[2]);
+    } else if (kind === "member_assign") {
+      const target = stmt[1];
+      const val = this.evaluate(stmt[2]);
+      if (target[0] === "member_get") {
+        const obj = this.evaluate(target[1]);
+        if (obj instanceof SundaInstance) {
+          obj.fields[target[2]] = val;
+        } else {
+          throw new Error("Papasangan member ngan bisa dipaké dina objék.");
         }
-        if (!executed && elseBranch) this.execute(elseBranch);
-      } else if (kind === "loop") {
-        const [, varName, start, end, body] = stmt;
-        const startVal = this.evaluate(start);
-        const endVal = this.evaluate(end);
-        for (let i = startVal; i <= endVal; i++) {
-          this.variables[varName] = i;
-          this.execute(body);
-          if (this.returnFlag) break;
-        }
-      } else if (kind === "while") {
-        const [, condition, body] = stmt;
-        while (this.evaluate(condition)) {
-          this.execute(body);
-          if (this.returnFlag) break;
-        }
-      } else if (kind === "function") {
-        this.functions[stmt[1]] = [stmt[2], stmt[3]];
-      } else if (kind === "return") {
-        this.returnValue = this.evaluate(stmt[1]);
-        this.returnFlag = true;
-      } else if (kind === "expr") {
-        this.evaluate(stmt[1]);
       }
+    } else if (kind === "print") {
+      const expressions = stmt[1];
+      const results = expressions.map(expr => {
+        const v = this.evaluate(expr);
+        if (v instanceof SundaInstance) return `<Objék ${v.cls.name}>`;
+        if (v === true) return "leres";
+        if (v === false) return "lepat";
+        return String(v);
+      });
+      this.outputFn(results.join(" "));
+    } else if (kind === "input") {
+      const varName = stmt[1];
+      const customPrompt = stmt[2];
+      const promptText = customPrompt || `Mangga eusian ${varName}: `;
+      let val = this.inputFn(promptText);
+      if (val !== null && val !== "" && !isNaN(val)) {
+        val = val.includes(".") ? parseFloat(val) : parseInt(val);
+      }
+      this.variables[varName] = val;
+    } else if (kind === "if_chain") {
+      const [, branches, elseBranch] = stmt;
+      let executed = false;
+      for (const [, condition, body] of branches) {
+        if (this.evaluate(condition)) {
+          this.execute(body);
+          executed = true;
+          break;
+        }
+      }
+      if (!executed && elseBranch) this.execute(elseBranch);
+    } else if (kind === "loop") {
+      const [, varName, start, end, body] = stmt;
+      const startVal = this.evaluate(start);
+      const endVal = this.evaluate(end);
+      for (let i = startVal; i <= endVal; i++) {
+        this.variables[varName] = i;
+        this.execute(body);
+        if (this.returnFlag) break;
+      }
+    } else if (kind === "while") {
+      const [, condition, body] = stmt;
+      while (this.evaluate(condition)) {
+        this.execute(body);
+        if (this.returnFlag) break;
+      }
+    } else if (kind === "function") {
+      this.functions[stmt[1]] = [stmt[2], stmt[3]];
+    } else if (kind === "class") {
+      this.classes[stmt[1]] = new SundaClass(stmt[1], stmt[2], stmt[3]);
+    } else if (kind === "try") {
+      const [, tryBody, catchVar, catchBody, finallyBody] = stmt;
+      try {
+        this.execute(tryBody);
+      } catch (e) {
+        if (catchBody) {
+          const localVars = { ...this.variables };
+          localVars[catchVar || "kasalahan"] = e.message || e;
+          const catchInterp = new SundaInterpreter(catchBody, localVars, this.functions, this.outputFn, this.inputFn, this.classes);
+          catchInterp.interpret();
+        } else {
+          throw e;
+        }
+      } finally {
+        if (finallyBody) this.execute(finallyBody);
+      }
+    } else if (kind === "throw") {
+      const val = this.evaluate(stmt[1]);
+      throw val;
+    } else if (kind === "return") {
+      this.returnValue = this.evaluate(stmt[1]);
+      this.returnFlag = true;
+    } else if (kind === "expr") {
+      this.evaluate(stmt[1]);
     }
   }
 }
@@ -431,9 +720,12 @@ function runSundaCode(code, inputValues) {
     else output.push(String(val));
   };
 
-  const inputFn = (prompt) => {
+  const inputFn = (promptText) => {
     if (inputIdx < inputValues.length) return inputValues[inputIdx++];
-    return prompt(prompt);
+    if (typeof window !== "undefined" && window.prompt) {
+      return window.prompt(promptText);
+    }
+    return null;
   };
 
   try {
@@ -441,7 +733,7 @@ function runSundaCode(code, inputValues) {
     const tokens = lexer.tokenize();
     const parser = new SundaParser(tokens);
     const ast = parser.parse();
-    const interpreter = new SundaInterpreter(ast, {}, {}, outputFn, inputFn);
+    const interpreter = new SundaInterpreter(ast, {}, {}, outputFn, inputFn, {});
     interpreter.interpret();
     return { success: true, output };
   } catch (e) {

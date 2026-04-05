@@ -7,6 +7,8 @@ const EXAMPLES = {
   pikeun: `tampilkeun "=== Loop Pikeun ===";\n\npikeun i = 1 ti 5 ngajalankeun\n    tampilkeun i;\nanggeus\n\ntampilkeun "=== Loop Bari ===";\n\nnyieun counter = 1;\nbari counter <= 3 ngajalankeun\n    tampilkeun counter;\n    counter = counter + 1;\nanggeus`,
   fungsi: `pungsi tambah(a, b):\n    balikkeun a + b;\nanggeus\n\npungsi kali(a, b):\n    balikkeun a * b;\nanggeus\n\npungsi salam(nama):\n    tampilkeun "Halo, ";\n    tampilkeun nama;\n    balikkeun leres;\nanggeus\n\nnyieun hasil_tambah = tambah(10, 5);\ntampilkeun "10 + 5 =";\ntampilkeun hasil_tambah;\n\nnyieun hasil_kali = kali(4, 3);\ntampilkeun "4 * 3 =";\ntampilkeun hasil_kali;\n\nsalam("Sunda");`,
   rekursi: `pungsi faktorial(n):\n    upami n <= 1:\n        balikkeun 1;\n    anggeus\n    balikkeun n * faktorial(n - 1);\nanggeus\n\npungsi fibonacci(n):\n    upami n <= 0:\n        balikkeun 0;\n    anggeus\n    upami n == 1:\n        balikkeun 1;\n    anggeus\n    balikkeun fibonacci(n - 1) + fibonacci(n - 2);\nanggeus\n\ntampilkeun "=== Faktorial ===";\npikeun i = 1 ti 6 ngajalankeun\n    nyieun hasil = faktorial(i);\n    tampilkeun hasil;\nanggeus\n\ntampilkeun "=== Fibonacci ===";\npikeun i = 0 ti 8 ngajalankeun\n    nyieun fib = fibonacci(i);\n    tampilkeun fib;\nanggeus`,
+  oop: `kelas Kucing:\n    nyieun sora = "Méong";\n\n    pungsi nyora():\n        tampilkeun "Kucing nyora: ", ieu.sora;\n    anggeus\nanggeus\n\nnyieun k = anyar Kucing();\nk.nyora();\n\nk.sora = "Rawrr!";\nk.nyora();`,
+  kasalahan: `coba:\n    tampilkeun "Nyobaan bagi ku enol...";\n    nyieun x = 10 / 0;\ncekel e:\n    tampilkeun "Aya kasalahan: ", e;\ntungtungna:\n    tampilkeun "Proses réngsé.";\nanggeus`,
 };
 
 document.addEventListener("DOMContentLoaded", () => {
