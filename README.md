@@ -1,10 +1,15 @@
-# **Sunda Language** 🌺
+# **Sunda Language (ᮞᮥᮔ᮪ᮓ ᮜᮔ᮪ᮌᮥᮃᮌᮨ)** 🌺
 
-**Sunda Language** adalah bahasa pemrograman sederhana dengan sintaksis menggunakan bahasa Sunda. Bahasa ini dirancang untuk memberikan pengalaman pemrograman dengan menggunakan bahasa daerah yang dikenal di Indonesia, khususnya di wilayah Jawa Barat.
+**Sampurasun!** 🙏 
+
+**Sunda Language** adalah bahasa pemrograman sederhana dengan sintaksis menggunakan bahasa Sunda. Bahasa ini dirancang untuk memberikan pengalaman pemrograman dengan menggunakan bahasa daerah yang berakar kuat pada kearifan lokal Nusantara, khususnya di tatar Sunda (Jawa Barat). 
+
+🌐 **Situs Resmi / Landing Page:** [https://sunda-language.netlify.app/](https://sunda-language.netlify.app/)  
+🎮 **Live Code Playground (ᮕᮣᮚ᮪ᮌᮢᮧᮅᮔ᮪ᮓ᮪):** [https://sunda-language.netlify.app/playground](https://sunda-language.netlify.app/playground)
 
 ---
 
-## **Instalasi**
+## **Instalasi (ᮄᮔ᮪ᮞ᮪ᮒᮜᮞᮤ)**
 
 ### Cara 1: Install via pip (Direkomendasikan)
 ```bash
@@ -30,7 +35,7 @@ run-sunda examples/hello_world.sunda
 
 ## **VS Code Extension (Syntax Highlighting)**
 
-Supaya kode `.sunda` berwarna di VS Code:
+Supaya kode `.sunda` tampil éndah di VS Code:
 
 ```powershell
 # Windows (PowerShell)
@@ -46,7 +51,7 @@ Restart VS Code, lalu buka file `.sunda` → kode akan berwarna! 🎨
 
 ---
 
-## **Sintaks Sunda**
+## **Sintaks Sunda (ᮞᮤᮔ᮪ᮒᮊ᮪ᮞ᮪ ᮞᮥᮔ᮪ᮓ)**
 
 ### **1. Deklarasi Variabel**
 ```sunda
@@ -106,7 +111,7 @@ tampilkeun nama;
 
 ---
 
-## **Daftar Keyword**
+## **Daftar Keyword (ᮓᮖ᮪ᮒᮁ ᮊᮤᮝᮧᮁᮓ᮪)**
 
 | Keyword                       | Arti                | Contoh                           |
 | ----------------------------- | ------------------- | -------------------------------- |
@@ -118,12 +123,19 @@ tampilkeun nama;
 | `lainna` / `lain lamun`       | Else (lainnya)      | `lainna:`                        |
 | `pikeun`                      | For loop            | `pikeun i = 1 ti 5 ngajalankeun` |
 | `bari`                        | While loop          | `bari x < 10 ngajalankeun`       |
+| `ti` / `nepi`                 | Rentang (From/To)   | `ti 1 nepi 10`                   |
+| `eureun` / `teraskeun`        | Break / Continue    | `eureun;`                        |
 | `ngajalankeun`                | Run / Jalankan      | (penutup kondisi loop)           |
 | `anggeus`                     | End / Selesai       | (penutup blok)                   |
 | `pungsi`                      | Definisi pungsi     | `pungsi tambah(a, b):`           |
 | `balikkeun`                   | Return              | `balikkeun a + b;`               |
-| `leres`                       | True (benar)        | `nyieun aktif = leres;`          |
-| `lepat`                       | False (salah)       | `nyieun aktif = lepat;`          |
+| `leres` / `lepat`             | True / False        | `nyieun aktif = leres;`          |
+| `jeung` / `atawa` / `lain`    | And / Or / Not      | `leres jeung lepat;`             |
+| `coba` / `cekel`              | Try / Catch         | `coba: ... cekel e: ...`         |
+| `tungtungna` / `balangkeun`   | Finally / Throw     | `balangkeun "Error!";`           |
+| `kelas` / `anyar`             | Class / New         | `kelas Jalma:` `anyar Jalma();`  |
+| `ieu` / `turunan`             | This/Self / Extends | `ieu.nama` / `turunan Bapa`      |
+| `kosong`                      | Null / None         | `nyieun data = kosong;`          |
 
 ---
 
@@ -143,7 +155,7 @@ Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE)
 
 ---
 
-## **Kontribusi**
+## **Kontribusi (ᮊᮧᮔ᮪ᮒᮢᮤᮘᮥᮞᮤ)**
 
 1. **Fork repositori ini**
 2. **Buat cabang baru** - `git checkout -b nama-fitur`
@@ -151,6 +163,6 @@ Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE)
 4. **Push ke cabang Anda** - `git push origin nama-fitur`
 5. **Buat Pull Request**
 
-Hatur nuhun pisan! 😊
+Hatur nuhun pisan! Mugia mangpaat! 🙏😊
 
 ---
