@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aksara Sunda Programming - Coming Soon</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+Sundanese&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    .coming-soon-container {
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      padding: 40px;
+      background: var(--gradient-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-premium);
+      max-width: 600px;
+      width: 90%;
+      backdrop-filter: blur(10px);
+    }
+    
+    .aksara-title {
+      font-family: var(--font-aksara);
+      font-size: 5rem;
+      color: var(--color-sunda-gold);
+      margin-bottom: 10px;
+      line-height: 1;
+      text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+    }
+    
+    .subtitle {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+      color: var(--color-text);
+    }
+    
+    .desc {
+      color: var(--color-text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .aksara-bg {
+      position: absolute;
+      font-size: 20rem;
+      color: var(--color-text);
+      opacity: 0.03;
+      z-index: 0;
+      pointer-events: none;
+      font-family: var(--font-aksara);
+      animation: floatAksara 10s ease-in-out infinite;
+    }
+    
+    @keyframes floatAksara {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(5deg); }
+    }
+    
+    .aksara-bg-1 { top: -10%; left: -5%; }
+    .aksara-bg-2 { bottom: -10%; right: -5%; animation-delay: -5s; }
+  </style>
+</head>
+<body class="pattern-megamendung">
+
+  <div class="aksara-bg aksara-bg-1">ᮃ</div>
+  <div class="aksara-bg aksara-bg-2">ᮞ</div>
+
+  <div class="coming-soon-container reveal reveal-zoom active">
+    <div class="aksara-title">ᮃᮊ᮪ᮞᮛ</div>
+    <h1 class="subtitle">Bahasa Pemrograman <span class="gradient-text">Aksara Sunda</span></h1>
+    <p class="desc">Kami sedang mengembangkan versi bahasa pemrograman Sunda yang ditulis sepenuhnya menggunakan karakter Aksara Sunda asli. Pengalaman koding yang benar-benar kultural akan segera hadir.</p>
+    
+    <div style="display: flex; gap: 15px; justify-content: center;">
+      <a href="index.html" class="btn btn-secondary">
+        <i class="fa-solid fa-arrow-left"></i> Kembali ka Beranda
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Theme initialization based on localStorage
+    if (localStorage.getItem('theme') === 'light' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.body.classList.add('light-mode');
+    }
+  </script>
+</body>
+</html>

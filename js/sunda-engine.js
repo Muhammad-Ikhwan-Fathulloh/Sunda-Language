@@ -12,14 +12,22 @@ class SundaLexer {
       ["KEYWORD_IF", /\bupami\b/],
       ["KEYWORD_ELIF", /\blamun\b/],
       ["KEYWORD_ELSE", /\b(lainna|lain lamun)\b/],
-      ["KEYWORD_LOOP", /\bpikeun\b/],
+      ["KEYWORD_PIKEUN", /\bpikeun\b/],
       ["KEYWORD_WHILE", /\bbari\b/],
+      ["KEYWORD_TI", /\bti\b/],
+      ["KEYWORD_NEPI", /\bnepi\b/],
+      ["KEYWORD_BREAK", /\beureun\b/],
+      ["KEYWORD_CONTINUE", /\bteraskeun\b/],
       ["KEYWORD_RUN", /\bngajalankeun\b/],
       ["KEYWORD_END", /\banggeus\b/],
       ["KEYWORD_PRINT", /\btampilkeun\b/],
       ["KEYWORD_FUNC", /\b(?:pungsi|fungsi)\b/],
       ["KEYWORD_RETURN", /\bbalikkeun\b/],
       ["KEYWORD_INPUT", /\b(tanya|mangga_eusian)\b/],
+      ["KEYWORD_AND", /\bjeung\b/],
+      ["KEYWORD_OR", /\batawa\b/],
+      ["KEYWORD_NOT", /\blain\b/],
+      ["KEYWORD_NULL", /\bkosong\b/],
       ["KEYWORD_TRY", /\bcoba\b/],
       ["KEYWORD_CATCH", /\bcekel\b/],
       ["KEYWORD_FINALLY", /\btungtungna\b/],
@@ -103,8 +111,10 @@ class SundaParser {
     if (kind === "KEYWORD_PRINT") return this.printStmt();
     if (kind === "KEYWORD_INPUT") return this.inputStmt();
     if (kind === "KEYWORD_IF") return this.ifStmt();
-    if (kind === "KEYWORD_LOOP") return this.loopStmt();
+    if (kind === "KEYWORD_PIKEUN") return this.loopStmt();
     if (kind === "KEYWORD_WHILE") return this.whileStmt();
+    if (kind === "KEYWORD_BREAK") return this.breakStmt();
+    if (kind === "KEYWORD_CONTINUE") return this.continueStmt();
     if (kind === "KEYWORD_FUNC") return this.funcStmt();
     if (kind === "KEYWORD_RETURN") return this.returnStmt();
     if (kind === "KEYWORD_CLASS") return this.classStmt();
@@ -217,17 +227,28 @@ class SundaParser {
   }
 
   loopStmt() {
-    this.eat("KEYWORD_LOOP");
+    this.eat("KEYWORD_PIKEUN");
     const varName = this.eat("VARIABLE")[1];
     this.eat("OPERATOR");
     const startExpr = this.expression();
-    const tiToken = this.eat("VARIABLE");
-    if (tiToken[1].toLowerCase() !== "ti") throw new SyntaxError("Expected 'ti' in loop");
+    this.eat("KEYWORD_TI");
     const endExpr = this.expression();
     this.eat("KEYWORD_RUN");
     const body = this.block();
     this.eat("KEYWORD_END");
     return ["loop", varName, startExpr, endExpr, body];
+  }
+
+  breakStmt() {
+    this.eat("KEYWORD_BREAK");
+    this.eat("SEMICOLON");
+    return ["break"];
+  }
+
+  continueStmt() {
+    this.eat("KEYWORD_CONTINUE");
+    this.eat("SEMICOLON");
+    return ["continue"];
   }
 
   whileStmt() {
@@ -332,7 +353,27 @@ class SundaParser {
     return statements;
   }
 
-  expression() { return this.comparison(); }
+  expression() { return this.logicalOr(); }
+
+  logicalOr() {
+    let node = this.logicalAnd();
+    while (this.currentToken() && this.currentToken()[0] === "KEYWORD_OR") {
+      const op = this.eat("KEYWORD_OR")[1];
+      const right = this.logicalAnd();
+      node = ["binop", node, "or", right];
+    }
+    return node;
+  }
+
+  logicalAnd() {
+    let node = this.comparison();
+    while (this.currentToken() && this.currentToken()[0] === "KEYWORD_AND") {
+      const op = this.eat("KEYWORD_AND")[1];
+      const right = this.comparison();
+      node = ["binop", node, "and", right];
+    }
+    return node;
+  }
 
   memberAccess() {
     let node;
@@ -416,10 +457,12 @@ class SundaParser {
     if (kind === "NUMBER") return ["number", value.includes(".") ? parseFloat(value) : parseInt(value)];
     if (kind === "STRING") return ["string", value.slice(1, -1)];
     if (kind === "BOOLEAN") return ["boolean", value === "leres" || value === "true"];
+    if (kind === "KEYWORD_NULL") return ["null"];
     if (kind === "VARIABLE" || kind === "KEYWORD_THIS") {
       this.pos--; // Put it back to use memberAccess
       return this.memberAccess();
     }
+    if (kind === "KEYWORD_NOT") return ["unop", "not", this.factor()];
     if (kind === "KEYWORD_NEW") {
       const clsName = this.eat("VARIABLE")[1];
       this.eat("LPAREN");
@@ -496,6 +539,8 @@ class SundaInterpreter {
     this.thisContext = null;
     this.returnFlag = false;
     this.returnValue = null;
+    this.breakFlag = false;
+    this.continueFlag = false;
     this.stepCount = 0;
     this.maxSteps = 100000;
   }
@@ -516,6 +561,7 @@ class SundaInterpreter {
     if (!Array.isArray(node)) return node;
     const kind = node[0];
     if (kind === "number" || kind === "string" || kind === "boolean") return node[1];
+    if (kind === "null") return null;
     if (kind === "variable") {
       const name = node[1];
       if (name in this.variables) return this.variables[name];
@@ -566,14 +612,21 @@ class SundaInterpreter {
       return instance;
     }
     if (kind === "binop") {
-      const left = this.evaluate(node[1]);
+      const leftNode = node[1];
       const op = node[2];
-      const right = this.evaluate(node[3]);
+      const rightNode = node[3];
+
+      if (op === "and") return this.evaluate(leftNode) && this.evaluate(rightNode);
+      if (op === "or") return this.evaluate(leftNode) || this.evaluate(rightNode);
+
+      const left = this.evaluate(leftNode);
+      const right = this.evaluate(rightNode);
       return this.applyOp(left, op, right);
     }
     if (kind === "unop") {
       const val = this.evaluate(node[2]);
       if (node[1] === "-") return -val;
+      if (node[1] === "not") return !val;
       return val;
     }
     if (kind === "call") {
@@ -612,7 +665,7 @@ class SundaInterpreter {
     if (!ast) return;
     for (const stmt of ast) {
       this.checkSteps();
-      if (this.returnFlag) break;
+      if (this.returnFlag || this.breakFlag || this.continueFlag) break;
       this.executeStmt(stmt);
     }
   }
@@ -639,6 +692,7 @@ class SundaInterpreter {
         if (v instanceof SundaInstance) return `<Objék ${v.cls.name}>`;
         if (v === true) return "leres";
         if (v === false) return "lepat";
+        if (v === null) return "kosong";
         return String(v);
       });
       this.outputFn(results.join(" "));
@@ -670,13 +724,21 @@ class SundaInterpreter {
         this.variables[varName] = i;
         this.execute(body);
         if (this.returnFlag) break;
+        if (this.breakFlag) { this.breakFlag = false; break; }
+        if (this.continueFlag) { this.continueFlag = false; continue; }
       }
     } else if (kind === "while") {
       const [, condition, body] = stmt;
       while (this.evaluate(condition)) {
         this.execute(body);
         if (this.returnFlag) break;
+        if (this.breakFlag) { this.breakFlag = false; break; }
+        if (this.continueFlag) { this.continueFlag = false; continue; }
       }
+    } else if (kind === "break") {
+      this.breakFlag = true;
+    } else if (kind === "continue") {
+      this.continueFlag = true;
     } else if (kind === "function") {
       this.functions[stmt[1]] = [stmt[2], stmt[3]];
     } else if (kind === "class") {

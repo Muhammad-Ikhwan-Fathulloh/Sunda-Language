@@ -1,5 +1,8 @@
 import operator
 
+class BreakException(Exception): pass
+class ContinueException(Exception): pass
+
 class SundaClass:
     def __init__(self, name, parent, body):
         self.name = name
@@ -43,6 +46,8 @@ class Interpreter:
         self.this_context = None
         self.return_flag = False
         self.return_value = None
+        self.break_flag = False
+        self.continue_flag = False
 
     def interpret(self):
         self.execute(self.ast)
@@ -58,6 +63,8 @@ class Interpreter:
             return node[1]
         elif kind == "boolean":
             return node[1]
+        elif kind == "null":
+            return None
         elif kind == "variable":
             name = node[1]
             if name in self.variables:
@@ -104,17 +111,28 @@ class Interpreter:
                 init_interp.interpret()
             return instance
         elif kind == "binop":
-            left = self.evaluate(node[1])
+            left_node = node[1]
             op = node[2]
-            right = self.evaluate(node[3])
+            right_node = node[3]
+            
+            if op == "and":
+                return self.evaluate(left_node) and self.evaluate(right_node)
+            if op == "or":
+                return self.evaluate(left_node) or self.evaluate(right_node)
+                
+            left = self.evaluate(left_node)
+            right = self.evaluate(right_node)
             return self.apply_op(left, op, right)
         elif kind == "unop":
             op = node[1]
             val = self.evaluate(node[2])
             if op == "-": return -val
+            if op == "not": return not val
             return val
         elif kind == "call":
             name, args = node[1], node[2]
+            if name in ("print", "tampilkeun"): # Built-in alias handled in execute, but for completeness
+                 pass # execute handles this
             if name not in self.functions:
                 raise RuntimeError(f"Fungsi '{name}' teu kapanggih.")
             func_params, func_body = self.functions[name]
@@ -144,7 +162,7 @@ class Interpreter:
     def execute(self, ast):
         if not ast: return
         for stmt in ast:
-            if self.return_flag: break
+            if self.return_flag or self.break_flag or self.continue_flag: break
             kind = stmt[0]
             if kind == "declare" or kind == "assign":
                 self.variables[stmt[1]] = self.evaluate(stmt[2])
@@ -164,6 +182,7 @@ class Interpreter:
                     if isinstance(v, SundaInstance): formatted_results.append(f"<Objék {v.cls.name}>")
                     elif v is True: formatted_results.append("leres")
                     elif v is False: formatted_results.append("lepat")
+                    elif v is None: formatted_results.append("kosong")
                     else: formatted_results.append(str(v))
                 print(" ".join(formatted_results))
             elif kind == "input":
@@ -190,11 +209,27 @@ class Interpreter:
                     self.variables[var] = i
                     self.execute(body)
                     if self.return_flag: break
+                    if self.break_flag:
+                        self.break_flag = False
+                        break
+                    if self.continue_flag:
+                        self.continue_flag = False
+                        continue
             elif kind == "while":
                 condition, body = stmt[1], stmt[2]
                 while self.evaluate(condition):
                     self.execute(body)
                     if self.return_flag: break
+                    if self.break_flag:
+                        self.break_flag = False
+                        break
+                    if self.continue_flag:
+                        self.continue_flag = False
+                        continue
+            elif kind == "break":
+                self.break_flag = True
+            elif kind == "continue":
+                self.continue_flag = True
             elif kind == "function":
                 self.functions[stmt[1]] = (stmt[2], stmt[3])
             elif kind == "class":

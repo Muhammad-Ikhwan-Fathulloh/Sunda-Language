@@ -11,8 +11,9 @@ class SundaHighlighter {
       { regex: /\btampilkeun\b/, cls: "hl-keyword-print" },
       { regex: /\b(?:tanya|mangga_eusian)\b/, cls: "hl-keyword-input" },
       { regex: /\b(?:upami|lamun|lainna)\b/, cls: "hl-keyword-control" },
-      { regex: /\b(?:pikeun|bari|ngajalankeun|ti)\b/, cls: "hl-keyword-loop" },
+      { regex: /\b(?:pikeun|bari|ngajalankeun|ti|nepi|eureun|teraskeun)\b/, cls: "hl-keyword-loop" },
       { regex: /\b(?:pungsi|fungsi|balikkeun)\b/, cls: "hl-keyword-func" },
+      { regex: /\b(?:jeung|atawa|lain|kosong)\b/, cls: "hl-keyword-declare" }, // Logic/Null using declare color for consistency or can use separate
       { regex: /\b(?:coba|cekel|tungtungna|balangkeun)\b/, cls: "hl-keyword-try" },
       { regex: /\b(?:kelas|ieu|anyar|turunan)\b/, cls: "hl-keyword-oop" },
       { regex: /\banggeus\b/, cls: "hl-keyword-end" },

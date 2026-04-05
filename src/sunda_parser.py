@@ -34,10 +34,14 @@ class Parser:
             return self.input_stmt()
         elif kind == "KEYWORD_IF":
             return self.if_stmt()
-        elif kind == "KEYWORD_LOOP":
+        elif kind == "KEYWORD_PIKEUN":
             return self.loop_stmt()
         elif kind == "KEYWORD_WHILE":
             return self.while_stmt()
+        elif kind == "KEYWORD_BREAK":
+            return self.break_stmt()
+        elif kind == "KEYWORD_CONTINUE":
+            return self.continue_stmt()
         elif kind == "KEYWORD_FUNC":
             return self.func_stmt()
         elif kind == "KEYWORD_RETURN":
@@ -143,18 +147,26 @@ class Parser:
         return ("if_chain", branches, else_branch)
 
     def loop_stmt(self):
-        self.eat("KEYWORD_LOOP")
+        self.eat("KEYWORD_PIKEUN")
         var_name = self.eat("VARIABLE")[1]
         self.eat("OPERATOR") # '='
         start_expr = self.expression()
-        ti_token = self.eat("VARIABLE")
-        if ti_token[1].lower() != "ti":
-            raise SyntaxError("Expected 'ti' in loop")
+        self.eat("KEYWORD_TI")
         end_expr = self.expression()
         self.eat("KEYWORD_RUN")
         body = self.block()
         self.eat("KEYWORD_END")
         return ("loop", var_name, start_expr, end_expr, body)
+
+    def break_stmt(self):
+        self.eat("KEYWORD_BREAK")
+        self.eat("SEMICOLON")
+        return ("break",)
+
+    def continue_stmt(self):
+        self.eat("KEYWORD_CONTINUE")
+        self.eat("SEMICOLON")
+        return ("continue",)
 
     def while_stmt(self):
         self.eat("KEYWORD_WHILE")
@@ -280,12 +292,18 @@ class Parser:
 
     def logical_or(self):
         node = self.logical_and()
-        # simplified for now, can add 'atawa' keyword later
+        while self.current_token() and self.current_token()[0] == "KEYWORD_OR":
+            op = self.eat("KEYWORD_OR")[1]
+            right = self.logical_and()
+            node = ("binop", node, "or", right)
         return node
 
     def logical_and(self):
         node = self.comparison()
-        # simplified for now, can add 'jeung' keyword later
+        while self.current_token() and self.current_token()[0] == "KEYWORD_AND":
+            op = self.eat("KEYWORD_AND")[1]
+            right = self.comparison()
+            node = ("binop", node, "and", right)
         return node
 
     def comparison(self):
@@ -321,9 +339,13 @@ class Parser:
             return ("string", value[1:-1])
         elif kind == "BOOLEAN":
             return ("boolean", value in ("leres", "true"))
+        elif kind == "KEYWORD_NULL":
+            return ("null", None)
         elif kind == "VARIABLE" or kind == "KEYWORD_THIS":
             self.pos -= 1
             return self.member_access()
+        elif kind == "KEYWORD_NOT":
+            return ("unop", "not", self.factor())
         elif kind == "KEYWORD_NEW":
             cls_name = self.eat("VARIABLE")[1]
             self.eat("LPAREN")
