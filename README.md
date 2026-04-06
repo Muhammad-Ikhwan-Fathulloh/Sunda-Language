@@ -112,6 +112,55 @@ anggeus
 
 ---
 
+## 📜 Koding Nganggo Aksara Sunda (ᮊᮧᮓᮤᮀ ᮍᮀᮌᮧ ᮃᮊ᮪ᮞᮛ ᮞᮥᮔ᮪ᮓ)
+
+Sunda Language nampi pisan ngetik langsung nganggo naskah **Aksara Sunda**. Ieu conto-conto kode anu tiasa dijalankeun di [Aksara Playground](https://sunda-language.netlify.app/aksara):
+
+### 1. Hello World (ᮠᮜᮧ ᮞᮥᮔ᮪ᮓ)
+```sunda
+ᮒᮙ᮪ᮕᮤᮜ᮪ᮊᮩᮔ᮪ "ᮠᮜᮧ ᮞᮥᮔ᮪ᮓ! 🌺";
+```
+
+### 2. Variabel & Angka Sunda (᮱-᮹)
+```sunda
+ᮑᮤᮉᮔ᮪ ᮃ = ᮱᮰;
+ᮑᮤᮉᮔ᮪ ᮘ = ᮵;
+ᮒᮙ᮪ᮕᮤᮜ᮪ᮊᮩᮔ᮪ ᮃ + ᮘ;
+```
+
+### 3. Kondisi (ᮅᮕᮙᮤ)
+```sunda
+ᮑᮤᮉᮔ᮪ ᮃ = ᮱᮰;
+ᮅᮕᮙᮤ ᮃ > ᮵:
+    ᮒᮙ᮪ᮕᮤᮜ᮪ᮊᮩᮔ᮪ "ᮜᮨᮥᮙ᮪ᮕᮒ᮪ ᮃ ";
+ᮃᮀᮌᮩᮞ᮪
+```
+
+### 4. Perulangan (ᮕᮤᮊᮩᮔ᮪)
+```sunda
+ᮕᮤᮊᮩᮔ᮪ ᮄ = ᮱ ᮒᮤ ᮳ ᮍᮏᮜᮔ᮪ᮊᮩᮔ᮪
+    ᮒᮙ᮪ᮕᮤᮜ᮪ᮊᮩᮔ᮪ ᮄ;
+ᮃᮀᮌᮩᮞ᮪
+```
+
+### 5. Pungsi (ᮕᮥᮀᮞᮤ)
+```sunda
+ᮕᮥᮀᮞᮤ ᮒᮙ᮪ᮘᮠ᮪(ᮃ, ᮘ):
+    ᮘᮜᮤᮊ᮪ᮊᮩᮔ᮪ ᮃ + ᮘ;
+ᮃᮀᮌᮩᮞ᮪
+
+ᮒᮙ᮪ᮕᮤᮜ᮪ᮊᮩᮔ᮪ ᮒᮙ᮪ᮘᮠ᮪(᮱᮰, ᮵);
+```
+
+### 6. Input (ᮒᮑ)
+```sunda
+ᮒᮙ᮪ᮕᮤᮜ᮪ᮊᮩᮔ᮪ "ᮞᮠ ᮔᮙᮤ ᮃᮔ᮪ᮏᮩᮔ᮪?";
+ᮒᮑ ᮔᮙᮤ;
+ᮒᮙ᮪ᮕᮤᮜ᮪ᮊᮩᮔ᮪ "ᮠᮜᮧ, " + ᮔᮙᮤ;
+```
+
+---
+
 ## 📖 Kamus Keyword (ᮊᮤᮝᮧᮁᮓ᮪)
 
 | Keyword      | Sinonim            | Padanan Inggris         |
