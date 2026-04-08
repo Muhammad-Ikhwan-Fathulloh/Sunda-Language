@@ -21,13 +21,52 @@ from sunda_language.sunda_parser import Parser
 from sunda_language.interpreter import Interpreter
 
 
+def repl():
+    print("Sunda Language REPL v1.0.0 🌺")
+    print("Ketik 'kaluar' atanapi pencét Ctrl+C kanggo réngsé.")
+    
+    # Initialize interpreter once to keep state
+    interpreter = Interpreter([])
+    
+    while True:
+        try:
+            code = input("sunda> ").strip()
+            if not code:
+                continue
+            if code.lower() in ("kaluar", "exit", "quit"):
+                break
+                
+            # Auto-append semicolon if it seems like a simple line without it
+            if not code.endswith(";") and not code.endswith(":") and not code.endswith("anggeus"):
+                code += ";"
+                
+            lexer = Lexer(code)
+            tokens = list(lexer.tokenize())
+            if not tokens:
+                continue
+                
+            sunda_parser = Parser(tokens)
+            ast = sunda_parser.parse()
+            
+            interpreter.execute(ast)
+            
+        except KeyboardInterrupt:
+            print("\nWilujeng kantun!")
+            break
+        except EOFError:
+            print("\nWilujeng kantun!")
+            break
+        except Exception as e:
+            print(f"❌ {e}")
+
+
 def main():
     parser = argparse.ArgumentParser(
         prog="sunda",
         description="Sunda Language - Basa pamrograman nganggo Basa Sunda 🌺",
         epilog="Conto: sunda examples/halo.sunda",
     )
-    parser.add_argument("file", help="File .sunda anu bade dijalankeun")
+    parser.add_argument("file", nargs="?", help="File .sunda anu bade dijalankeun")
     parser.add_argument(
         "--version", "-v",
         action="version",
@@ -36,6 +75,11 @@ def main():
 
     args = parser.parse_args()
     filename = args.file
+
+    # If no file provided, start REPL
+    if not filename:
+        repl()
+        return
 
     if not os.path.exists(filename):
         print(f"❌ File '{filename}' teu kapanggih!")

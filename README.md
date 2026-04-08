@@ -36,7 +36,27 @@ sunda examples/hello_world.sunda
 ### Cara 2: Jalankan manual via Python
 Pastikan Anda berada di direktori root proyek:
 ```bash
-python src/main.py examples/program_simpel.sunda
+python -m sunda_language examples/program_simpel.sunda
+```
+
+### Cara 3: Google Colab (Notebook)
+Sunda Language ogé tiasa pisan dijalankeun ngagunakeun Google Colab atawa Jupyter Notebook.
+
+Dina sel kode, jalankeun pamasangan paket ieu:
+```python
+!pip install sunda-language
+```
+
+Damel file kode program Sunda-na nganggo magics `%%writefile`:
+```python
+%%writefile program.sunda
+nyieun nami = "Colab";
+tampilkeun "Halo ti " + nami + "!";
+```
+
+Jalankeun file éta nganggo pre-fix `!`:
+```python
+!sunda program.sunda
 ```
 
 ---
@@ -246,13 +266,16 @@ Kamus leutik kanggo daptar kosa kata nu digunakeun dina struktur basa pamrograma
 
 ```text
 .
-├── src/                # Kode sumber Interpreter
+├── sunda_language/     # Kode sumber Interpreter
+│   ├── __init__.py     # Metadata proyek
 │   ├── lexer.py        # Analisis leksikal
-│   ├── parser.py       # Analisis sintaksis
-│   └── interpreter.py  # Eksekusi kode
+│   ├── sunda_parser.py # Analisis sintaksis
+│   ├── interpreter.py  # Eksekusi kode
+│   └── __main__.py     # Titik masuk eksekusi (CLI)
 ├── examples/           # Contoh program (.sunda)
 ├── sunda-vscode/       # Plugin VS Code
-├── setup.py            # Konfigurasi instalasi PIP
+├── pyproject.toml      # Konfigurasi instalasi PIP modern
+├── MANIFEST.in         # Konfigurasi pengepakan distribusi
 └── README.md           # Dokumentasi
 ```
 
