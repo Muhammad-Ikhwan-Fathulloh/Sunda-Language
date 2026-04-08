@@ -1,32 +1,38 @@
+"""
+Entry point utama Sunda Language.
+
+Bisa dijalankeun ku cara:
+  sunda <file.sunda>
+  python -m sunda_language <file.sunda>
+"""
+
 import sys
 import os
 import io
 import argparse
 
-# Fix Windows console encoding
-if sys.stdout.encoding != 'utf-8':
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+# Fix Windows console encoding for Unicode/Aksara Sunda support
+if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
-# Support both installed (package) and direct (python src/main.py) execution
-try:
-    from src.lexer import Lexer
-    from src.sunda_parser import Parser
-    from src.interpreter import Interpreter
-except ImportError:
-    from lexer import Lexer
-    from sunda_parser import Parser
-    from interpreter import Interpreter
+from sunda_language.lexer import Lexer
+from sunda_language.sunda_parser import Parser
+from sunda_language.interpreter import Interpreter
 
 
 def main():
     parser = argparse.ArgumentParser(
         prog="sunda",
         description="Sunda Language - Basa pamrograman nganggo Basa Sunda 🌺",
-        epilog="Conto: sunda examples/halo.sunda"
+        epilog="Conto: sunda examples/halo.sunda",
     )
     parser.add_argument("file", help="File .sunda anu bade dijalankeun")
-    parser.add_argument("--version", "-v", action="version", version="Sunda Language v1.0.0")
+    parser.add_argument(
+        "--version", "-v",
+        action="version",
+        version="Sunda Language v1.0.0",
+    )
 
     args = parser.parse_args()
     filename = args.file
@@ -36,7 +42,7 @@ def main():
         sys.exit(1)
 
     if not filename.endswith(".sunda"):
-        print(f"⚠️  File kedah nganggo ékstensi .sunda")
+        print("⚠️  File kedah nganggo ékstensi .sunda")
         sys.exit(1)
 
     with open(filename, "r", encoding="utf-8") as f:
@@ -54,6 +60,7 @@ def main():
         # Interpreter: Ngajalankeun program
         interpreter = Interpreter(ast)
         interpreter.interpret()
+
     except SyntaxError as e:
         print(f"❌ Kasalahan sintaks: {e}")
         sys.exit(1)

@@ -23,7 +23,8 @@ class Parser:
 
     def statement(self):
         token = self.current_token()
-        if not token: return None
+        if not token:
+            return None
         kind, value = token
 
         if kind == "KEYWORD_DECLARE":
@@ -53,7 +54,6 @@ class Parser:
         elif kind == "KEYWORD_THROW":
             return self.throw_stmt()
         elif kind == "VARIABLE":
-            # Lookahead: index current + 1
             if self.pos + 1 < len(self.tokens):
                 next_tok = self.tokens[self.pos + 1]
                 if next_tok[0] == "OPERATOR" and next_tok[1] == "=":
@@ -73,14 +73,14 @@ class Parser:
     def declare_stmt(self):
         self.eat("KEYWORD_DECLARE")
         var_name = self.eat("VARIABLE")[1]
-        self.eat("OPERATOR") # Expect '='
+        self.eat("OPERATOR")  # Expect '='
         expr = self.expression()
         self.eat("SEMICOLON")
         return ("declare", var_name, expr)
 
     def assignment_stmt(self):
         var_name = self.eat("VARIABLE")[1]
-        self.eat("OPERATOR") # Expect '='
+        self.eat("OPERATOR")  # Expect '='
         expr = self.expression()
         self.eat("SEMICOLON")
         return ("assign", var_name, expr)
@@ -92,13 +92,11 @@ class Parser:
 
     def member_assignment_stmt(self):
         target = self.member_access()
-        # Look for assignment after member access
         if self.current_token() and self.current_token()[0] == "OPERATOR" and self.current_token()[1] == "=":
             self.eat("OPERATOR")
             expr = self.expression()
             self.eat("SEMICOLON")
             return ("member_assign", target, expr)
-        # If no '=', just treat as expr stmt
         self.eat("SEMICOLON")
         return ("expr", target)
 
@@ -149,7 +147,7 @@ class Parser:
     def loop_stmt(self):
         self.eat("KEYWORD_PIKEUN")
         var_name = self.eat("VARIABLE")[1]
-        self.eat("OPERATOR") # '='
+        self.eat("OPERATOR")  # '='
         start_expr = self.expression()
         self.eat("KEYWORD_TI")
         end_expr = self.expression()
@@ -211,12 +209,11 @@ class Parser:
             tok = self.current_token()
             if tok[0] == "KEYWORD_DECLARE":
                 stmt = self.declare_stmt()
-                # Converting regular declare to property
                 body.append(("property", stmt[1], stmt[2]))
             elif tok[0] == "KEYWORD_FUNC":
                 body.append(self.func_stmt())
             else:
-                self.eat() # Skip/Ignore
+                self.eat()  # Skip/Ignore
         self.eat("KEYWORD_END")
         return ("class", name, parent, body)
 
@@ -262,13 +259,12 @@ class Parser:
         else:
             token = self.eat("VARIABLE")
             node = ("variable", token[1])
-            # Regular function call: bagi(1, 2)
             if self.current_token() and self.current_token()[0] == "LPAREN":
                 self.eat("LPAREN")
                 args = self.parse_args()
                 self.eat("RPAREN")
                 node = ("call", token[1], args)
-        
+
         while self.current_token() and self.current_token()[0] == "DOT":
             self.eat("DOT")
             member = self.eat("VARIABLE")[1]
@@ -293,7 +289,7 @@ class Parser:
     def logical_or(self):
         node = self.logical_and()
         while self.current_token() and self.current_token()[0] == "KEYWORD_OR":
-            op = self.eat("KEYWORD_OR")[1]
+            self.eat("KEYWORD_OR")
             right = self.logical_and()
             node = ("binop", node, "or", right)
         return node
@@ -301,7 +297,7 @@ class Parser:
     def logical_and(self):
         node = self.comparison()
         while self.current_token() and self.current_token()[0] == "KEYWORD_AND":
-            op = self.eat("KEYWORD_AND")[1]
+            self.eat("KEYWORD_AND")
             right = self.comparison()
             node = ("binop", node, "and", right)
         return node

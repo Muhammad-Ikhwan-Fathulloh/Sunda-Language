@@ -1,0 +1,5 @@
+include README.md
+include LICENSE
+include pyproject.toml
+recursive-include examples *.sunda
+recursive-include sunda_language *.py

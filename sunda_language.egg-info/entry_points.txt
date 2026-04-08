@@ -1,2 +1,2 @@
 [console_scripts]
-sunda = src.main:main
+sunda = sunda_language.__main__:main

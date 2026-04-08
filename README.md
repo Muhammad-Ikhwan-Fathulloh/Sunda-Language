@@ -7,6 +7,7 @@
 <a href="https://sunda-language.netlify.app/"><img src="https://img.shields.io/badge/Situs_Resmi-6d28d9?style=flat-square&logo=google-chrome&logoColor=white" alt="Website" /></a>
 <a href="https://sunda-language.netlify.app/playground"><img src="https://img.shields.io/badge/Playground-f59e0b?style=flat-square&logo=google-play&logoColor=white" alt="Playground" /></a>
 <a href="https://sunda-language.netlify.app/aksara"><img src="https://img.shields.io/badge/Versi_Aksara-10b981?style=flat-square&logo=pencipta&logoColor=white" alt="Aksara" /></a>
+<a href="https://pypi.org/project/sunda-language/"><img src="https://img.shields.io/badge/PyPI-Install-3776AB?style=flat-square&logo=python&logoColor=white" alt="PyPI" /></a>
 </div>
 
 ---
@@ -21,9 +22,11 @@
 
 ## 📥 Instalasi (ᮄᮔ᮪ᮞ᮪ᮒᮜᮞᮤ)
 
+Basa pemrograman ieu parantos mimiti aya dina **[PyPI](https://pypi.org/project/sunda-language/)**.
+
 ### Cara 1: Install via pip (Direkomendasikan)
 ```bash
-pip install -e .
+pip install sunda-language
 ```
 Lajeng jalankeun:
 ```bash

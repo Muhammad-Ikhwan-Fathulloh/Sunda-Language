@@ -1,25 +1,32 @@
 import operator
 
-class BreakException(Exception): pass
-class ContinueException(Exception): pass
+
+class BreakException(Exception):
+    pass
+
+
+class ContinueException(Exception):
+    pass
+
 
 class SundaClass:
     def __init__(self, name, parent, body):
         self.name = name
         self.parent = parent
-        self.properties = {} # name -> initial_expr
-        self.methods = {} # name -> (params, body)
+        self.properties = {}   # name -> initial_expr
+        self.methods = {}      # name -> (params, body)
         for stmt in body:
             if stmt[0] == "property":
                 self.properties[stmt[1]] = stmt[2]
             elif stmt[0] == "function":
                 self.methods[stmt[1]] = (stmt[2], stmt[3])
 
+
 class SundaInstance:
     def __init__(self, cls, interpreter):
         self.cls = cls
         self.fields = {}
-        # Initialize properties chain
+        # Initialize properties chain (support inheritance)
         classes = []
         curr = cls
         while curr:
@@ -36,6 +43,7 @@ class SundaInstance:
                 return curr.methods[name]
             curr = interpreter.classes.get(curr.parent)
         return None
+
 
 class Interpreter:
     def __init__(self, ast, variables=None, functions=None, classes=None):
@@ -114,30 +122,30 @@ class Interpreter:
             left_node = node[1]
             op = node[2]
             right_node = node[3]
-            
             if op == "and":
                 return self.evaluate(left_node) and self.evaluate(right_node)
             if op == "or":
                 return self.evaluate(left_node) or self.evaluate(right_node)
-                
             left = self.evaluate(left_node)
             right = self.evaluate(right_node)
             return self.apply_op(left, op, right)
         elif kind == "unop":
             op = node[1]
             val = self.evaluate(node[2])
-            if op == "-": return -val
-            if op == "not": return not val
+            if op == "-":
+                return -val
+            if op == "not":
+                return not val
             return val
         elif kind == "call":
             name, args = node[1], node[2]
-            if name in ("print", "tampilkeun"): # Built-in alias handled in execute, but for completeness
-                 pass # execute handles this
             if name not in self.functions:
                 raise RuntimeError(f"Fungsi '{name}' teu kapanggih.")
             func_params, func_body = self.functions[name]
             if len(args) != len(func_params):
-                raise RuntimeError(f"Fungsi '{name}' butuh {len(func_params)} argumén, tapi dikirim {len(args)}.")
+                raise RuntimeError(
+                    f"Fungsi '{name}' butuh {len(func_params)} argumén, tapi dikirim {len(args)}."
+                )
             local_vars = {param: self.evaluate(arg) for param, arg in zip(func_params, args)}
             func_interpreter = Interpreter(func_body, local_vars, self.functions, self.classes)
             func_interpreter.interpret()
@@ -146,11 +154,17 @@ class Interpreter:
 
     def apply_op(self, left, op, right):
         ops = {
-            "+": operator.add, "-": operator.sub, "*": operator.mul,
-            "/": operator.truediv, "%": operator.mod,
-            "==": operator.eq, "!=": operator.ne,
-            "<": operator.lt, ">": operator.gt,
-            "<=": operator.le, ">=": operator.ge
+            "+": operator.add,
+            "-": operator.sub,
+            "*": operator.mul,
+            "/": operator.truediv,
+            "%": operator.mod,
+            "==": operator.eq,
+            "!=": operator.ne,
+            "<": operator.lt,
+            ">": operator.gt,
+            "<=": operator.le,
+            ">=": operator.ge,
         }
         if op in ops:
             try:
@@ -160,9 +174,11 @@ class Interpreter:
         raise RuntimeError(f"Operator '{op}' teu dipikawanoh.")
 
     def execute(self, ast):
-        if not ast: return
+        if not ast:
+            return
         for stmt in ast:
-            if self.return_flag or self.break_flag or self.continue_flag: break
+            if self.return_flag or self.break_flag or self.continue_flag:
+                break
             kind = stmt[0]
             if kind == "declare" or kind == "assign":
                 self.variables[stmt[1]] = self.evaluate(stmt[2])
@@ -179,17 +195,22 @@ class Interpreter:
                 results = [self.evaluate(e) for e in stmt[1]]
                 formatted_results = []
                 for v in results:
-                    if isinstance(v, SundaInstance): formatted_results.append(f"<Objék {v.cls.name}>")
-                    elif v is True: formatted_results.append("leres")
-                    elif v is False: formatted_results.append("lepat")
-                    elif v is None: formatted_results.append("kosong")
-                    else: formatted_results.append(str(v))
+                    if isinstance(v, SundaInstance):
+                        formatted_results.append(f"<Objék {v.cls.name}>")
+                    elif v is True:
+                        formatted_results.append("leres")
+                    elif v is False:
+                        formatted_results.append("lepat")
+                    elif v is None:
+                        formatted_results.append("kosong")
+                    else:
+                        formatted_results.append(str(v))
                 print(" ".join(formatted_results))
             elif kind == "input":
                 prompt = stmt[2] if stmt[2] else f"Mangga eusian {stmt[1]}: "
                 val = input(prompt)
-                if val and val.replace('.','',1).isdigit():
-                    val = float(val) if '.' in val else int(val)
+                if val and val.replace(".", "", 1).isdigit():
+                    val = float(val) if "." in val else int(val)
                 self.variables[stmt[1]] = val
             elif kind == "if_chain":
                 branches, else_branch = stmt[1], stmt[2]
@@ -208,7 +229,8 @@ class Interpreter:
                 for i in range(start_val, end_val + 1):
                     self.variables[var] = i
                     self.execute(body)
-                    if self.return_flag: break
+                    if self.return_flag:
+                        break
                     if self.break_flag:
                         self.break_flag = False
                         break
@@ -219,7 +241,8 @@ class Interpreter:
                 condition, body = stmt[1], stmt[2]
                 while self.evaluate(condition):
                     self.execute(body)
-                    if self.return_flag: break
+                    if self.return_flag:
+                        break
                     if self.break_flag:
                         self.break_flag = False
                         break
@@ -247,7 +270,8 @@ class Interpreter:
                     else:
                         raise e
                 finally:
-                    if finally_body: self.execute(finally_body)
+                    if finally_body:
+                        self.execute(finally_body)
             elif kind == "throw":
                 raise RuntimeError(str(self.evaluate(stmt[1])))
             elif kind == "return":

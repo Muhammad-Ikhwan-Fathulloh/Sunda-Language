@@ -7,22 +7,39 @@ name = "sunda-language"
 version = "1.0.0"
 description = "Basa pamrograman saderhana nganggo Basa Sunda"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 requires-python = ">=3.7"
 authors = [
-    {name = "Muhammad Ikhwan Fathulloh"}
+    {name = "Muhammad Ikhwan Fathulloh", email = "muhammadikhwanfathulloh17@gmail.com"}
 ]
-keywords = ["sunda", "programming-language", "bahasa-sunda", "interpreter"]
+keywords = ["sunda", "programming-language", "bahasa-sunda", "interpreter", "language", "west-java"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Education",
-    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Natural Language :: Indonesian",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Interpreters",
+    "Topic :: Education",
 ]
 
+[project.urls]
+Homepage = "https://sunda-language.netlify.app"
+Repository = "https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language"
+"Bug Tracker" = "https://github.com/Muhammad-Ikhwan-Fathulloh/Sunda-Language/issues"
+
 [project.scripts]
-sunda = "src.main:main"
+sunda = "sunda_language.__main__:main"
 
 [tool.setuptools.packages.find]
-include = ["src*"]
+include = ["sunda_language*"]
+
+[tool.setuptools]
+include-package-data = true
