@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: sunda-language
-Version: 1.0.0
+Version: 1.1.0
 Summary: Basa pamrograman saderhana nganggo Basa Sunda
 Author-email: Muhammad Ikhwan Fathulloh <muhammadikhwanfathulloh17@gmail.com>
 License-Expression: MIT
@@ -36,6 +36,7 @@ Dynamic: license-file
 <a href="https://sunda-language.netlify.app/"><img src="https://img.shields.io/badge/Situs_Resmi-6d28d9?style=flat-square&logo=google-chrome&logoColor=white" alt="Website" /></a>
 <a href="https://sunda-language.netlify.app/playground"><img src="https://img.shields.io/badge/Playground-f59e0b?style=flat-square&logo=google-play&logoColor=white" alt="Playground" /></a>
 <a href="https://sunda-language.netlify.app/aksara"><img src="https://img.shields.io/badge/Versi_Aksara-10b981?style=flat-square&logo=pencipta&logoColor=white" alt="Aksara" /></a>
+<a href="https://pypi.org/project/sunda-language/"><img src="https://img.shields.io/badge/PyPI-Install-3776AB?style=flat-square&logo=python&logoColor=white" alt="PyPI" /></a>
 </div>
 
 ---
@@ -50,9 +51,11 @@ Dynamic: license-file
 
 ## 📥 Instalasi (ᮄᮔ᮪ᮞ᮪ᮒᮜᮞᮤ)
 
+Basa pemrograman ieu parantos mimiti aya dina **[PyPI](https://pypi.org/project/sunda-language/)**.
+
 ### Cara 1: Install via pip (Direkomendasikan)
 ```bash
-pip install -e .
+pip install sunda-language
 ```
 Lajeng jalankeun:
 ```bash
@@ -62,7 +65,27 @@ sunda examples/hello_world.sunda
 ### Cara 2: Jalankan manual via Python
 Pastikan Anda berada di direktori root proyek:
 ```bash
-python src/main.py examples/program_simpel.sunda
+python -m sunda_language examples/program_simpel.sunda
+```
+
+### Cara 3: Google Colab (Notebook)
+Sunda Language ogé tiasa pisan dijalankeun ngagunakeun Google Colab atawa Jupyter Notebook.
+
+Dina sel kode, jalankeun pamasangan paket ieu:
+```python
+!pip install sunda-language
+```
+
+Damel file kode program Sunda-na nganggo magics `%%writefile`:
+```python
+%%writefile program.sunda
+nyieun nami = "Colab";
+tampilkeun "Halo ti " + nami + "!";
+```
+
+Jalankeun file éta nganggo pre-fix `!`:
+```python
+!sunda program.sunda
 ```
 
 ---
@@ -272,13 +295,16 @@ Kamus leutik kanggo daptar kosa kata nu digunakeun dina struktur basa pamrograma
 
 ```text
 .
-├── src/                # Kode sumber Interpreter
+├── sunda_language/     # Kode sumber Interpreter
+│   ├── __init__.py     # Metadata proyek
 │   ├── lexer.py        # Analisis leksikal
-│   ├── parser.py       # Analisis sintaksis
-│   └── interpreter.py  # Eksekusi kode
+│   ├── sunda_parser.py # Analisis sintaksis
+│   ├── interpreter.py  # Eksekusi kode
+│   └── __main__.py     # Titik masuk eksekusi (CLI)
 ├── examples/           # Contoh program (.sunda)
 ├── sunda-vscode/       # Plugin VS Code
-├── setup.py            # Konfigurasi instalasi PIP
+├── pyproject.toml      # Konfigurasi instalasi PIP modern
+├── MANIFEST.in         # Konfigurasi pengepakan distribusi
 └── README.md           # Dokumentasi
 ```
 

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sunda-language"
-version = "1.0.0"
+version = "1.1.0"
 description = "Basa pamrograman saderhana nganggo Basa Sunda"
 readme = "README.md"
 license = "MIT"

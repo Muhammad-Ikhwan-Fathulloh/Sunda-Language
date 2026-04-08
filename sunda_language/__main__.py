@@ -22,7 +22,7 @@ from sunda_language.interpreter import Interpreter
 
 
 def repl():
-    print("Sunda Language REPL v1.0.0 🌺")
+    print("Sunda Language REPL v1.1.0 🌺")
     print("Ketik 'kaluar' atanapi pencét Ctrl+C kanggo réngsé.")
     
     # Initialize interpreter once to keep state
@@ -70,7 +70,7 @@ def main():
     parser.add_argument(
         "--version", "-v",
         action="version",
-        version="Sunda Language v1.0.0",
+        version="Sunda Language v1.1.0",
     )
 
     args = parser.parse_args()
